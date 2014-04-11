@@ -120,9 +120,11 @@ namespace TabletC.DrawPad
                         int deltaY = _lastShape.StartVertex.Y - p.Y;
 
                         if (Math.Abs(deltaX) > Math.Abs(deltaY))
-                            p.Y = _lastShape.StartVertex.Y - deltaX;
+                            p.Y = _lastShape.StartVertex.Y -
+                                  Math.Abs(deltaX)*(deltaY == 0 ? 1 : deltaY/Math.Abs(deltaY));
                         else
-                            p.X = _lastShape.StartVertex.X - deltaY;
+                            p.X = _lastShape.StartVertex.X -
+                                  Math.Abs(deltaY)*(deltaX == 0 ? 1 : deltaX/Math.Abs(deltaX));
                     }
                 }
 
