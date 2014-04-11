@@ -78,9 +78,9 @@ namespace TabletC.DrawPad
 
             Graphics gp = e.Graphics;
 
-            for (var i = 0; i < _currentPage.Shapes.Count; i++)
+            foreach (IShape shape in _currentPage.Shapes)
             {
-                _shapeDrawer.Draw(gp, _currentPage.Shapes[i]);
+                _shapeDrawer.Draw(gp, shape);
             }
         }
 
@@ -114,17 +114,15 @@ namespace TabletC.DrawPad
                     var asbX = Math.Abs(deltaX);
                     var asbY = Math.Abs(deltaY);
 
-
                     if (Math.Abs(deltaX) > Math.Abs(deltaY))
                     {
                         p.Y = _lastShape.StartVertex.Y;
                         if (!((_lastShape.GetShapeType() == ShapeType.Line) && ((double)asbY/asbX < Math.Tan(Math.PI/8))))
                         {
                             p.Y -= (deltaY == 0 ? 0 : asbX * deltaY / asbY);
-                        }
-                        else if (_lastShape.GetShapeType() == ShapeType.Triangle)
-                        {
-                            p.Y = p.Y*(int)Math.Sin(Math.PI/3);
+
+                            if (_lastShape.GetShapeType() == ShapeType.Triangle)
+                                p.Y = p.Y * (int)Math.Sin(Math.PI / 3);
                         }
                     }
                     else
@@ -133,10 +131,9 @@ namespace TabletC.DrawPad
                         if (!((_lastShape.GetShapeType() == ShapeType.Line) && ((double)asbX / asbY < Math.Tan(Math.PI / 8))))
                         {
                             p.X -= (deltaX == 0 ? 0 : asbY * deltaX / asbX);
-                        }
-                        else if (_lastShape.GetShapeType() == ShapeType.Triangle)
-                        {
-                            p.X = (int) ((double) p.X/Math.Sin(Math.PI/3));
+
+                            if (_lastShape.GetShapeType() == ShapeType.Triangle)
+                                p.X = (int)((double)p.X / Math.Sin(Math.PI / 3));
                         }
                     }
                     
