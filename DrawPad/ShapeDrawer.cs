@@ -60,6 +60,7 @@ namespace TabletC.DrawPad
         private void DrawRectangle(Quad rectangle)
         {
             _graphic.DrawRectangle(rectangle.ShapePen, CreateShapeArea(rectangle.StartVertex, rectangle.EndVertex));
+            // test
         }
 
         private void DrawCircle(Circle circle)
