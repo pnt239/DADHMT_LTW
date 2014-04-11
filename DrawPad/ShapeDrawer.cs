@@ -62,7 +62,10 @@ namespace TabletC.DrawPad
             _graphic.DrawRectangle(rectangle.ShapePen, CreateShapeArea(rectangle.StartVertex, rectangle.EndVertex));
             // test
         }
-        private void DrawPoplygon()
+        private void DrawPoplygon(Polygon polygon)
+        {
+            _graphic.DrawPolygon(polygon.ShapePen, )
+        }
         private void DrawCircle(Circle circle)
         {
             _graphic.DrawEllipse(circle.ShapePen, CreateShapeArea(circle.StartVertex, circle.EndVertex));
