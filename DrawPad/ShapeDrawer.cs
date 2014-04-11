@@ -9,9 +9,48 @@ namespace TabletC.DrawPad
 {
     public class ShapeDrawer
     {
+        Point[] PolygonPoints;
+
         private Graphics _graphic;
         private bool _useLibrary;
 
+        private Point DegreesToXY(float degrees, float radius, Point origin)
+        {
+            Point xy = new Point();
+            double radians = degrees * Math.PI / 180.0;
+            
+            xy.X = (int)(Math.Cos(radians) * radius + origin.X);
+            xy.Y = (int)(Math.Sin(-radians) * radius + origin.Y);
+
+            return xy;
+        }
+        private Point[] CalculateVertices(int sides, int radius, int startingAngle, Point center)
+        {
+            if (sides < 3)
+                throw new ArgumentException("Polygon must have 3 sides or more.");
+
+            List<Point> points = new List<Point>();
+            float step = 360.0f / sides;
+
+            float angle = startingAngle; //starting angle
+            for (double i = startingAngle; i < startingAngle + 360.0; i += step) //go in a full circle
+            {
+                points.Add(DegreesToXY(angle, radius, center)); //code snippet from above
+                angle += step;
+            }
+
+            return points.ToArray();
+        }
+        private float XYToDegrees(Point xy, Point origin)
+        {
+            int deltaX = origin.X - xy.X;
+            int deltaY = origin.Y - xy.Y;
+
+            double radAngle = Math.Atan2(deltaY, deltaX);
+            double degreeAngle = radAngle * 180.0 / Math.PI;
+
+            return (float)(180.0 - degreeAngle);
+        }
         public ShapeDrawer()
         {
             _useLibrary = false;
@@ -68,17 +107,13 @@ namespace TabletC.DrawPad
         private void DrawPoplygon(Polygon polygon)
         {
             Rectangle rec = CreateShapeArea(polygon.StartVertex, polygon.EndVertex);
+  
+            int radius = (int)Math.Sqrt((polygon.StartVertex.X - polygon.EndVertex.X)*(polygon.StartVertex.X - polygon.EndVertex.X) + (polygon.StartVertex.Y - polygon.EndVertex.Y)*(polygon.StartVertex.Y - polygon.EndVertex.Y));
+            int startAngle = (int)XYToDegrees(polygon.EndVertex, polygon.StartVertex);
 
-            List<Point> PolyPoints = new List<Point>(); //saving points in polygon
-            /*start finding pentagon in rectangle*/
+            PolygonPoints = CalculateVertices(5, radius, startAngle , polygon.StartVertex);
 
-            PolyPoints.Add(new Point(rec.X + rec.Width / 2, rec.Y));
-            PolyPoints.Add(new Point(rec.X + rec.Width, rec.Y + rec.Height / 3));
-            PolyPoints.Add(new Point(rec.X + rec.Width * 4 / 5, rec.Y + rec.Height));
-            PolyPoints.Add(new Point(rec.X + rec.Width / 5, rec.Y + rec.Height));
-            PolyPoints.Add(new Point(rec.X, rec.Y + rec.Height / 3));
-
-            _graphic.DrawPolygon(polygon.ShapePen, PolyPoints.ToArray());
+            _graphic.DrawPolygon(polygon.ShapePen, PolygonPoints);
         }
         private void DrawCircle(Circle circle)
         {
