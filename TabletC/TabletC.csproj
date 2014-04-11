@@ -104,9 +104,6 @@
     <None Include="Resources\buttonBucket.Image.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\buttonPenLayout.Image.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{d1cab7e3-5c20-491c-8476-61ec695f881a}</Project>
       <Name>Core</Name>
