@@ -8,7 +8,7 @@ namespace TabletC.Core
 {
     public enum ShapeType
     {
-        Line = 1, Rectangle, Circle, Ellipse
+        Line = 1, Rectangle, Circle, Ellipse, Triangle
     }
 
     public interface IShape

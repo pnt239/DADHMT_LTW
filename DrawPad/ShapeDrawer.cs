@@ -26,6 +26,9 @@ namespace TabletC.DrawPad
 
         public void Draw(object graphic, IShape shape)
         {
+            if (shape.EndVertex.Equals(shape.StartVertex))
+                return;
+
             _graphic = (Graphics)graphic;
 
             /* Draw shape*/
@@ -43,39 +46,38 @@ namespace TabletC.DrawPad
                 case ShapeType.Ellipse:
                     DrawEllipse((Ellipse)shape);
                     break;
+                case ShapeType.Triangle:
+                    DrawTriangle((Triangle)shape);
+                    break;
             }
         }
 
         private void DrawLine(Line line)
         {
-            if (line.Vertices.Count != 2)
-                return;
-
             _graphic.DrawLine(line.ShapePen, line.StartVertex, line.EndVertex);
         }
 
         private void DrawRectangle(Quad rectangle)
         {
-            if (rectangle.EndVertex.Equals(rectangle.StartVertex))
-                return;
-
             _graphic.DrawRectangle(rectangle.ShapePen, CreateShapeArea(rectangle.StartVertex, rectangle.EndVertex));
         }
 
         private void DrawCircle(Circle circle)
         {
-            if (circle.EndVertex.Equals(circle.StartVertex))
-                return;
-
             _graphic.DrawEllipse(circle.ShapePen, CreateShapeArea(circle.StartVertex, circle.EndVertex));
         }
 
         private void DrawEllipse(Ellipse ellipse)
         {
-            if (ellipse.EndVertex.Equals(ellipse.StartVertex))
-                return;
-
             _graphic.DrawEllipse(ellipse.ShapePen, CreateShapeArea(ellipse.StartVertex, ellipse.EndVertex));
+        }
+
+        private void DrawTriangle(Triangle triangle)
+        {
+            Rectangle rec = CreateShapeArea(triangle.StartVertex, triangle.EndVertex);
+            _graphic.DrawLine(triangle.ShapePen, rec.X, rec.Y + rec.Height, rec.X + rec.Width, rec.Y + rec.Height);
+            _graphic.DrawLine(triangle.ShapePen, rec.X, rec.Y + rec.Height, rec.X + rec.Width/2, rec.Y);
+            _graphic.DrawLine(triangle.ShapePen, rec.X + rec.Width/2, rec.Y, rec.X + rec.Width, rec.Y + rec.Height);
         }
 
         private Rectangle CreateShapeArea(Point p1, Point p2)

@@ -51,6 +51,7 @@ namespace TabletC
             this.btnShapeLine = new DevComponents.DotNetBar.ButtonItem();
             this.btnShapeRectangle = new DevComponents.DotNetBar.ButtonItem();
             this.btnShapeEllipse = new DevComponents.DotNetBar.ButtonItem();
+            this.btnShapeTriangle = new DevComponents.DotNetBar.ButtonItem();
             this.itemContainer6 = new DevComponents.DotNetBar.ItemContainer();
             this.cpkOutlineColor = new DevComponents.DotNetBar.ColorPickerDropDown();
             this.cpkBackgroundColor = new DevComponents.DotNetBar.ColorPickerDropDown();
@@ -205,7 +206,7 @@ namespace TabletC
             this.ribbonBar7.Dock = System.Windows.Forms.DockStyle.Left;
             this.ribbonBar7.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.buttonItem20});
-            this.ribbonBar7.Location = new System.Drawing.Point(509, 0);
+            this.ribbonBar7.Location = new System.Drawing.Point(532, 0);
             this.ribbonBar7.Name = "ribbonBar7";
             this.ribbonBar7.Size = new System.Drawing.Size(51, 94);
             this.ribbonBar7.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -256,7 +257,7 @@ namespace TabletC
             this.ribbonBar6.Dock = System.Windows.Forms.DockStyle.Left;
             this.ribbonBar6.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnItemSize});
-            this.ribbonBar6.Location = new System.Drawing.Point(463, 0);
+            this.ribbonBar6.Location = new System.Drawing.Point(486, 0);
             this.ribbonBar6.Name = "ribbonBar6";
             this.ribbonBar6.Size = new System.Drawing.Size(46, 94);
             this.ribbonBar6.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -332,7 +333,7 @@ namespace TabletC
             this.ribbonBar5.Dock = System.Windows.Forms.DockStyle.Left;
             this.ribbonBar5.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.buttonItem23});
-            this.ribbonBar5.Location = new System.Drawing.Point(416, 0);
+            this.ribbonBar5.Location = new System.Drawing.Point(439, 0);
             this.ribbonBar5.Name = "ribbonBar5";
             this.ribbonBar5.Size = new System.Drawing.Size(47, 94);
             this.ribbonBar5.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -387,7 +388,7 @@ namespace TabletC
             this.itemContainer6});
             this.ribbonBar4.Location = new System.Drawing.Point(277, 0);
             this.ribbonBar4.Name = "ribbonBar4";
-            this.ribbonBar4.Size = new System.Drawing.Size(139, 94);
+            this.ribbonBar4.Size = new System.Drawing.Size(162, 94);
             this.ribbonBar4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBar4.TabIndex = 3;
             this.ribbonBar4.Text = "&Shapes";
@@ -411,7 +412,8 @@ namespace TabletC
             this.galleryContainer2.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnShapeLine,
             this.btnShapeRectangle,
-            this.btnShapeEllipse});
+            this.btnShapeEllipse,
+            this.btnShapeTriangle});
             // 
             // 
             // 
@@ -437,6 +439,13 @@ namespace TabletC
             this.btnShapeEllipse.Name = "btnShapeEllipse";
             this.btnShapeEllipse.Text = "buttonItem35";
             this.btnShapeEllipse.Click += new System.EventHandler(this.btnShape_Click);
+            // 
+            // btnShapeTriangle
+            // 
+            this.btnShapeTriangle.Image = global::TabletC.Properties.Resources.triangle;
+            this.btnShapeTriangle.Name = "btnShapeTriangle";
+            this.btnShapeTriangle.Text = "buttonItem22";
+            this.btnShapeTriangle.Click += new System.EventHandler(this.btnShape_Click);
             // 
             // itemContainer6
             // 
@@ -1213,5 +1222,6 @@ namespace TabletC
         private DevComponents.DotNetBar.ButtonItem btnItemUseLibrary;
         private DevComponents.DotNetBar.Bar bar1;
         private DevComponents.DotNetBar.SuperTabControl tabMain;
+        private DevComponents.DotNetBar.ButtonItem btnShapeTriangle;
     }
 }

@@ -122,6 +122,10 @@ namespace TabletC.DrawPad
                         {
                             p.Y -= (deltaY == 0 ? 0 : asbX * deltaY / asbY);
                         }
+                        else if (_lastShape.GetShapeType() == ShapeType.Triangle)
+                        {
+                            p.Y = p.Y*(int)Math.Sin(Math.PI/3);
+                        }
                     }
                     else
                     {
@@ -129,6 +133,10 @@ namespace TabletC.DrawPad
                         if (!((_lastShape.GetShapeType() == ShapeType.Line) && ((double)asbX / asbY < Math.Tan(Math.PI / 8))))
                         {
                             p.X -= (deltaX == 0 ? 0 : asbY * deltaX / asbX);
+                        }
+                        else if (_lastShape.GetShapeType() == ShapeType.Triangle)
+                        {
+                            p.X = (int) ((double) p.X/Math.Sin(Math.PI/3));
                         }
                     }
                     

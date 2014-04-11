@@ -24,6 +24,7 @@ namespace TabletC
             btnShapeLine.Tag = new Line(new Point(), new Point());
             btnShapeRectangle.Tag = new Quad(new Point(), new Point());
             btnShapeEllipse.Tag = new Ellipse(new Point(), new Point());
+            btnShapeTriangle.Tag = new Triangle(new Point(), new Point());
 
             // Init color
             cpkBackgroundColor.SelectedColor = Color.White;

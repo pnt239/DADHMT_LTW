@@ -49,6 +49,7 @@
     <Compile Include="Line.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quad.cs" />
+    <Compile Include="Triangle.cs" />
     <Compile Include="Vector.cs" />
   </ItemGroup>
   <ItemGroup />
