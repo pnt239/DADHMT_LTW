@@ -110,6 +110,7 @@ namespace TabletC
             this.switchButtonItem2 = new DevComponents.DotNetBar.SwitchButtonItem();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.tabMain = new DevComponents.DotNetBar.SuperTabControl();
+            this.btnShapePolygon = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
@@ -413,7 +414,8 @@ namespace TabletC
             this.btnShapeLine,
             this.btnShapeRectangle,
             this.btnShapeEllipse,
-            this.btnShapeTriangle});
+            this.btnShapeTriangle,
+            this.btnShapePolygon});
             // 
             // 
             // 
@@ -1117,6 +1119,12 @@ namespace TabletC
             this.tabMain.Text = "superTabControl2";
             this.tabMain.SelectedTabChanged += new System.EventHandler<DevComponents.DotNetBar.SuperTabStripSelectedTabChangedEventArgs>(this.tabMain_SelectedTabChanged);
             // 
+            // btnShapePolygon
+            // 
+            this.btnShapePolygon.Image = global::TabletC.Properties.Resources.polygon;
+            this.btnShapePolygon.Name = "btnShapePolygon";
+            this.btnShapePolygon.Text = "btnShapePolygon";
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1223,5 +1231,6 @@ namespace TabletC
         private DevComponents.DotNetBar.Bar bar1;
         private DevComponents.DotNetBar.SuperTabControl tabMain;
         private DevComponents.DotNetBar.ButtonItem btnShapeTriangle;
+        private DevComponents.DotNetBar.ButtonItem btnShapePolygon;
     }
 }
