@@ -119,10 +119,11 @@ namespace TabletC.DrawPad
                         p.Y = _lastShape.StartVertex.Y;
                         if (!((_lastShape.GetShapeType() == ShapeType.Line) && ((double)asbY/asbX < Math.Tan(Math.PI/8))))
                         {
-                            p.Y -= (deltaY == 0 ? 0 : asbX * deltaY / asbY);
-
-                            if (_lastShape.GetShapeType() == ShapeType.Triangle)
-                                p.Y = (int)(p.Y * Math.Sin(Math.PI / 3));
+                            p.Y -= (deltaY == 0
+                                ? 0
+                                : (int)
+                                    (asbX*(_lastShape.GetShapeType() == ShapeType.Triangle ? Math.Sin(Math.PI/3) : 1))*
+                                  deltaY/asbY);
                         }
                     }
                     else
@@ -130,10 +131,11 @@ namespace TabletC.DrawPad
                         p.X = _lastShape.StartVertex.X;
                         if (!((_lastShape.GetShapeType() == ShapeType.Line) && ((double)asbX / asbY < Math.Tan(Math.PI / 8))))
                         {
-                            p.X -= (deltaX == 0 ? 0 : asbY * deltaX / asbX);
-
-                            if (_lastShape.GetShapeType() == ShapeType.Triangle)
-                                p.X = (int)((double)p.X / Math.Sin(Math.PI / 3));
+                            p.X -= (deltaX == 0
+                                ? 0
+                                : (int)
+                                    (asbY/(_lastShape.GetShapeType() == ShapeType.Triangle ? Math.Sin(Math.PI/3) : 1))*
+                                  deltaX/asbX);
                         }
                     }
                     
