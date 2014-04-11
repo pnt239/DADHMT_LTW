@@ -122,5 +122,12 @@ namespace TabletC
             //lblDrawBy.Text = "Library";
             //dpMain.UseLibrary = true;
         }
+
+        private void btnDash_Click(object sender, EventArgs e)
+        {
+            var bti = (ButtonItem) sender;
+            var dstyle = (System.Drawing.Drawing2D.DashStyle) int.Parse(bti.Tag.ToString());
+            _currentDrawPad.CurrentPen.DashStyle = dstyle;
+        }
     }
 }

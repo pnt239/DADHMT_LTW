@@ -64,7 +64,7 @@ namespace TabletC.DrawPad
         }
         private void DrawPoplygon(Polygon polygon)
         {
-            _graphic.DrawPolygon(polygon.ShapePen, )
+            //_graphic.DrawPolygon(polygon.ShapePen, )
         }
         private void DrawCircle(Circle circle)
         {
