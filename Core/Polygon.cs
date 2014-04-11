@@ -55,7 +55,7 @@ namespace TabletC.Core
 
         public IShape Clone()
         {
-            return new Line(new Point(), new Point());
+            return new Polygon(new Point(), new Point());
         }
     }
 }
