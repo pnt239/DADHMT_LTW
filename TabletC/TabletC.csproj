@@ -164,6 +164,7 @@
   <ItemGroup>
     <None Include="Resources\triangle.png" />
     <None Include="Resources\polygon.png" />
+    <None Include="Resources\dashes.png" />
     <Content Include="TabletC.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
