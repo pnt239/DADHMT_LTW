@@ -49,6 +49,9 @@ namespace TabletC.DrawPad
                 case ShapeType.Triangle:
                     DrawTriangle((Triangle)shape);
                     break;
+                case ShapeType.Polygon:
+                    DrawPoplygon((Polygon)shape);
+                    break;
             }
         }
 
