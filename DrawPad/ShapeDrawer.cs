@@ -64,7 +64,18 @@ namespace TabletC.DrawPad
         }
         private void DrawPoplygon(Polygon polygon)
         {
-            //_graphic.DrawPolygon(polygon.ShapePen, )
+            Rectangle rec = CreateShapeArea(polygon.StartVertex, polygon.EndVertex);
+
+            List<Point> PolyPoints = new List<Point>(); //saving points in polygon
+            /*start finding pentagon in rectangle*/
+
+            PolyPoints.Add(new Point(rec.X + rec.Width / 2, rec.Y));
+            PolyPoints.Add(new Point(rec.X + rec.Width, rec.Y + rec.Height / 3));
+            PolyPoints.Add(new Point(rec.X + rec.Width * 4 / 5, rec.Y + rec.Height));
+            PolyPoints.Add(new Point(rec.X + rec.Width / 5, rec.Y + rec.Height));
+            PolyPoints.Add(new Point(rec.X, rec.Y + rec.Height / 3));
+
+            _graphic.DrawPolygon(polygon.ShapePen, PolyPoints.ToArray());
         }
         private void DrawCircle(Circle circle)
         {
