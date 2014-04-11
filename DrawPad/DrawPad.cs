@@ -109,23 +109,29 @@ namespace TabletC.DrawPad
                 var p = new Point(e.Location.X, e.Location.Y);
                 if (IsShift)
                 {
-                    if (_lastShape.GetShapeType() == ShapeType.Line)
-                    {
-                        //
+                    var deltaX = _lastShape.StartVertex.X - p.X;
+                    var deltaY = _lastShape.StartVertex.Y - p.Y;
+                    var asbX = Math.Abs(deltaX);
+                    var asbY = Math.Abs(deltaY);
 
+
+                    if (Math.Abs(deltaX) > Math.Abs(deltaY))
+                    {
+                        p.Y = _lastShape.StartVertex.Y;
+                        if (!((_lastShape.GetShapeType() == ShapeType.Line) && ((double)asbY/asbX < Math.Tan(Math.PI/8))))
+                        {
+                            p.Y -= (deltaY == 0 ? 0 : asbX * deltaY / asbY);
+                        }
                     }
                     else
                     {
-                        int deltaX = _lastShape.StartVertex.X - p.X;
-                        int deltaY = _lastShape.StartVertex.Y - p.Y;
-
-                        if (Math.Abs(deltaX) > Math.Abs(deltaY))
-                            p.Y = _lastShape.StartVertex.Y -
-                                  Math.Abs(deltaX)*(deltaY == 0 ? 1 : deltaY/Math.Abs(deltaY));
-                        else
-                            p.X = _lastShape.StartVertex.X -
-                                  Math.Abs(deltaY)*(deltaX == 0 ? 1 : deltaX/Math.Abs(deltaX));
+                        p.X = _lastShape.StartVertex.X;
+                        if (!((_lastShape.GetShapeType() == ShapeType.Line) && ((double)asbX / asbY < Math.Tan(Math.PI / 8))))
+                        {
+                            p.X -= (deltaX == 0 ? 0 : asbY * deltaX / asbX);
+                        }
                     }
+                    
                 }
 
                 _lastShape.EndVertex = p;
