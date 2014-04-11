@@ -533,6 +533,7 @@ namespace TabletC
             this.btnItemPolygon.Image = global::TabletC.Properties.Resources.polygon;
             this.btnItemPolygon.Name = "btnItemPolygon";
             this.btnItemPolygon.Text = "buttonItem22";
+            this.btnItemPolygon.Click += new System.EventHandler(this.btnShape_Click);
             // 
             // btnShapePolygon
             // 
