@@ -122,7 +122,7 @@ namespace TabletC.DrawPad
                             p.Y -= (deltaY == 0 ? 0 : asbX * deltaY / asbY);
 
                             if (_lastShape.GetShapeType() == ShapeType.Triangle)
-                                p.Y = p.Y * (int)Math.Sin(Math.PI / 3);
+                                p.Y = (int)(p.Y * Math.Sin(Math.PI / 3));
                         }
                     }
                     else
