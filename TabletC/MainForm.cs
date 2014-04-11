@@ -129,5 +129,10 @@ namespace TabletC
             var dstyle = (System.Drawing.Drawing2D.DashStyle) int.Parse(bti.Tag.ToString());
             _currentDrawPad.CurrentPen.DashStyle = dstyle;
         }
+
+        private void btnItemCursor_Click(object sender, EventArgs e)
+        {
+            _currentDrawPad.DrawMode = DrawPad.DrawMode.Select;
+        }
     }
 }

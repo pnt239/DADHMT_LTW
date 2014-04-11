@@ -33,11 +33,37 @@ namespace TabletC
             this.ribbonControl1 = new DevComponents.DotNetBar.RibbonControl();
             this.ribbonPanel1 = new DevComponents.DotNetBar.RibbonPanel();
             this.ribbonBar7 = new DevComponents.DotNetBar.RibbonBar();
+            this.ribbonBar6 = new DevComponents.DotNetBar.RibbonBar();
+            this.itemContainer9 = new DevComponents.DotNetBar.ItemContainer();
+            this.ribbonBar5 = new DevComponents.DotNetBar.RibbonBar();
+            this.ribbonBar4 = new DevComponents.DotNetBar.RibbonBar();
+            this.galleryContainer2 = new DevComponents.DotNetBar.GalleryContainer();
+            this.itemContainer6 = new DevComponents.DotNetBar.ItemContainer();
+            this.ribbonBar3 = new DevComponents.DotNetBar.RibbonBar();
+            this.itemContainer7 = new DevComponents.DotNetBar.ItemContainer();
+            this.ribbonBar2 = new DevComponents.DotNetBar.RibbonBar();
+            this.itemContainer8 = new DevComponents.DotNetBar.ItemContainer();
+            this.ribbonBar1 = new DevComponents.DotNetBar.RibbonBar();
+            this.itemContainer5 = new DevComponents.DotNetBar.ItemContainer();
+            this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
+            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItem4 = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItem2 = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
+            this.ribbonTabItem1 = new DevComponents.DotNetBar.RibbonTabItem();
+            this.qatCustomizeItem1 = new DevComponents.DotNetBar.QatCustomizeItem();
+            this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
+            this.switchButtonItem1 = new DevComponents.DotNetBar.SwitchButtonItem();
+            this.switchButtonItem2 = new DevComponents.DotNetBar.SwitchButtonItem();
+            this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.tabMain = new DevComponents.DotNetBar.SuperTabControl();
             this.buttonItem20 = new DevComponents.DotNetBar.ButtonItem();
             this.btnItemUseAlg = new DevComponents.DotNetBar.ButtonItem();
             this.btnItemUseLibrary = new DevComponents.DotNetBar.ButtonItem();
-            this.ribbonBar6 = new DevComponents.DotNetBar.RibbonBar();
-            this.itemContainer9 = new DevComponents.DotNetBar.ItemContainer();
             this.btnItemSize = new DevComponents.DotNetBar.ButtonItem();
             this.btnItemSize1 = new DevComponents.DotNetBar.ButtonItem();
             this.btnItemSize3 = new DevComponents.DotNetBar.ButtonItem();
@@ -49,49 +75,32 @@ namespace TabletC
             this.btnDashDash = new DevComponents.DotNetBar.ButtonItem();
             this.btnDashDashDot = new DevComponents.DotNetBar.ButtonItem();
             this.btnDashDashDotDot = new DevComponents.DotNetBar.ButtonItem();
-            this.ribbonBar5 = new DevComponents.DotNetBar.RibbonBar();
             this.buttonItem23 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem24 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem25 = new DevComponents.DotNetBar.ButtonItem();
-            this.ribbonBar4 = new DevComponents.DotNetBar.RibbonBar();
-            this.galleryContainer2 = new DevComponents.DotNetBar.GalleryContainer();
             this.btnShapeLine = new DevComponents.DotNetBar.ButtonItem();
             this.btnShapeRectangle = new DevComponents.DotNetBar.ButtonItem();
             this.btnShapeEllipse = new DevComponents.DotNetBar.ButtonItem();
             this.btnShapeTriangle = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItem22 = new DevComponents.DotNetBar.ButtonItem();
             this.btnShapePolygon = new DevComponents.DotNetBar.ButtonItem();
-            this.itemContainer6 = new DevComponents.DotNetBar.ItemContainer();
             this.cpkOutlineColor = new DevComponents.DotNetBar.ColorPickerDropDown();
             this.cpkBackgroundColor = new DevComponents.DotNetBar.ColorPickerDropDown();
-            this.ribbonBar3 = new DevComponents.DotNetBar.RibbonBar();
-            this.itemContainer7 = new DevComponents.DotNetBar.ItemContainer();
             this.buttonItem19 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem21 = new DevComponents.DotNetBar.ButtonItem();
-            this.ribbonBar2 = new DevComponents.DotNetBar.RibbonBar();
+            this.btnItemCursor = new DevComponents.DotNetBar.ButtonItem();
             this.btnSelect = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem28 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem29 = new DevComponents.DotNetBar.ButtonItem();
-            this.itemContainer8 = new DevComponents.DotNetBar.ItemContainer();
             this.buttonItem30 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem31 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem32 = new DevComponents.DotNetBar.ButtonItem();
-            this.ribbonBar1 = new DevComponents.DotNetBar.RibbonBar();
             this.buttonItem14 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem15 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem16 = new DevComponents.DotNetBar.ButtonItem();
-            this.itemContainer5 = new DevComponents.DotNetBar.ItemContainer();
             this.buttonItem17 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem18 = new DevComponents.DotNetBar.ButtonItem();
             this.applicationButton1 = new DevComponents.DotNetBar.ApplicationButton();
-            this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem4 = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem2 = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
             this.itemContainer1 = new DevComponents.DotNetBar.ItemContainer();
             this.itemContainer2 = new DevComponents.DotNetBar.ItemContainer();
             this.itemContainer3 = new DevComponents.DotNetBar.ItemContainer();
@@ -110,14 +119,7 @@ namespace TabletC
             this.itemContainer4 = new DevComponents.DotNetBar.ItemContainer();
             this.buttonItem12 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem13 = new DevComponents.DotNetBar.ButtonItem();
-            this.ribbonTabItem1 = new DevComponents.DotNetBar.RibbonTabItem();
             this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
-            this.qatCustomizeItem1 = new DevComponents.DotNetBar.QatCustomizeItem();
-            this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
-            this.switchButtonItem1 = new DevComponents.DotNetBar.SwitchButtonItem();
-            this.switchButtonItem2 = new DevComponents.DotNetBar.SwitchButtonItem();
-            this.bar1 = new DevComponents.DotNetBar.Bar();
-            this.tabMain = new DevComponents.DotNetBar.SuperTabControl();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
@@ -214,7 +216,7 @@ namespace TabletC
             this.ribbonBar7.Dock = System.Windows.Forms.DockStyle.Left;
             this.ribbonBar7.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.buttonItem20});
-            this.ribbonBar7.Location = new System.Drawing.Point(578, 0);
+            this.ribbonBar7.Location = new System.Drawing.Point(639, 0);
             this.ribbonBar7.Name = "ribbonBar7";
             this.ribbonBar7.Size = new System.Drawing.Size(51, 94);
             this.ribbonBar7.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -227,28 +229,6 @@ namespace TabletC
             // 
             // 
             this.ribbonBar7.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // buttonItem20
-            // 
-            this.buttonItem20.Image = global::TabletC.Properties.Resources.alg;
-            this.buttonItem20.ImagePosition = DevComponents.DotNetBar.eImagePosition.Bottom;
-            this.buttonItem20.Name = "buttonItem20";
-            this.buttonItem20.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnItemUseAlg,
-            this.btnItemUseLibrary});
-            this.buttonItem20.SubItemsExpandWidth = 14;
-            // 
-            // btnItemUseAlg
-            // 
-            this.btnItemUseAlg.Name = "btnItemUseAlg";
-            this.btnItemUseAlg.Text = "Use algorithm";
-            this.btnItemUseAlg.Click += new System.EventHandler(this.btnItemUseAlg_Click);
-            // 
-            // btnItemUseLibrary
-            // 
-            this.btnItemUseLibrary.Name = "btnItemUseLibrary";
-            this.btnItemUseLibrary.Text = "Use Library";
-            this.btnItemUseLibrary.Click += new System.EventHandler(this.btnItemUseLibrary_Click);
             // 
             // ribbonBar6
             // 
@@ -265,7 +245,7 @@ namespace TabletC
             this.ribbonBar6.Dock = System.Windows.Forms.DockStyle.Left;
             this.ribbonBar6.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.itemContainer9});
-            this.ribbonBar6.Location = new System.Drawing.Point(486, 0);
+            this.ribbonBar6.Location = new System.Drawing.Point(547, 0);
             this.ribbonBar6.Name = "ribbonBar6";
             this.ribbonBar6.Size = new System.Drawing.Size(92, 94);
             this.ribbonBar6.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -294,107 +274,6 @@ namespace TabletC
             // 
             this.itemContainer9.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
-            // btnItemSize
-            // 
-            this.btnItemSize.AutoExpandOnClick = true;
-            this.btnItemSize.Image = global::TabletC.Properties.Resources.size;
-            this.btnItemSize.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnItemSize.Name = "btnItemSize";
-            this.btnItemSize.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnItemSize1,
-            this.btnItemSize3,
-            this.btnItemSize5,
-            this.btnItemSize8});
-            this.btnItemSize.SubItemsExpandWidth = 14;
-            this.btnItemSize.Tag = "1";
-            this.btnItemSize.Text = "Size";
-            // 
-            // btnItemSize1
-            // 
-            this.btnItemSize1.Image = global::TabletC.Properties.Resources.size_1;
-            this.btnItemSize1.Name = "btnItemSize1";
-            this.btnItemSize1.Tag = "1";
-            this.btnItemSize1.Text = "1 px";
-            this.btnItemSize1.Click += new System.EventHandler(this.btnItemSize_Click);
-            // 
-            // btnItemSize3
-            // 
-            this.btnItemSize3.Image = global::TabletC.Properties.Resources.size_3;
-            this.btnItemSize3.Name = "btnItemSize3";
-            this.btnItemSize3.Tag = "3";
-            this.btnItemSize3.Text = "3 px";
-            this.btnItemSize3.Click += new System.EventHandler(this.btnItemSize_Click);
-            // 
-            // btnItemSize5
-            // 
-            this.btnItemSize5.Image = global::TabletC.Properties.Resources.size_5;
-            this.btnItemSize5.Name = "btnItemSize5";
-            this.btnItemSize5.Tag = "5";
-            this.btnItemSize5.Text = "5 px";
-            this.btnItemSize5.Click += new System.EventHandler(this.btnItemSize_Click);
-            // 
-            // btnItemSize8
-            // 
-            this.btnItemSize8.Image = global::TabletC.Properties.Resources.size_8;
-            this.btnItemSize8.Name = "btnItemSize8";
-            this.btnItemSize8.Tag = "8";
-            this.btnItemSize8.Text = "8 px";
-            this.btnItemSize8.Click += new System.EventHandler(this.btnItemSize_Click);
-            // 
-            // btnItemDashes
-            // 
-            this.btnItemDashes.AutoExpandOnClick = true;
-            this.btnItemDashes.Image = global::TabletC.Properties.Resources.dashes;
-            this.btnItemDashes.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnItemDashes.Name = "btnItemDashes";
-            this.btnItemDashes.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnDashSolid,
-            this.btnDashDot,
-            this.btnDashDash,
-            this.btnDashDashDot,
-            this.btnDashDashDotDot});
-            this.btnItemDashes.Text = "Dashes";
-            // 
-            // btnDashSolid
-            // 
-            this.btnDashSolid.Image = global::TabletC.Properties.Resources.solid;
-            this.btnDashSolid.Name = "btnDashSolid";
-            this.btnDashSolid.Tag = "0";
-            this.btnDashSolid.Text = "Solid";
-            this.btnDashSolid.Click += new System.EventHandler(this.btnDash_Click);
-            // 
-            // btnDashDot
-            // 
-            this.btnDashDot.Image = global::TabletC.Properties.Resources.dot;
-            this.btnDashDot.Name = "btnDashDot";
-            this.btnDashDot.Tag = "2";
-            this.btnDashDot.Text = "Dot";
-            this.btnDashDot.Click += new System.EventHandler(this.btnDash_Click);
-            // 
-            // btnDashDash
-            // 
-            this.btnDashDash.Image = global::TabletC.Properties.Resources.dash;
-            this.btnDashDash.Name = "btnDashDash";
-            this.btnDashDash.Tag = "1";
-            this.btnDashDash.Text = "Dash";
-            this.btnDashDash.Click += new System.EventHandler(this.btnDash_Click);
-            // 
-            // btnDashDashDot
-            // 
-            this.btnDashDashDot.Image = global::TabletC.Properties.Resources.dashdot;
-            this.btnDashDashDot.Name = "btnDashDashDot";
-            this.btnDashDashDot.Tag = "3";
-            this.btnDashDashDot.Text = "Dash Dot";
-            this.btnDashDashDot.Click += new System.EventHandler(this.btnDash_Click);
-            // 
-            // btnDashDashDotDot
-            // 
-            this.btnDashDashDotDot.Image = global::TabletC.Properties.Resources.dashdotdot;
-            this.btnDashDashDotDot.Name = "btnDashDashDotDot";
-            this.btnDashDashDotDot.Tag = "4";
-            this.btnDashDashDotDot.Text = "Dash Dot Dot";
-            this.btnDashDashDotDot.Click += new System.EventHandler(this.btnDash_Click);
-            // 
             // ribbonBar5
             // 
             this.ribbonBar5.AutoOverflowEnabled = true;
@@ -410,7 +289,7 @@ namespace TabletC
             this.ribbonBar5.Dock = System.Windows.Forms.DockStyle.Left;
             this.ribbonBar5.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.buttonItem23});
-            this.ribbonBar5.Location = new System.Drawing.Point(439, 0);
+            this.ribbonBar5.Location = new System.Drawing.Point(500, 0);
             this.ribbonBar5.Name = "ribbonBar5";
             this.ribbonBar5.Size = new System.Drawing.Size(47, 94);
             this.ribbonBar5.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -423,29 +302,6 @@ namespace TabletC
             // 
             // 
             this.ribbonBar5.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // buttonItem23
-            // 
-            this.buttonItem23.AutoExpandOnClick = true;
-            this.buttonItem23.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem23.Image = ((System.Drawing.Image)(resources.GetObject("buttonItem23.Image")));
-            this.buttonItem23.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.buttonItem23.Name = "buttonItem23";
-            this.buttonItem23.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItem24,
-            this.buttonItem25});
-            this.buttonItem23.SubItemsExpandWidth = 14;
-            this.buttonItem23.Text = "&Brush";
-            // 
-            // buttonItem24
-            // 
-            this.buttonItem24.Name = "buttonItem24";
-            this.buttonItem24.Text = "New Item";
-            // 
-            // buttonItem25
-            // 
-            this.buttonItem25.Name = "buttonItem25";
-            this.buttonItem25.Text = "New Item";
             // 
             // ribbonBar4
             // 
@@ -463,9 +319,9 @@ namespace TabletC
             this.ribbonBar4.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.galleryContainer2,
             this.itemContainer6});
-            this.ribbonBar4.Location = new System.Drawing.Point(277, 0);
+            this.ribbonBar4.Location = new System.Drawing.Point(312, 0);
             this.ribbonBar4.Name = "ribbonBar4";
-            this.ribbonBar4.Size = new System.Drawing.Size(162, 94);
+            this.ribbonBar4.Size = new System.Drawing.Size(188, 94);
             this.ribbonBar4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBar4.TabIndex = 3;
             this.ribbonBar4.Text = "&Shapes";
@@ -491,45 +347,12 @@ namespace TabletC
             this.btnShapeRectangle,
             this.btnShapeEllipse,
             this.btnShapeTriangle,
+            this.buttonItem22,
             this.btnShapePolygon});
             // 
             // 
             // 
             this.galleryContainer2.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // btnShapeLine
-            // 
-            this.btnShapeLine.Image = global::TabletC.Properties.Resources.line;
-            this.btnShapeLine.Name = "btnShapeLine";
-            this.btnShapeLine.Text = "buttonItem20";
-            this.btnShapeLine.Click += new System.EventHandler(this.btnShape_Click);
-            // 
-            // btnShapeRectangle
-            // 
-            this.btnShapeRectangle.Image = global::TabletC.Properties.Resources.rectangle;
-            this.btnShapeRectangle.Name = "btnShapeRectangle";
-            this.btnShapeRectangle.Text = "buttonItem33";
-            this.btnShapeRectangle.Click += new System.EventHandler(this.btnShape_Click);
-            // 
-            // btnShapeEllipse
-            // 
-            this.btnShapeEllipse.Image = global::TabletC.Properties.Resources.ellipse;
-            this.btnShapeEllipse.Name = "btnShapeEllipse";
-            this.btnShapeEllipse.Text = "buttonItem35";
-            this.btnShapeEllipse.Click += new System.EventHandler(this.btnShape_Click);
-            // 
-            // btnShapeTriangle
-            // 
-            this.btnShapeTriangle.Image = global::TabletC.Properties.Resources.triangle;
-            this.btnShapeTriangle.Name = "btnShapeTriangle";
-            this.btnShapeTriangle.Text = "buttonItem22";
-            this.btnShapeTriangle.Click += new System.EventHandler(this.btnShape_Click);
-            // 
-            // btnShapePolygon
-            // 
-            this.btnShapePolygon.Image = global::TabletC.Properties.Resources.polygon;
-            this.btnShapePolygon.Name = "btnShapePolygon";
-            this.btnShapePolygon.Text = "btnShapePolygon";
             // 
             // itemContainer6
             // 
@@ -546,22 +369,6 @@ namespace TabletC
             // 
             // 
             this.itemContainer6.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // cpkOutlineColor
-            // 
-            this.cpkOutlineColor.Image = ((System.Drawing.Image)(resources.GetObject("cpkOutlineColor.Image")));
-            this.cpkOutlineColor.Name = "cpkOutlineColor";
-            this.cpkOutlineColor.SelectedColorImageRectangle = new System.Drawing.Rectangle(0, 12, 16, 4);
-            this.cpkOutlineColor.Text = "colorPickerDropDown1";
-            this.cpkOutlineColor.SelectedColorChanged += new System.EventHandler(this.cpkOutlineColor_SelectedColorChanged);
-            // 
-            // cpkBackgroundColor
-            // 
-            this.cpkBackgroundColor.Image = ((System.Drawing.Image)(resources.GetObject("cpkBackgroundColor.Image")));
-            this.cpkBackgroundColor.Name = "cpkBackgroundColor";
-            this.cpkBackgroundColor.SelectedColorImageRectangle = new System.Drawing.Rectangle(0, 12, 16, 4);
-            this.cpkBackgroundColor.Text = "colorPickerDropDown2";
-            this.cpkBackgroundColor.SelectedColorChanged += new System.EventHandler(this.cpkBackgroundColor_SelectedColorChanged);
             // 
             // ribbonBar3
             // 
@@ -580,7 +387,7 @@ namespace TabletC
             this.itemContainer7});
             this.ribbonBar3.Location = new System.Drawing.Point(216, 0);
             this.ribbonBar3.Name = "ribbonBar3";
-            this.ribbonBar3.Size = new System.Drawing.Size(61, 94);
+            this.ribbonBar3.Size = new System.Drawing.Size(96, 94);
             this.ribbonBar3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBar3.TabIndex = 2;
             this.ribbonBar3.Text = "&Tool";
@@ -601,6 +408,7 @@ namespace TabletC
             this.itemContainer7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.itemContainer7.Name = "itemContainer7";
             this.itemContainer7.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnItemCursor,
             this.buttonItem19,
             this.buttonItem21});
             // 
@@ -608,18 +416,6 @@ namespace TabletC
             // 
             this.itemContainer7.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.itemContainer7.VerticalItemAlignment = DevComponents.DotNetBar.eVerticalItemsAlignment.Middle;
-            // 
-            // buttonItem19
-            // 
-            this.buttonItem19.Image = global::TabletC.Properties.Resources.buttonPencil_Image;
-            this.buttonItem19.Name = "buttonItem19";
-            this.buttonItem19.Text = "buttonItem19";
-            // 
-            // buttonItem21
-            // 
-            this.buttonItem21.Image = global::TabletC.Properties.Resources.buttonBucket_Image;
-            this.buttonItem21.Name = "buttonItem21";
-            this.buttonItem21.Text = "buttonItem21";
             // 
             // ribbonBar2
             // 
@@ -652,30 +448,6 @@ namespace TabletC
             // 
             this.ribbonBar2.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
-            // btnSelect
-            // 
-            this.btnSelect.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnSelect.Image = global::TabletC.Properties.Resources.select;
-            this.btnSelect.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnSelect.Name = "btnSelect";
-            this.btnSelect.SplitButton = true;
-            this.btnSelect.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItem28,
-            this.buttonItem29});
-            this.btnSelect.SubItemsExpandWidth = 14;
-            this.btnSelect.Text = "&Select";
-            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
-            // 
-            // buttonItem28
-            // 
-            this.buttonItem28.Name = "buttonItem28";
-            this.buttonItem28.Text = "New Item";
-            // 
-            // buttonItem29
-            // 
-            this.buttonItem29.Name = "buttonItem29";
-            this.buttonItem29.Text = "New Item";
-            // 
             // itemContainer8
             // 
             // 
@@ -693,27 +465,6 @@ namespace TabletC
             // 
             // 
             this.itemContainer8.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // buttonItem30
-            // 
-            this.buttonItem30.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem30.Image = global::TabletC.Properties.Resources.crop;
-            this.buttonItem30.Name = "buttonItem30";
-            this.buttonItem30.Text = "&Crop";
-            // 
-            // buttonItem31
-            // 
-            this.buttonItem31.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem31.Image = global::TabletC.Properties.Resources.resize;
-            this.buttonItem31.Name = "buttonItem31";
-            this.buttonItem31.Text = "&Resize";
-            // 
-            // buttonItem32
-            // 
-            this.buttonItem32.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem32.Image = global::TabletC.Properties.Resources.rotate;
-            this.buttonItem32.Name = "buttonItem32";
-            this.buttonItem32.Text = "Rotate";
             // 
             // ribbonBar1
             // 
@@ -746,29 +497,6 @@ namespace TabletC
             // 
             this.ribbonBar1.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
-            // buttonItem14
-            // 
-            this.buttonItem14.Image = global::TabletC.Properties.Resources.buttonPaste_Image;
-            this.buttonItem14.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.buttonItem14.Name = "buttonItem14";
-            this.buttonItem14.SplitButton = true;
-            this.buttonItem14.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItem15,
-            this.buttonItem16});
-            this.buttonItem14.SubItemsExpandWidth = 14;
-            this.buttonItem14.Text = "&Paste";
-            // 
-            // buttonItem15
-            // 
-            this.buttonItem15.Enabled = false;
-            this.buttonItem15.Name = "buttonItem15";
-            this.buttonItem15.Text = "&Paste";
-            // 
-            // buttonItem16
-            // 
-            this.buttonItem16.Name = "buttonItem16";
-            this.buttonItem16.Text = "Paste &from";
-            // 
             // itemContainer5
             // 
             // 
@@ -784,36 +512,6 @@ namespace TabletC
             // 
             // 
             this.itemContainer5.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // buttonItem17
-            // 
-            this.buttonItem17.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem17.Image = global::TabletC.Properties.Resources.buttonCut_Image;
-            this.buttonItem17.Name = "buttonItem17";
-            this.buttonItem17.Text = "Cu&t";
-            // 
-            // buttonItem18
-            // 
-            this.buttonItem18.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem18.Image = global::TabletC.Properties.Resources.buttonCopy_Image;
-            this.buttonItem18.Name = "buttonItem18";
-            this.buttonItem18.Text = "&Copy";
-            // 
-            // applicationButton1
-            // 
-            this.applicationButton1.AutoExpandOnClick = true;
-            this.applicationButton1.BackstageTab = this.superTabControl1;
-            this.applicationButton1.CanCustomize = false;
-            this.applicationButton1.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.Image;
-            this.applicationButton1.Image = ((System.Drawing.Image)(resources.GetObject("applicationButton1.Image")));
-            this.applicationButton1.ImageFixedSize = new System.Drawing.Size(16, 16);
-            this.applicationButton1.ImagePaddingHorizontal = 0;
-            this.applicationButton1.ImagePaddingVertical = 1;
-            this.applicationButton1.Name = "applicationButton1";
-            this.applicationButton1.ShowSubItems = false;
-            this.applicationButton1.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.itemContainer1});
-            this.applicationButton1.Text = "&File";
             // 
             // superTabControl1
             // 
@@ -923,6 +621,399 @@ namespace TabletC
             this.superTabItem3.GlobalItem = false;
             this.superTabItem3.Name = "superTabItem3";
             this.superTabItem3.Text = "Open";
+            // 
+            // ribbonTabItem1
+            // 
+            this.ribbonTabItem1.Checked = true;
+            this.ribbonTabItem1.Name = "ribbonTabItem1";
+            this.ribbonTabItem1.Panel = this.ribbonPanel1;
+            this.ribbonTabItem1.Text = "&HOME";
+            // 
+            // qatCustomizeItem1
+            // 
+            this.qatCustomizeItem1.Name = "qatCustomizeItem1";
+            // 
+            // styleManager1
+            // 
+            this.styleManager1.ManagerStyle = DevComponents.DotNetBar.eStyle.Metro;
+            this.styleManager1.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.White, System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(87)))), ((int)(((byte)(154))))));
+            // 
+            // switchButtonItem1
+            // 
+            this.switchButtonItem1.Name = "switchButtonItem1";
+            this.switchButtonItem1.Text = "switchButtonItem1";
+            // 
+            // switchButtonItem2
+            // 
+            this.switchButtonItem2.Name = "switchButtonItem2";
+            this.switchButtonItem2.Text = "switchButtonItem2";
+            // 
+            // bar1
+            // 
+            this.bar1.AntiAlias = true;
+            this.bar1.BarType = DevComponents.DotNetBar.eBarType.StatusBar;
+            this.bar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bar1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bar1.Location = new System.Drawing.Point(5, 497);
+            this.bar1.Name = "bar1";
+            this.bar1.Size = new System.Drawing.Size(758, 26);
+            this.bar1.Stretch = true;
+            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.bar1.TabIndex = 3;
+            this.bar1.TabStop = false;
+            this.bar1.Text = "bar1";
+            // 
+            // tabMain
+            // 
+            this.tabMain.BackColor = System.Drawing.Color.White;
+            this.tabMain.CloseButtonOnTabsVisible = true;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tabMain.ControlBox.CloseBox.Name = "";
+            // 
+            // 
+            // 
+            this.tabMain.ControlBox.MenuBox.Name = "";
+            this.tabMain.ControlBox.Name = "";
+            this.tabMain.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.tabMain.ControlBox.MenuBox,
+            this.tabMain.ControlBox.CloseBox});
+            this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabMain.ForeColor = System.Drawing.Color.Black;
+            this.tabMain.Location = new System.Drawing.Point(5, 155);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.ReorderTabsEnabled = true;
+            this.tabMain.SelectedTabFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.tabMain.SelectedTabIndex = 1;
+            this.tabMain.Size = new System.Drawing.Size(758, 342);
+            this.tabMain.TabFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabMain.TabIndex = 4;
+            this.tabMain.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue;
+            this.tabMain.Text = "superTabControl2";
+            this.tabMain.SelectedTabChanged += new System.EventHandler<DevComponents.DotNetBar.SuperTabStripSelectedTabChangedEventArgs>(this.tabMain_SelectedTabChanged);
+            // 
+            // buttonItem20
+            // 
+            this.buttonItem20.Image = global::TabletC.Properties.Resources.alg;
+            this.buttonItem20.ImagePosition = DevComponents.DotNetBar.eImagePosition.Bottom;
+            this.buttonItem20.Name = "buttonItem20";
+            this.buttonItem20.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnItemUseAlg,
+            this.btnItemUseLibrary});
+            this.buttonItem20.SubItemsExpandWidth = 14;
+            // 
+            // btnItemUseAlg
+            // 
+            this.btnItemUseAlg.Name = "btnItemUseAlg";
+            this.btnItemUseAlg.Text = "Use algorithm";
+            this.btnItemUseAlg.Click += new System.EventHandler(this.btnItemUseAlg_Click);
+            // 
+            // btnItemUseLibrary
+            // 
+            this.btnItemUseLibrary.Name = "btnItemUseLibrary";
+            this.btnItemUseLibrary.Text = "Use Library";
+            this.btnItemUseLibrary.Click += new System.EventHandler(this.btnItemUseLibrary_Click);
+            // 
+            // btnItemSize
+            // 
+            this.btnItemSize.AutoExpandOnClick = true;
+            this.btnItemSize.Image = global::TabletC.Properties.Resources.size;
+            this.btnItemSize.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnItemSize.Name = "btnItemSize";
+            this.btnItemSize.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnItemSize1,
+            this.btnItemSize3,
+            this.btnItemSize5,
+            this.btnItemSize8});
+            this.btnItemSize.SubItemsExpandWidth = 14;
+            this.btnItemSize.Tag = "1";
+            this.btnItemSize.Text = "Size";
+            // 
+            // btnItemSize1
+            // 
+            this.btnItemSize1.Image = global::TabletC.Properties.Resources.size_1;
+            this.btnItemSize1.Name = "btnItemSize1";
+            this.btnItemSize1.Tag = "1";
+            this.btnItemSize1.Text = "1 px";
+            this.btnItemSize1.Click += new System.EventHandler(this.btnItemSize_Click);
+            // 
+            // btnItemSize3
+            // 
+            this.btnItemSize3.Image = global::TabletC.Properties.Resources.size_3;
+            this.btnItemSize3.Name = "btnItemSize3";
+            this.btnItemSize3.Tag = "3";
+            this.btnItemSize3.Text = "3 px";
+            this.btnItemSize3.Click += new System.EventHandler(this.btnItemSize_Click);
+            // 
+            // btnItemSize5
+            // 
+            this.btnItemSize5.Image = global::TabletC.Properties.Resources.size_5;
+            this.btnItemSize5.Name = "btnItemSize5";
+            this.btnItemSize5.Tag = "5";
+            this.btnItemSize5.Text = "5 px";
+            this.btnItemSize5.Click += new System.EventHandler(this.btnItemSize_Click);
+            // 
+            // btnItemSize8
+            // 
+            this.btnItemSize8.Image = global::TabletC.Properties.Resources.size_8;
+            this.btnItemSize8.Name = "btnItemSize8";
+            this.btnItemSize8.Tag = "8";
+            this.btnItemSize8.Text = "8 px";
+            this.btnItemSize8.Click += new System.EventHandler(this.btnItemSize_Click);
+            // 
+            // btnItemDashes
+            // 
+            this.btnItemDashes.AutoExpandOnClick = true;
+            this.btnItemDashes.Image = global::TabletC.Properties.Resources.dashes;
+            this.btnItemDashes.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnItemDashes.Name = "btnItemDashes";
+            this.btnItemDashes.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnDashSolid,
+            this.btnDashDot,
+            this.btnDashDash,
+            this.btnDashDashDot,
+            this.btnDashDashDotDot});
+            this.btnItemDashes.Text = "Dashes";
+            // 
+            // btnDashSolid
+            // 
+            this.btnDashSolid.Image = global::TabletC.Properties.Resources.solid;
+            this.btnDashSolid.Name = "btnDashSolid";
+            this.btnDashSolid.Tag = "0";
+            this.btnDashSolid.Text = "Solid";
+            this.btnDashSolid.Click += new System.EventHandler(this.btnDash_Click);
+            // 
+            // btnDashDot
+            // 
+            this.btnDashDot.Image = global::TabletC.Properties.Resources.dot;
+            this.btnDashDot.Name = "btnDashDot";
+            this.btnDashDot.Tag = "2";
+            this.btnDashDot.Text = "Dot";
+            this.btnDashDot.Click += new System.EventHandler(this.btnDash_Click);
+            // 
+            // btnDashDash
+            // 
+            this.btnDashDash.Image = global::TabletC.Properties.Resources.dash;
+            this.btnDashDash.Name = "btnDashDash";
+            this.btnDashDash.Tag = "1";
+            this.btnDashDash.Text = "Dash";
+            this.btnDashDash.Click += new System.EventHandler(this.btnDash_Click);
+            // 
+            // btnDashDashDot
+            // 
+            this.btnDashDashDot.Image = global::TabletC.Properties.Resources.dashdot;
+            this.btnDashDashDot.Name = "btnDashDashDot";
+            this.btnDashDashDot.Tag = "3";
+            this.btnDashDashDot.Text = "Dash Dot";
+            this.btnDashDashDot.Click += new System.EventHandler(this.btnDash_Click);
+            // 
+            // btnDashDashDotDot
+            // 
+            this.btnDashDashDotDot.Image = global::TabletC.Properties.Resources.dashdotdot;
+            this.btnDashDashDotDot.Name = "btnDashDashDotDot";
+            this.btnDashDashDotDot.Tag = "4";
+            this.btnDashDashDotDot.Text = "Dash Dot Dot";
+            this.btnDashDashDotDot.Click += new System.EventHandler(this.btnDash_Click);
+            // 
+            // buttonItem23
+            // 
+            this.buttonItem23.AutoExpandOnClick = true;
+            this.buttonItem23.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem23.Image = ((System.Drawing.Image)(resources.GetObject("buttonItem23.Image")));
+            this.buttonItem23.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.buttonItem23.Name = "buttonItem23";
+            this.buttonItem23.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItem24,
+            this.buttonItem25});
+            this.buttonItem23.SubItemsExpandWidth = 14;
+            this.buttonItem23.Text = "&Brush";
+            // 
+            // buttonItem24
+            // 
+            this.buttonItem24.Name = "buttonItem24";
+            this.buttonItem24.Text = "New Item";
+            // 
+            // buttonItem25
+            // 
+            this.buttonItem25.Name = "buttonItem25";
+            this.buttonItem25.Text = "New Item";
+            // 
+            // btnShapeLine
+            // 
+            this.btnShapeLine.Image = global::TabletC.Properties.Resources.line;
+            this.btnShapeLine.Name = "btnShapeLine";
+            this.btnShapeLine.Text = "buttonItem20";
+            this.btnShapeLine.Click += new System.EventHandler(this.btnShape_Click);
+            // 
+            // btnShapeRectangle
+            // 
+            this.btnShapeRectangle.Image = global::TabletC.Properties.Resources.rectangle;
+            this.btnShapeRectangle.Name = "btnShapeRectangle";
+            this.btnShapeRectangle.Text = "buttonItem33";
+            this.btnShapeRectangle.Click += new System.EventHandler(this.btnShape_Click);
+            // 
+            // btnShapeEllipse
+            // 
+            this.btnShapeEllipse.Image = global::TabletC.Properties.Resources.ellipse;
+            this.btnShapeEllipse.Name = "btnShapeEllipse";
+            this.btnShapeEllipse.Text = "buttonItem35";
+            this.btnShapeEllipse.Click += new System.EventHandler(this.btnShape_Click);
+            // 
+            // btnShapeTriangle
+            // 
+            this.btnShapeTriangle.Image = global::TabletC.Properties.Resources.triangle;
+            this.btnShapeTriangle.Name = "btnShapeTriangle";
+            this.btnShapeTriangle.Text = "buttonItem22";
+            this.btnShapeTriangle.Click += new System.EventHandler(this.btnShape_Click);
+            // 
+            // buttonItem22
+            // 
+            this.buttonItem22.Image = global::TabletC.Properties.Resources.polygon;
+            this.buttonItem22.Name = "buttonItem22";
+            this.buttonItem22.Text = "buttonItem22";
+            // 
+            // btnShapePolygon
+            // 
+            this.btnShapePolygon.Image = global::TabletC.Properties.Resources.polygon;
+            this.btnShapePolygon.Name = "btnShapePolygon";
+            this.btnShapePolygon.Text = "btnShapePolygon";
+            // 
+            // cpkOutlineColor
+            // 
+            this.cpkOutlineColor.Image = ((System.Drawing.Image)(resources.GetObject("cpkOutlineColor.Image")));
+            this.cpkOutlineColor.Name = "cpkOutlineColor";
+            this.cpkOutlineColor.SelectedColorImageRectangle = new System.Drawing.Rectangle(0, 12, 16, 4);
+            this.cpkOutlineColor.Text = "colorPickerDropDown1";
+            this.cpkOutlineColor.SelectedColorChanged += new System.EventHandler(this.cpkOutlineColor_SelectedColorChanged);
+            // 
+            // cpkBackgroundColor
+            // 
+            this.cpkBackgroundColor.Image = ((System.Drawing.Image)(resources.GetObject("cpkBackgroundColor.Image")));
+            this.cpkBackgroundColor.Name = "cpkBackgroundColor";
+            this.cpkBackgroundColor.SelectedColorImageRectangle = new System.Drawing.Rectangle(0, 12, 16, 4);
+            this.cpkBackgroundColor.Text = "colorPickerDropDown2";
+            this.cpkBackgroundColor.SelectedColorChanged += new System.EventHandler(this.cpkBackgroundColor_SelectedColorChanged);
+            // 
+            // buttonItem19
+            // 
+            this.buttonItem19.Image = global::TabletC.Properties.Resources.buttonPencil_Image;
+            this.buttonItem19.Name = "buttonItem19";
+            this.buttonItem19.Text = "buttonItem19";
+            // 
+            // buttonItem21
+            // 
+            this.buttonItem21.Image = global::TabletC.Properties.Resources.buttonBucket_Image;
+            this.buttonItem21.Name = "buttonItem21";
+            this.buttonItem21.Text = "buttonItem21";
+            // 
+            // btnItemCursor
+            // 
+            this.btnItemCursor.Image = global::TabletC.Properties.Resources.cursor;
+            this.btnItemCursor.Name = "btnItemCursor";
+            this.btnItemCursor.Text = "Cursor";
+            this.btnItemCursor.Click += new System.EventHandler(this.btnItemCursor_Click);
+            // 
+            // btnSelect
+            // 
+            this.btnSelect.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnSelect.Image = global::TabletC.Properties.Resources.select;
+            this.btnSelect.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnSelect.Name = "btnSelect";
+            this.btnSelect.SplitButton = true;
+            this.btnSelect.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItem28,
+            this.buttonItem29});
+            this.btnSelect.SubItemsExpandWidth = 14;
+            this.btnSelect.Text = "&Select";
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
+            // 
+            // buttonItem28
+            // 
+            this.buttonItem28.Name = "buttonItem28";
+            this.buttonItem28.Text = "New Item";
+            // 
+            // buttonItem29
+            // 
+            this.buttonItem29.Name = "buttonItem29";
+            this.buttonItem29.Text = "New Item";
+            // 
+            // buttonItem30
+            // 
+            this.buttonItem30.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem30.Image = global::TabletC.Properties.Resources.crop;
+            this.buttonItem30.Name = "buttonItem30";
+            this.buttonItem30.Text = "&Crop";
+            // 
+            // buttonItem31
+            // 
+            this.buttonItem31.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem31.Image = global::TabletC.Properties.Resources.resize;
+            this.buttonItem31.Name = "buttonItem31";
+            this.buttonItem31.Text = "&Resize";
+            // 
+            // buttonItem32
+            // 
+            this.buttonItem32.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem32.Image = global::TabletC.Properties.Resources.rotate;
+            this.buttonItem32.Name = "buttonItem32";
+            this.buttonItem32.Text = "Rotate";
+            // 
+            // buttonItem14
+            // 
+            this.buttonItem14.Image = global::TabletC.Properties.Resources.buttonPaste_Image;
+            this.buttonItem14.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.buttonItem14.Name = "buttonItem14";
+            this.buttonItem14.SplitButton = true;
+            this.buttonItem14.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItem15,
+            this.buttonItem16});
+            this.buttonItem14.SubItemsExpandWidth = 14;
+            this.buttonItem14.Text = "&Paste";
+            // 
+            // buttonItem15
+            // 
+            this.buttonItem15.Enabled = false;
+            this.buttonItem15.Name = "buttonItem15";
+            this.buttonItem15.Text = "&Paste";
+            // 
+            // buttonItem16
+            // 
+            this.buttonItem16.Name = "buttonItem16";
+            this.buttonItem16.Text = "Paste &from";
+            // 
+            // buttonItem17
+            // 
+            this.buttonItem17.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem17.Image = global::TabletC.Properties.Resources.buttonCut_Image;
+            this.buttonItem17.Name = "buttonItem17";
+            this.buttonItem17.Text = "Cu&t";
+            // 
+            // buttonItem18
+            // 
+            this.buttonItem18.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem18.Image = global::TabletC.Properties.Resources.buttonCopy_Image;
+            this.buttonItem18.Name = "buttonItem18";
+            this.buttonItem18.Text = "&Copy";
+            // 
+            // applicationButton1
+            // 
+            this.applicationButton1.AutoExpandOnClick = true;
+            this.applicationButton1.BackstageTab = this.superTabControl1;
+            this.applicationButton1.CanCustomize = false;
+            this.applicationButton1.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.Image;
+            this.applicationButton1.Image = ((System.Drawing.Image)(resources.GetObject("applicationButton1.Image")));
+            this.applicationButton1.ImageFixedSize = new System.Drawing.Size(16, 16);
+            this.applicationButton1.ImagePaddingHorizontal = 0;
+            this.applicationButton1.ImagePaddingVertical = 1;
+            this.applicationButton1.Name = "applicationButton1";
+            this.applicationButton1.ShowSubItems = false;
+            this.applicationButton1.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.itemContainer1});
+            this.applicationButton1.Text = "&File";
             // 
             // itemContainer1
             // 
@@ -1121,85 +1212,11 @@ namespace TabletC
             this.buttonItem13.SubItemsExpandWidth = 24;
             this.buttonItem13.Text = "E&xit";
             // 
-            // ribbonTabItem1
-            // 
-            this.ribbonTabItem1.Checked = true;
-            this.ribbonTabItem1.Name = "ribbonTabItem1";
-            this.ribbonTabItem1.Panel = this.ribbonPanel1;
-            this.ribbonTabItem1.Text = "&HOME";
-            // 
             // buttonItem1
             // 
             this.buttonItem1.Image = global::TabletC.Properties.Resources.save;
             this.buttonItem1.Name = "buttonItem1";
             this.buttonItem1.Text = "buttonItem1";
-            // 
-            // qatCustomizeItem1
-            // 
-            this.qatCustomizeItem1.Name = "qatCustomizeItem1";
-            // 
-            // styleManager1
-            // 
-            this.styleManager1.ManagerStyle = DevComponents.DotNetBar.eStyle.Metro;
-            this.styleManager1.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.White, System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(87)))), ((int)(((byte)(154))))));
-            // 
-            // switchButtonItem1
-            // 
-            this.switchButtonItem1.Name = "switchButtonItem1";
-            this.switchButtonItem1.Text = "switchButtonItem1";
-            // 
-            // switchButtonItem2
-            // 
-            this.switchButtonItem2.Name = "switchButtonItem2";
-            this.switchButtonItem2.Text = "switchButtonItem2";
-            // 
-            // bar1
-            // 
-            this.bar1.AntiAlias = true;
-            this.bar1.BarType = DevComponents.DotNetBar.eBarType.StatusBar;
-            this.bar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bar1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.bar1.Location = new System.Drawing.Point(5, 497);
-            this.bar1.Name = "bar1";
-            this.bar1.Size = new System.Drawing.Size(758, 26);
-            this.bar1.Stretch = true;
-            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.bar1.TabIndex = 3;
-            this.bar1.TabStop = false;
-            this.bar1.Text = "bar1";
-            // 
-            // tabMain
-            // 
-            this.tabMain.BackColor = System.Drawing.Color.White;
-            this.tabMain.CloseButtonOnTabsVisible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.tabMain.ControlBox.CloseBox.Name = "";
-            // 
-            // 
-            // 
-            this.tabMain.ControlBox.MenuBox.Name = "";
-            this.tabMain.ControlBox.Name = "";
-            this.tabMain.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.tabMain.ControlBox.MenuBox,
-            this.tabMain.ControlBox.CloseBox});
-            this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabMain.ForeColor = System.Drawing.Color.Black;
-            this.tabMain.Location = new System.Drawing.Point(5, 155);
-            this.tabMain.Name = "tabMain";
-            this.tabMain.ReorderTabsEnabled = true;
-            this.tabMain.SelectedTabFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.tabMain.SelectedTabIndex = 1;
-            this.tabMain.Size = new System.Drawing.Size(758, 342);
-            this.tabMain.TabFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabMain.TabIndex = 4;
-            this.tabMain.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue;
-            this.tabMain.Text = "superTabControl2";
-            this.tabMain.SelectedTabChanged += new System.EventHandler<DevComponents.DotNetBar.SuperTabStripSelectedTabChangedEventArgs>(this.tabMain_SelectedTabChanged);
             // 
             // MainForm
             // 
@@ -1315,5 +1332,7 @@ namespace TabletC
         private DevComponents.DotNetBar.ButtonItem btnDashDash;
         private DevComponents.DotNetBar.ButtonItem btnDashDashDot;
         private DevComponents.DotNetBar.ButtonItem btnDashDashDotDot;
+        private DevComponents.DotNetBar.ButtonItem buttonItem22;
+        private DevComponents.DotNetBar.ButtonItem btnItemCursor;
     }
 }

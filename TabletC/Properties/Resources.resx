@@ -151,6 +151,9 @@
   <data name="buttonBucket.Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\buttonBucket.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="dashdotdot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashdotdot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="size" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\size.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -211,7 +214,7 @@
   <data name="alg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\alg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dashdotdot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashdotdot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cursor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cursor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

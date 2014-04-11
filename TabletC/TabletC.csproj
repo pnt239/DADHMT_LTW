@@ -170,6 +170,7 @@
     <None Include="Resources\dash.png" />
     <None Include="Resources\dashdot.png" />
     <None Include="Resources\dashdotdot.png" />
+    <None Include="Resources\cursor.png" />
     <Content Include="TabletC.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
