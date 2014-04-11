@@ -107,7 +107,7 @@ namespace TabletC.DrawPad
                     return;
                 }
                 var p = new Point(e.Location.X, e.Location.Y);
-                if (IsShift)
+                if (IsShift && _lastShape.GetShapeType() != ShapeType.Polygon)
                 {
                     var deltaX = _lastShape.StartVertex.X - p.X;
                     var deltaY = _lastShape.StartVertex.Y - p.Y;
