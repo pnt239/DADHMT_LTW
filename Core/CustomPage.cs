@@ -16,8 +16,10 @@ namespace TabletC.Core
 
         public CustomPage(Size size)
         {
-            _pageSize = size;
             _shapes = new List<IShape>();
+            _layers = new List<Layer>();
+
+            _pageSize = size;
             _orientation = PageOrientation.Horizontal;
         }
 
@@ -39,6 +41,12 @@ namespace TabletC.Core
             set { _shapes = value; }
         }
 
+        public List<Layer> Layers
+        {
+            get { return _layers; }
+            set { _layers = value; }
+        }
+
         public IPage Clone()
         {
             return new CustomPage();
@@ -47,5 +55,6 @@ namespace TabletC.Core
         private List<IShape> _shapes;
         private Size _pageSize;
         private PageOrientation _orientation;
+        private List<Layer> _layers;
     }
 }

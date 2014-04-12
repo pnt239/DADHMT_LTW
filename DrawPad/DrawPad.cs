@@ -82,6 +82,11 @@ namespace TabletC.DrawPad
             {
                 _shapeDrawer.Draw(gp, shape);
             }
+
+            foreach (Layer layer in _currentPage.Layers)
+            {
+                layer.Paint(gp);
+            }
         }
 
         private void ctrDrawArea_MouseDown(object sender, MouseEventArgs e)

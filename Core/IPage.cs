@@ -20,6 +20,8 @@ namespace TabletC.Core
         /* List of shapes */
         List<IShape> Shapes { get; set; }
 
+        List<Layer> Layers { get; set; }
+
         IPage Clone();
     }
 }
