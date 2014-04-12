@@ -84,11 +84,14 @@ namespace TabletC
             var bi = (ButtonItem) sender;
             _currentDrawPad.CurrentShape = (IShape)bi.Tag;
             _currentDrawPad.DrawMode = DrawPad.DrawMode.Draw;
+
+            _currentDrawPad.Cursor = Cursors.Cross;
         }
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
             _currentDrawPad.DrawMode = DrawPad.DrawMode.Select;
+            _currentDrawPad.Cursor = Cursors.Default;
         }
 
         private void cpkBackgroundColor_SelectedColorChanged(object sender, EventArgs e)
@@ -134,6 +137,7 @@ namespace TabletC
         private void btnItemCursor_Click(object sender, EventArgs e)
         {
             _currentDrawPad.DrawMode = DrawPad.DrawMode.Select;
+            _currentDrawPad.Cursor = Cursors.Default;
         }
     }
 }
