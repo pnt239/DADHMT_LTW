@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Drawing;
@@ -19,6 +20,7 @@ namespace TabletC.Core
             _sides = 5;
         }
 
+        [Browsable(false)]
         public List<Point> Vertices
         {
             get { return _vertices; }
@@ -26,6 +28,7 @@ namespace TabletC.Core
             //test
         }
 
+        [Browsable(false)]
         public Pen ShapePen
         {
             get
@@ -38,12 +41,14 @@ namespace TabletC.Core
             }
         }
 
+        [Browsable(false)]
         public Point StartVertex
         {
             get { return _vertices[0]; }
             set { _vertices[0] = value; }
         }
 
+        [Browsable(false)]
         public Point EndVertex
         {
             get { return _vertices[1]; }
