@@ -65,8 +65,8 @@ namespace TabletC.DrawPad
         private void DrawRectangle(Quad rectangle)
         {
             _graphic.DrawRectangle(rectangle.ShapePen, CreateShapeArea(rectangle.StartVertex, rectangle.EndVertex));
-            // test
         }
+
         private void DrawPoplygon(Polygon polygon)
         {
             Rectangle rec = CreateShapeArea(polygon.StartVertex, polygon.EndVertex);
@@ -78,6 +78,7 @@ namespace TabletC.DrawPad
 
             _graphic.DrawPolygon(polygon.ShapePen, PolygonPoints);
         }
+
         private void DrawCircle(Circle circle)
         {
             _graphic.DrawEllipse(circle.ShapePen, CreateShapeArea(circle.StartVertex, circle.EndVertex));
@@ -118,6 +119,17 @@ namespace TabletC.DrawPad
             return xy;
         }
 
+        private float XYToDegrees(Point xy, Point origin)
+        {
+            int deltaX = origin.X - xy.X;
+            int deltaY = origin.Y - xy.Y;
+
+            double radAngle = Math.Atan2(deltaY, deltaX);
+            double degreeAngle = radAngle * 180.0 / Math.PI;
+
+            return (float)(180.0 - degreeAngle);
+        }
+
         private Point[] CalculateVertices(int sides, int radius, int startingAngle, Point center)
         {
             if (sides < 3)
@@ -134,17 +146,6 @@ namespace TabletC.DrawPad
             }
 
             return points.ToArray();
-        }
-
-        private float XYToDegrees(Point xy, Point origin)
-        {
-            int deltaX = origin.X - xy.X;
-            int deltaY = origin.Y - xy.Y;
-
-            double radAngle = Math.Atan2(deltaY, deltaX);
-            double degreeAngle = radAngle * 180.0 / Math.PI;
-
-            return (float)(180.0 - degreeAngle);
         }
     }
 }

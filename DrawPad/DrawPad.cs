@@ -182,6 +182,6 @@ namespace TabletC.DrawPad
         private DrawMode _drawMode;
         private bool _isShift;
 
-        private Dictionary<ShapeType, int> _nameCount;
+        private readonly Dictionary<ShapeType, int> _nameCount;
     }
 }

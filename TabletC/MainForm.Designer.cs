@@ -68,7 +68,7 @@ namespace TabletC
             this.itemContainer7 = new DevComponents.DotNetBar.ItemContainer();
             this.btnItemCursor = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem19 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem21 = new DevComponents.DotNetBar.ButtonItem();
+            this.btnItemPaint = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar2 = new DevComponents.DotNetBar.RibbonBar();
             this.btnSelect = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem28 = new DevComponents.DotNetBar.ButtonItem();
@@ -646,7 +646,7 @@ namespace TabletC
             this.itemContainer7.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnItemCursor,
             this.buttonItem19,
-            this.buttonItem21});
+            this.btnItemPaint});
             // 
             // 
             // 
@@ -666,11 +666,12 @@ namespace TabletC
             this.buttonItem19.Name = "buttonItem19";
             this.buttonItem19.Text = "buttonItem19";
             // 
-            // buttonItem21
+            // btnItemPaint
             // 
-            this.buttonItem21.Image = global::TabletC.Properties.Resources.buttonBucket_Image;
-            this.buttonItem21.Name = "buttonItem21";
-            this.buttonItem21.Text = "buttonItem21";
+            this.btnItemPaint.Image = global::TabletC.Properties.Resources.buttonBucket_Image;
+            this.btnItemPaint.Name = "btnItemPaint";
+            this.btnItemPaint.Text = "buttonItem21";
+            this.btnItemPaint.Click += new System.EventHandler(this.btnItemPaint_Click);
             // 
             // ribbonBar2
             // 
@@ -1489,29 +1490,29 @@ namespace TabletC
             this.toolStripMenuItem1,
             this.mnuMergeShapes});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 98);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(149, 76);
             // 
             // addLayerToolStripMenuItem
             // 
             this.addLayerToolStripMenuItem.Name = "addLayerToolStripMenuItem";
-            this.addLayerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addLayerToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.addLayerToolStripMenuItem.Text = "Add Layer";
             // 
             // removeLayerToolStripMenuItem
             // 
             this.removeLayerToolStripMenuItem.Name = "removeLayerToolStripMenuItem";
-            this.removeLayerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeLayerToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.removeLayerToolStripMenuItem.Text = "Remove Layer";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(145, 6);
             // 
             // mnuMergeShapes
             // 
             this.mnuMergeShapes.Name = "mnuMergeShapes";
-            this.mnuMergeShapes.Size = new System.Drawing.Size(152, 22);
+            this.mnuMergeShapes.Size = new System.Drawing.Size(148, 22);
             this.mnuMergeShapes.Text = "Merge Shapes";
             this.mnuMergeShapes.Click += new System.EventHandler(this.mnuMergeShapes_Click);
             // 
@@ -1615,7 +1616,7 @@ namespace TabletC
         private DevComponents.DotNetBar.ColorPickerDropDown cpkBackgroundColor;
         private DevComponents.DotNetBar.ItemContainer itemContainer7;
         private DevComponents.DotNetBar.ButtonItem buttonItem19;
-        private DevComponents.DotNetBar.ButtonItem buttonItem21;
+        private DevComponents.DotNetBar.ButtonItem btnItemPaint;
         private DevComponents.DotNetBar.SuperTabControl superTabControl1;
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel2;
         private DevComponents.DotNetBar.SuperTabItem superTabItem2;

@@ -151,11 +151,26 @@ namespace TabletC
 
         private void mnuMergeShapes_Click(object sender, EventArgs e)
         {
-            //
+            int count = lbxLayers.SelectedItems.Count;
+            var l = (Layer)lbxLayers.SelectedItems[0];
+            lbxLayers.SelectedItems.Remove(lbxLayers.SelectedItems[0]);
+
+            var selobj = new List<Layer>();
+
             foreach (Layer layer in lbxLayers.SelectedItems)
+                selobj.Add(layer);
+
+            foreach (Layer layer in selobj)
             {
-                MessageBox.Show(layer.Name);
+                l.Shapes.AddRange(layer.Shapes);
+                _currentDrawPad.CurrentPage.Layers.Remove(layer);
             }
+            l.IsRendered = false;
+        }
+
+        private void btnItemPaint_Click(object sender, EventArgs e)
+        {
+            //
         }
     }
 }
