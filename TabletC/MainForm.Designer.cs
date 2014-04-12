@@ -137,7 +137,14 @@ namespace TabletC
             this.dockContainerItem3 = new DevComponents.DotNetBar.DockContainerItem();
             this.panelDockContainer1 = new DevComponents.DotNetBar.PanelDockContainer();
             this.pgdOptions = new System.Windows.Forms.PropertyGrid();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbxLayers = new System.Windows.Forms.ListBox();
+            this.btnLayerAdd = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuMergeShapes = new System.Windows.Forms.ToolStripMenuItem();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
@@ -150,6 +157,8 @@ namespace TabletC
             this.barRight.SuspendLayout();
             this.panelDockContainer2.SuspendLayout();
             this.panelDockContainer1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbonControl1
@@ -1418,7 +1427,7 @@ namespace TabletC
             // panelDockContainer1
             // 
             this.panelDockContainer1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.panelDockContainer1.Controls.Add(this.lbxLayers);
+            this.panelDockContainer1.Controls.Add(this.tableLayoutPanel1);
             this.panelDockContainer1.Location = new System.Drawing.Point(3, 23);
             this.panelDockContainer1.Name = "panelDockContainer1";
             this.panelDockContainer1.Size = new System.Drawing.Size(172, 291);
@@ -1436,15 +1445,75 @@ namespace TabletC
             this.pgdOptions.Size = new System.Drawing.Size(172, 291);
             this.pgdOptions.TabIndex = 0;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.lbxLayers, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnLayerAdd, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(172, 291);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
             // lbxLayers
             // 
+            this.lbxLayers.ContextMenuStrip = this.contextMenuStrip1;
             this.lbxLayers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbxLayers.FormattingEnabled = true;
             this.lbxLayers.ItemHeight = 17;
-            this.lbxLayers.Location = new System.Drawing.Point(0, 0);
+            this.lbxLayers.Location = new System.Drawing.Point(3, 3);
             this.lbxLayers.Name = "lbxLayers";
-            this.lbxLayers.Size = new System.Drawing.Size(172, 291);
-            this.lbxLayers.TabIndex = 0;
+            this.lbxLayers.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lbxLayers.Size = new System.Drawing.Size(166, 256);
+            this.lbxLayers.TabIndex = 1;
+            // 
+            // btnLayerAdd
+            // 
+            this.btnLayerAdd.Location = new System.Drawing.Point(3, 265);
+            this.btnLayerAdd.Name = "btnLayerAdd";
+            this.btnLayerAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnLayerAdd.TabIndex = 2;
+            this.btnLayerAdd.Text = "Add";
+            this.btnLayerAdd.UseVisualStyleBackColor = true;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addLayerToolStripMenuItem,
+            this.removeLayerToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.mnuMergeShapes});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 98);
+            // 
+            // addLayerToolStripMenuItem
+            // 
+            this.addLayerToolStripMenuItem.Name = "addLayerToolStripMenuItem";
+            this.addLayerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addLayerToolStripMenuItem.Text = "Add Layer";
+            // 
+            // removeLayerToolStripMenuItem
+            // 
+            this.removeLayerToolStripMenuItem.Name = "removeLayerToolStripMenuItem";
+            this.removeLayerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeLayerToolStripMenuItem.Text = "Remove Layer";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // mnuMergeShapes
+            // 
+            this.mnuMergeShapes.Name = "mnuMergeShapes";
+            this.mnuMergeShapes.Size = new System.Drawing.Size(152, 22);
+            this.mnuMergeShapes.Text = "Merge Shapes";
+            this.mnuMergeShapes.Click += new System.EventHandler(this.mnuMergeShapes_Click);
             // 
             // MainForm
             // 
@@ -1480,6 +1549,8 @@ namespace TabletC
             this.barRight.ResumeLayout(false);
             this.panelDockContainer2.ResumeLayout(false);
             this.panelDockContainer1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1593,6 +1664,13 @@ namespace TabletC
         private DevComponents.DotNetBar.PanelDockContainer panelDockContainer1;
         private DevComponents.DotNetBar.DockContainerItem dockContainerItem3;
         private System.Windows.Forms.PropertyGrid pgdOptions;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ListBox lbxLayers;
+        private System.Windows.Forms.Button btnLayerAdd;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem addLayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeLayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem mnuMergeShapes;
     }
 }

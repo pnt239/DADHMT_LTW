@@ -66,6 +66,12 @@ namespace TabletC.Core
             }
         }
 
+        [Browsable(false)]
+        public string Name
+        {
+            get { return "Polygon"; }
+        }
+
         public ShapeType GetShapeType()
         {
             return ShapeType.Polygon;

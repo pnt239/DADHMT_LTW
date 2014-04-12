@@ -25,6 +25,8 @@ namespace TabletC.Core
         /* Mouse end point */
         Point EndVertex { get; set; }
 
+        string Name { get; }
+
         /* Get type of shape (line, rectable, circle, ellipse */
         ShapeType GetShapeType();
 

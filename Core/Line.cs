@@ -47,6 +47,11 @@ namespace TabletC.Core
             set { _vertices[1] = value; }
         }
 
+        public string Name
+        {
+            get { return "Line"; }
+        }
+
         public ShapeType GetShapeType()
         {
             return ShapeType.Line;

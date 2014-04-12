@@ -48,6 +48,11 @@ namespace TabletC.Core
             set { _vertices[1] = value; }
         }
 
+        public string Name
+        {
+            get { return "Circle"; }
+        }
+
         public ShapeType GetShapeType()
         {
             return ShapeType.Circle;

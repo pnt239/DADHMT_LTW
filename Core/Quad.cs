@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -47,6 +48,12 @@ namespace TabletC.Core
                 _vertices[2] = new Point(_vertices[1].X, _vertices[0].Y);
                 _vertices[3] = new Point(_vertices[0].X, _vertices[1].Y);
             }
+        }
+
+        [Browsable(false)]
+        public string Name
+        {
+            get { return "Rectangle"; }
         }
 
         public ShapeType GetShapeType()

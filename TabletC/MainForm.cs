@@ -71,6 +71,9 @@ namespace TabletC
             _currentDrawPad.CurrentPage = new CustomPage(new Size(720, 480));
             _listDrawPad.Add(_currentDrawPad);
 
+            lbxLayers.DataSource = _currentDrawPad.CurrentPage.Layers;
+            lbxLayers.DisplayMember = "Name";
+
             _currentTabId++;
         }
 
@@ -144,6 +147,15 @@ namespace TabletC
         {
             _currentDrawPad.DrawMode = DrawPad.DrawMode.Select;
             _currentDrawPad.Cursor = Cursors.Default;
+        }
+
+        private void mnuMergeShapes_Click(object sender, EventArgs e)
+        {
+            //
+            foreach (Layer layer in lbxLayers.SelectedItems)
+            {
+                MessageBox.Show(layer.Name);
+            }
         }
     }
 }

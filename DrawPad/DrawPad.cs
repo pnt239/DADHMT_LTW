@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -27,6 +28,15 @@ namespace TabletC.DrawPad
 
             DrawMode = DrawMode.Select;
             IsShift = false;
+
+            _nameCount = new Dictionary<ShapeType, int>
+            {
+                {ShapeType.Line, 1},
+                {ShapeType.Rectangle, 1},
+                {ShapeType.Ellipse, 1},
+                {ShapeType.Triangle, 1},
+                {ShapeType.Polygon, 1}
+            };
         }
 
         public IPage CurrentPage
@@ -101,6 +111,12 @@ namespace TabletC.DrawPad
             _lastShape.ShapePen = (Pen)_currentPen.Clone();
 
             // Add Shape to Layer
+            CurrentLayer = new Layer(_currentPage.PageSize);
+            CurrentLayer.Name = _lastShape.Name + " " + _nameCount[_lastShape.GetShapeType()].ToString(CultureInfo.InvariantCulture);
+            _nameCount[_lastShape.GetShapeType()] += 1;
+
+            _currentPage.Layers.Add(CurrentLayer);
+
             CurrentLayer.Shapes.Add(_lastShape);
         }
 
@@ -149,6 +165,7 @@ namespace TabletC.DrawPad
                 }
 
                 _lastShape.EndVertex = p;
+                CurrentLayer.IsRendered = false;
                 ctrDrawArea.Invalidate();
             }
         }
@@ -164,5 +181,7 @@ namespace TabletC.DrawPad
         private IShape _lastShape;
         private DrawMode _drawMode;
         private bool _isShift;
+
+        private Dictionary<ShapeType, int> _nameCount;
     }
 }

@@ -50,6 +50,11 @@ namespace TabletC.Core
             set { _vertices[1] = value; }
         }
 
+        public string Name
+        {
+            get { return "Ellipse"; }
+        }
+
         public ShapeType GetShapeType()
         {
             return ShapeType.Ellipse;

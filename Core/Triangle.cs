@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,12 @@ namespace TabletC.Core
         {
             get { return _endVertex; }
             set { _endVertex = value; }
+        }
+
+        [Browsable(false)]
+        public string Name
+        {
+            get { return "Triangle"; }
         }
 
         public ShapeType GetShapeType()
