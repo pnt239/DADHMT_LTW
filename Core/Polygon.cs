@@ -58,7 +58,12 @@ namespace TabletC.Core
         public int Sides
         {
             get { return _sides; }
-            set { _sides = value; }
+            set
+            {
+                _sides = value;
+                if (_sides < 3) _sides = 3;
+                if (_sides > 100) _sides = 100;
+            }
         }
 
         public ShapeType GetShapeType()
