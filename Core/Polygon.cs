@@ -10,11 +10,13 @@ namespace TabletC.Core
     {
         private List<Point> _vertices;
         private Pen _shapePen ;
+        private int _sides;
 
         public Polygon(Point start, Point end)
         {
             _vertices = new List<Point> { start, end };
             _shapePen = new Pen(Color.Black);
+            _sides = 5;
         }
 
         public List<Point> Vertices
@@ -46,6 +48,12 @@ namespace TabletC.Core
         {
             get { return _vertices[1]; }
             set { _vertices[1] = value; }
+        }
+
+        public int Sides
+        {
+            get { return _sides; }
+            set { _sides = value; }
         }
 
         public ShapeType GetShapeType()

@@ -14,43 +14,6 @@ namespace TabletC.DrawPad
         private Graphics _graphic;
         private bool _useLibrary;
 
-        private Point DegreesToXY(float degrees, float radius, Point origin)
-        {
-            Point xy = new Point();
-            double radians = degrees * Math.PI / 180.0;
-            
-            xy.X = (int)(Math.Cos(radians) * radius + origin.X);
-            xy.Y = (int)(Math.Sin(-radians) * radius + origin.Y);
-
-            return xy;
-        }
-        private Point[] CalculateVertices(int sides, int radius, int startingAngle, Point center)
-        {
-            if (sides < 3)
-                throw new ArgumentException("Polygon must have 3 sides or more.");
-
-            List<Point> points = new List<Point>();
-            float step = 360.0f / sides;
-
-            float angle = startingAngle; //starting angle
-            for (double i = startingAngle; i < startingAngle + 360.0; i += step) //go in a full circle
-            {
-                points.Add(DegreesToXY(angle, radius, center)); //code snippet from above
-                angle += step;
-            }
-
-            return points.ToArray();
-        }
-        private float XYToDegrees(Point xy, Point origin)
-        {
-            int deltaX = origin.X - xy.X;
-            int deltaY = origin.Y - xy.Y;
-
-            double radAngle = Math.Atan2(deltaY, deltaX);
-            double degreeAngle = radAngle * 180.0 / Math.PI;
-
-            return (float)(180.0 - degreeAngle);
-        }
         public ShapeDrawer()
         {
             _useLibrary = false;
@@ -106,14 +69,12 @@ namespace TabletC.DrawPad
         }
         private void DrawPoplygon(Polygon polygon)
         {
-            int VerNumbers;
-            VerNumbers = 8;
             Rectangle rec = CreateShapeArea(polygon.StartVertex, polygon.EndVertex);
   
             int radius = (int)Math.Sqrt((polygon.StartVertex.X - polygon.EndVertex.X)*(polygon.StartVertex.X - polygon.EndVertex.X) + (polygon.StartVertex.Y - polygon.EndVertex.Y)*(polygon.StartVertex.Y - polygon.EndVertex.Y));
             int startAngle = (int)XYToDegrees(polygon.EndVertex, polygon.StartVertex);
 
-            PolygonPoints = CalculateVertices(VerNumbers, radius, startAngle , polygon.StartVertex);
+            PolygonPoints = CalculateVertices(polygon.Sides, radius, startAngle, polygon.StartVertex);
 
             _graphic.DrawPolygon(polygon.ShapePen, PolygonPoints);
         }
@@ -144,6 +105,46 @@ namespace TabletC.DrawPad
             rec.Width = Math.Abs(p1.X - p2.X);
             rec.Height = Math.Abs(p1.Y - p2.Y);
             return rec;
+        }
+
+        private Point DegreesToXY(float degrees, float radius, Point origin)
+        {
+            Point xy = new Point();
+            double radians = degrees * Math.PI / 180.0;
+
+            xy.X = (int)(Math.Cos(radians) * radius + origin.X);
+            xy.Y = (int)(Math.Sin(-radians) * radius + origin.Y);
+
+            return xy;
+        }
+
+        private Point[] CalculateVertices(int sides, int radius, int startingAngle, Point center)
+        {
+            if (sides < 3)
+                throw new ArgumentException("Polygon must have 3 sides or more.");
+
+            List<Point> points = new List<Point>();
+            float step = 360.0f / sides;
+
+            float angle = startingAngle; //starting angle
+            for (double i = startingAngle; i < startingAngle + 360.0; i += step) //go in a full circle
+            {
+                points.Add(DegreesToXY(angle, radius, center)); //code snippet from above
+                angle += step;
+            }
+
+            return points.ToArray();
+        }
+
+        private float XYToDegrees(Point xy, Point origin)
+        {
+            int deltaX = origin.X - xy.X;
+            int deltaY = origin.Y - xy.Y;
+
+            double radAngle = Math.Atan2(deltaY, deltaX);
+            double degreeAngle = radAngle * 180.0 / Math.PI;
+
+            return (float)(180.0 - degreeAngle);
         }
     }
 }
