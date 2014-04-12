@@ -137,7 +137,7 @@ namespace TabletC
             this.dockContainerItem3 = new DevComponents.DotNetBar.DockContainerItem();
             this.panelDockContainer1 = new DevComponents.DotNetBar.PanelDockContainer();
             this.pgdOptions = new System.Windows.Forms.PropertyGrid();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbxLayers = new System.Windows.Forms.ListBox();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
@@ -1372,8 +1372,8 @@ namespace TabletC
             this.barRight.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
             this.barRight.AutoSyncBarCaption = true;
             this.barRight.CloseSingleTab = true;
-            this.barRight.Controls.Add(this.panelDockContainer2);
             this.barRight.Controls.Add(this.panelDockContainer1);
+            this.barRight.Controls.Add(this.panelDockContainer2);
             this.barRight.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.barRight.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Caption;
             this.barRight.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
@@ -1382,13 +1382,13 @@ namespace TabletC
             this.barRight.LayoutType = DevComponents.DotNetBar.eLayoutType.DockContainer;
             this.barRight.Location = new System.Drawing.Point(3, 0);
             this.barRight.Name = "barRight";
-            this.barRight.SelectedDockTab = 0;
+            this.barRight.SelectedDockTab = 1;
             this.barRight.Size = new System.Drawing.Size(178, 342);
             this.barRight.Stretch = true;
             this.barRight.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.barRight.TabIndex = 0;
             this.barRight.TabStop = false;
-            this.barRight.Text = "Options";
+            this.barRight.Text = "Layers";
             // 
             // dockContainerItem2
             // 
@@ -1418,7 +1418,7 @@ namespace TabletC
             // panelDockContainer1
             // 
             this.panelDockContainer1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.panelDockContainer1.Controls.Add(this.listBox1);
+            this.panelDockContainer1.Controls.Add(this.lbxLayers);
             this.panelDockContainer1.Location = new System.Drawing.Point(3, 23);
             this.panelDockContainer1.Name = "panelDockContainer1";
             this.panelDockContainer1.Size = new System.Drawing.Size(172, 291);
@@ -1436,15 +1436,15 @@ namespace TabletC
             this.pgdOptions.Size = new System.Drawing.Size(172, 291);
             this.pgdOptions.TabIndex = 0;
             // 
-            // listBox1
+            // lbxLayers
             // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 17;
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(172, 291);
-            this.listBox1.TabIndex = 0;
+            this.lbxLayers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbxLayers.FormattingEnabled = true;
+            this.lbxLayers.ItemHeight = 17;
+            this.lbxLayers.Location = new System.Drawing.Point(0, 0);
+            this.lbxLayers.Name = "lbxLayers";
+            this.lbxLayers.Size = new System.Drawing.Size(172, 291);
+            this.lbxLayers.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -1593,6 +1593,6 @@ namespace TabletC
         private DevComponents.DotNetBar.PanelDockContainer panelDockContainer1;
         private DevComponents.DotNetBar.DockContainerItem dockContainerItem3;
         private System.Windows.Forms.PropertyGrid pgdOptions;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lbxLayers;
     }
 }

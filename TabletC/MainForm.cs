@@ -37,6 +37,8 @@ namespace TabletC
             // Create custom page
             _currentTabId = 0;
             CreateNewPage();
+
+            //
         }
 
         public void CreateNewPage()
