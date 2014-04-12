@@ -91,7 +91,7 @@ namespace TabletC
         private void btnSelect_Click(object sender, EventArgs e)
         {
             _currentDrawPad.DrawMode = DrawPad.DrawMode.Select;
-            _currentDrawPad.Cursor = Cursors.Default;
+            _currentDrawPad.Cursor = Cursors.Cross;
         }
 
         private void cpkBackgroundColor_SelectedColorChanged(object sender, EventArgs e)
