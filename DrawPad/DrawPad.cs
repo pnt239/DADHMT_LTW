@@ -21,9 +21,10 @@ namespace TabletC.DrawPad
         {
             InitializeComponent();
 
-            _shapeDrawer = new ShapeDrawer();
             _currentPen = new Pen(Color.Black, 1.0F);
             _currentPage = null;
+            CurrentLayer = null;
+
             DrawMode = DrawMode.Select;
             IsShift = false;
         }
@@ -34,9 +35,12 @@ namespace TabletC.DrawPad
             set
             {
                 _currentPage = value;
+                CurrentLayer = _currentPage.Layers[0];
                 ChangeLayout();
             }
         }
+
+        public Layer CurrentLayer { get; set; }
 
         public Pen CurrentPen
         {
@@ -77,15 +81,11 @@ namespace TabletC.DrawPad
                 return;
 
             Graphics gp = e.Graphics;
-
-            foreach (IShape shape in _currentPage.Shapes)
-            {
-                _shapeDrawer.Draw(gp, shape);
-            }
-
+            
             foreach (Layer layer in _currentPage.Layers)
             {
-                layer.Paint(gp);
+                LayerRenderer.Render(layer);
+                gp.DrawImageUnscaled(layer.ImageBuffer, 0, 0);
             }
         }
 
@@ -99,7 +99,9 @@ namespace TabletC.DrawPad
             _lastShape = _currentShape.Clone();
             _lastShape.StartVertex = _lastShape.EndVertex = e.Location;
             _lastShape.ShapePen = (Pen)_currentPen.Clone();
-            _currentPage.Shapes.Add(_lastShape);
+
+            // Add Shape to Layer
+            CurrentLayer.Shapes.Add(_lastShape);
         }
 
         private void ctrDrawArea_MouseMove(object sender, MouseEventArgs e)
@@ -160,7 +162,6 @@ namespace TabletC.DrawPad
         private IShape _currentShape;
         private Pen _currentPen;
         private IShape _lastShape;
-        private readonly ShapeDrawer _shapeDrawer;
         private DrawMode _drawMode;
         private bool _isShift;
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,17 +11,19 @@ namespace TabletC.Core
     {
         public CustomPage()
         {
-            _shapes = new List<IShape>();
             _orientation = PageOrientation.Horizontal;
         }
 
         public CustomPage(Size size)
         {
-            _shapes = new List<IShape>();
-            _layers = new List<Layer>();
-
             _pageSize = size;
             _orientation = PageOrientation.Horizontal;
+
+            _layers = new BindingList<Layer>();
+
+            var newPlayer = new Layer(_pageSize) {Name = "Background Layer"};
+
+            _layers.Add(newPlayer);
         }
 
         public Size PageSize
@@ -35,13 +38,7 @@ namespace TabletC.Core
             set { _orientation = value; }
         }
 
-        public List<IShape> Shapes
-        {
-            get { return _shapes; }
-            set { _shapes = value; }
-        }
-
-        public List<Layer> Layers
+        public BindingList<Layer> Layers
         {
             get { return _layers; }
             set { _layers = value; }
@@ -52,9 +49,8 @@ namespace TabletC.Core
             return new CustomPage();
         }
 
-        private List<IShape> _shapes;
         private Size _pageSize;
         private PageOrientation _orientation;
-        private List<Layer> _layers;
+        private BindingList<Layer> _layers;
     }
 }

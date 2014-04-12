@@ -46,6 +46,7 @@
     <Compile Include="Ellipse.cs" />
     <Compile Include="IPage.cs" />
     <Compile Include="IShape.cs" />
+    <Compile Include="Layer.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Polygon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

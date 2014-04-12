@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace TabletC.Core
@@ -6,14 +7,12 @@ namespace TabletC.Core
     public class A4Page : IPage
     {
         private Size _pageSize;
-        private List<IShape> _shapes;
         private PageOrientation _orientation;
-        private List<Layer> _layers;
+        private BindingList<Layer> _layers;
 
         public A4Page()
         {
-            _shapes = new List<IShape>();
-            _layers = new List<Layer>();
+            _layers = new BindingList<Layer>();
 
             _pageSize = new Size(21, 29);
             _orientation = PageOrientation.Horizontal;
@@ -31,13 +30,7 @@ namespace TabletC.Core
             set { _orientation = value; }
         }
 
-        public List<IShape> Shapes
-        {
-            get { return _shapes; }
-            set { _shapes = value; }
-        }
-
-        public List<Layer> Layers
+        public BindingList<Layer> Layers
         {
             get { return _layers; }
             set { _layers = value; }

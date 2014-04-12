@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Drawing;
@@ -17,10 +18,7 @@ namespace TabletC.Core
 
         PageOrientation Orientation { get; set; }
 
-        /* List of shapes */
-        List<IShape> Shapes { get; set; }
-
-        List<Layer> Layers { get; set; }
+        BindingList<Layer> Layers { get; set; }
 
         IPage Clone();
     }
