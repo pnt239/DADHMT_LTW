@@ -106,12 +106,14 @@ namespace TabletC.DrawPad
         }
         private void DrawPoplygon(Polygon polygon)
         {
+            int VerNumbers;
+            VerNumbers = 8;
             Rectangle rec = CreateShapeArea(polygon.StartVertex, polygon.EndVertex);
   
             int radius = (int)Math.Sqrt((polygon.StartVertex.X - polygon.EndVertex.X)*(polygon.StartVertex.X - polygon.EndVertex.X) + (polygon.StartVertex.Y - polygon.EndVertex.Y)*(polygon.StartVertex.Y - polygon.EndVertex.Y));
             int startAngle = (int)XYToDegrees(polygon.EndVertex, polygon.StartVertex);
 
-            PolygonPoints = CalculateVertices(5, radius, startAngle , polygon.StartVertex);
+            PolygonPoints = CalculateVertices(VerNumbers, radius, startAngle , polygon.StartVertex);
 
             _graphic.DrawPolygon(polygon.ShapePen, PolygonPoints);
         }
