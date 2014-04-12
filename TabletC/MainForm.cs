@@ -41,26 +41,28 @@ namespace TabletC
 
         public void CreateNewPage()
         {
-            var tabItem = new SuperTabItem();
-            var tabPanel = new SuperTabControlPanel();
+            var dckItem = new DockContainerItem();
+            var dclPanel = new PanelDockContainer();
             _currentDrawPad = new DrawPad.DrawPad();
 
-            tabMain.Controls.Add(tabPanel);
-            tabMain.Tabs.Add(tabItem);
+            barCenter.Controls.Add(dclPanel);
+            barCenter.Items.Add(dckItem);
 
-            tabItem.AttachedControl = tabPanel;
-            tabItem.GlobalItem = false;
-            tabItem.Name = String.Format("tabItem{0}", _currentTabId);
-            tabItem.Text = String.Format("Untitled {0}", _currentTabId);
+            dckItem.Control = dclPanel;
+            dckItem.Name = String.Format("tabItem{0}", _currentTabId);
+            dckItem.Text = String.Format("Untitled {0}", _currentTabId);
 
-            tabPanel.Controls.Add(_currentDrawPad);
-            tabPanel.Dock = DockStyle.Fill;
-            tabPanel.Name = String.Format("tabPanel{0}", _currentTabId);
-            tabPanel.TabIndex = 1;
-            tabPanel.TabItem = tabItem;
+            dclPanel.ColorSchemeStyle = eDotNetBarStyle.StyleManagerControlled;
+            dclPanel.Controls.Add(_currentDrawPad);
+            dclPanel.Name = String.Format("tabPanel{0}", _currentTabId);
+            dclPanel.Style.Alignment = StringAlignment.Center;
+            dclPanel.Style.BackColor1.ColorSchemePart = eColorSchemePart.BarBackground;
+            dclPanel.Style.ForeColor.ColorSchemePart = eColorSchemePart.ItemText;
+            dclPanel.Style.GradientAngle = 90;
+            dclPanel.TabIndex = 0;
 
-            _currentDrawPad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            _currentDrawPad.Dock = System.Windows.Forms.DockStyle.Fill;
+            _currentDrawPad.BackColor = Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            _currentDrawPad.Dock = DockStyle.Fill;
             _currentDrawPad.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             _currentDrawPad.Name = String.Format("dpUntiled{0}", _currentTabId);
             _currentDrawPad.TabIndex = 0;
@@ -70,12 +72,12 @@ namespace TabletC
             _currentTabId++;
         }
 
-        private void tabMain_SelectedTabChanged(object sender, SuperTabStripSelectedTabChangedEventArgs e)
+        private void barCenter_DockTabChange(object sender, DockTabChangeEventArgs e)
         {
-            if (e.NewValue == null || tabMain.SelectedTabIndex < 0 || tabMain.SelectedTabIndex > _listDrawPad.Count - 1)
+            if (e.NewTab == null || barCenter.SelectedDockTab < 0 || barCenter.SelectedDockTab > _listDrawPad.Count - 1)
                 return;
 
-            _currentDrawPad = _listDrawPad[tabMain.SelectedTabIndex];
+            _currentDrawPad = _listDrawPad[barCenter.SelectedDockTab];
         }
 
         private void btnShape_Click(object sender, EventArgs e)
