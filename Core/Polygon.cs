@@ -63,7 +63,9 @@ namespace TabletC.Core
 
         public IShape Clone()
         {
-            return new Polygon(new Point(), new Point());
+            var obj = new Polygon(new Point(), new Point());
+            obj.Sides = _sides;
+            return obj;
         }
     }
 }

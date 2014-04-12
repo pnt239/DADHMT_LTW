@@ -88,6 +88,8 @@ namespace TabletC
             _currentDrawPad.DrawMode = DrawPad.DrawMode.Draw;
 
             _currentDrawPad.Cursor = Cursors.Cross;
+
+            pgdOptions.SelectedObject = _currentDrawPad.CurrentShape;
         }
 
         private void btnSelect_Click(object sender, EventArgs e)
