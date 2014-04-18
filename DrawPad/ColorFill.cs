@@ -9,16 +9,16 @@ namespace TabletC.Core
 
     class ColorFill
     {
-        Queue<Point> _queue = new Queue<Point>();
+        Queue<Point> _queue = new Queue<Point>();  //Queue chứa điểm cần xét
 
 
-        Color _BorderColor;
-        Color _FillColor;
-        Point _point;
+        Color _BorderColor;   //Màu đường biên
+        Color _FillColor;  //Màu cần tô
+        Point _point;  //Điểm click
         Graphics _graphic;
         Bitmap _bitmap;
 
-        void GetNeighbour(Point _ptmp)
+        void GetNeighbour(Point _ptmp)  //Ham lay lien thong 4 dua cac diem do vao queue
         {
             Point tmp = _ptmp;
             tmp.X -= 1;
@@ -28,13 +28,13 @@ namespace TabletC.Core
             _queue.Enqueue(tmp);
             tmp.X -= 1;
 
-            tmp.Y -= 1;
+            tmp.Y += 1;
             _queue.Enqueue(tmp);
 
-            tmp.Y += 2;
+            tmp.Y -= 2;
             _queue.Enqueue(tmp);
         }
-        void FloodFill()
+        void FloodFill()  //Thuật toán tô màu loang khử đệ quy, tìm wikipedia =v= (Nhớ xóa dòng này sau khi đọc)
         {
             Color _colortmp;
             _colortmp = _bitmap.GetPixel(_point.X, _point.Y);
@@ -49,7 +49,6 @@ namespace TabletC.Core
                 if(_colortmp != _BorderColor)
                 {
                     _bitmap.SetPixel(_ptmp.X, _ptmp.Y, _FillColor);
-                    //Lien thong 4
                     GetNeighbour(_ptmp);
                 }
             }
