@@ -65,6 +65,7 @@
             this.ctrDrawArea.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ctrDrawArea_KeyDown);
             this.ctrDrawArea.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ctrDrawArea_MouseDown);
             this.ctrDrawArea.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ctrDrawArea_MouseMove);
+            this.ctrDrawArea.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ctrDrawArea_MouseUp);
             // 
             // DrawPad
             // 

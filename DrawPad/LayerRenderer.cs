@@ -22,7 +22,7 @@ namespace TabletC.DrawPad
             foreach (IShape shape in layer.Shapes)
             {
                 sd.Draw(layer.GraphicsBuffer, shape);
-                
+                sf.FloodFill(layer.GraphicsBuffer, shape);
             }
             
             layer.IsRendered = true;

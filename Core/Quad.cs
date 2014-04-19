@@ -17,8 +17,8 @@ namespace TabletC.Core
             ShapePen = new Pen(Color.Black);
 
             _vertices.Add(start);
-            _vertices.Add(end);
             _vertices.Add(new Point(end.X, start.Y));
+            _vertices.Add(end);
             _vertices.Add(new Point(start.X, end.Y));
         }
 
@@ -30,30 +30,30 @@ namespace TabletC.Core
 
         public Pen ShapePen { get; set; }
 
+        public Brush ShapeBrush { get; set; }
+
         public Point StartVertex
         {
             get { return _vertices[0]; }
-            set
-            {
-                _vertices[0] = value;
-            }
+            set { _vertices[0] = value; }
         }
 
         public Point EndVertex
         {
-            get { return _vertices[1]; }
-            set
-            {
-                _vertices[1] = value;
-                _vertices[2] = new Point(_vertices[1].X, _vertices[0].Y);
-                _vertices[3] = new Point(_vertices[0].X, _vertices[1].Y);
-            }
+            get { return _vertices[2]; }
+            set { _vertices[2] = value; }
         }
 
         [Browsable(false)]
         public string Name
         {
             get { return "Rectangle"; }
+        }
+
+        public void FinishEdition()
+        {
+            _vertices[1] = new Point(_vertices[2].X, _vertices[0].Y);
+            _vertices[3] = new Point(_vertices[0].X, _vertices[2].Y);
         }
 
         public ShapeType GetShapeType()

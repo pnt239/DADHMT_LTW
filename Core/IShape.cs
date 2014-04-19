@@ -11,6 +11,11 @@ namespace TabletC.Core
         Line = 1, Rectangle, Circle, Ellipse, Triangle, Polygon
     }
 
+    public enum FillType
+    {
+        Outline = 1, Fill, OutlineWithFill
+    }
+
     public interface IShape
     {
         /* List of vertices */
@@ -18,6 +23,10 @@ namespace TabletC.Core
 
         /* Pen to draw shape. Having width, color */
         Pen ShapePen { get; set; }
+
+        Brush ShapeBrush { get; set; }
+
+        FillType FileType { get; set; }
         
         /* Mouse start point */
         Point StartVertex { get; set; }
@@ -26,6 +35,8 @@ namespace TabletC.Core
         Point EndVertex { get; set; }
 
         string Name { get; }
+
+        void FinishEdition();
 
         /* Get type of shape (line, rectable, circle, ellipse */
         ShapeType GetShapeType();

@@ -13,7 +13,7 @@ namespace TabletC.DrawPad
 {
     public enum DrawMode
     {
-        Select = 1, Draw
+        Select = 1, Draw, Paint
     }
 
     public partial class DrawPad: UserControl
@@ -76,6 +76,12 @@ namespace TabletC.DrawPad
             set { _isShift = value; }
         }
 
+        public Brush CurrentBursh
+        {
+            get { return _currentBursh; }
+            set { _currentBursh = value; }
+        }
+
         private void ChangeLayout()
         {
             if (_currentPage == null) return;
@@ -109,6 +115,7 @@ namespace TabletC.DrawPad
             _lastShape = _currentShape.Clone();
             _lastShape.StartVertex = _lastShape.EndVertex = e.Location;
             _lastShape.ShapePen = (Pen)_currentPen.Clone();
+            _lastShape.ShapeBrush = (Brush) _currentBursh.Clone();
 
             // Add Shape to Layer
             CurrentLayer = new Layer(_currentPage.PageSize);
@@ -170,6 +177,11 @@ namespace TabletC.DrawPad
             }
         }
 
+        private void ctrDrawArea_MouseUp(object sender, MouseEventArgs e)
+        {
+            _lastShape.FinishEdition();
+        }
+
         private void ctrDrawArea_KeyDown(object sender, KeyEventArgs e)
         {
             _isShift = e.Shift;
@@ -178,6 +190,7 @@ namespace TabletC.DrawPad
         private IPage _currentPage;
         private IShape _currentShape;
         private Pen _currentPen;
+        private Brush _currentBursh;
         private IShape _lastShape;
         private DrawMode _drawMode;
         private bool _isShift;

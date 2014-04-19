@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
+using TabletC.Core;
 
 namespace TabletC.DrawPad
 {
@@ -12,14 +13,13 @@ namespace TabletC.DrawPad
     {
         private Queue<Point> _queue = new Queue<Point>();  //Queue chứa điểm cần xét
 
-
         private Color _BorderColor;   //Màu đường biên
         private Color _FillColor;  //Màu cần tô
         private Point _point;  //Điểm click
         private Graphics _graphic;
         private Bitmap _bitmap;
 
-        public void FloodFill() 
+        public void FloodFill(object graphic, IShape shape) 
         {
             Color _colortmp;
             _colortmp = _bitmap.GetPixel(_point.X, _point.Y);

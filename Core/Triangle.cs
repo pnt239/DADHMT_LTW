@@ -10,14 +10,13 @@ namespace TabletC.Core
     public class Triangle : IShape
     {
         private List<Point> _vertices;
-        private Pen _shapePen;
         private Point _startVertex;
         private Point _endVertex;
 
         public Triangle(Point start, Point end)
         {
             _vertices = new List<Point> { start, end };
-            _shapePen = new Pen(Color.Black);
+            ShapePen = new Pen(Color.Black);
         }
 
         public List<Point> Vertices
@@ -26,11 +25,9 @@ namespace TabletC.Core
             set { _vertices = value; }
         }
 
-        public Pen ShapePen
-        {
-            get { return _shapePen; }
-            set { _shapePen = value; }
-        }
+        public Pen ShapePen { get; set; }
+
+        public Brush ShapeBrush { get; set; }
 
         public Point StartVertex
         {
@@ -48,6 +45,11 @@ namespace TabletC.Core
         public string Name
         {
             get { return "Triangle"; }
+        }
+
+        public void FinishEdition()
+        {
+            //
         }
 
         public ShapeType GetShapeType()

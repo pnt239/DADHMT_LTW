@@ -35,7 +35,7 @@ namespace TabletC
             _listDrawPad = new List<DrawPad.DrawPad>();
             
             // Create custom page
-            _currentTabId = 0;
+            _currentTabId = 0; 
             CreateNewPage();
 
             //

@@ -67,7 +67,7 @@ namespace TabletC
             this.ribbonBar3 = new DevComponents.DotNetBar.RibbonBar();
             this.itemContainer7 = new DevComponents.DotNetBar.ItemContainer();
             this.btnItemCursor = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem19 = new DevComponents.DotNetBar.ButtonItem();
+            this.btnItemFreeDraw = new DevComponents.DotNetBar.ButtonItem();
             this.btnItemPaint = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar2 = new DevComponents.DotNetBar.RibbonBar();
             this.btnSelect = new DevComponents.DotNetBar.ButtonItem();
@@ -645,7 +645,7 @@ namespace TabletC
             this.itemContainer7.Name = "itemContainer7";
             this.itemContainer7.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnItemCursor,
-            this.buttonItem19,
+            this.btnItemFreeDraw,
             this.btnItemPaint});
             // 
             // 
@@ -660,11 +660,11 @@ namespace TabletC
             this.btnItemCursor.Text = "Cursor";
             this.btnItemCursor.Click += new System.EventHandler(this.btnItemCursor_Click);
             // 
-            // buttonItem19
+            // btnItemFreeDraw
             // 
-            this.buttonItem19.Image = global::TabletC.Properties.Resources.buttonPencil_Image;
-            this.buttonItem19.Name = "buttonItem19";
-            this.buttonItem19.Text = "buttonItem19";
+            this.btnItemFreeDraw.Image = global::TabletC.Properties.Resources.buttonPencil_Image;
+            this.btnItemFreeDraw.Name = "btnItemFreeDraw";
+            this.btnItemFreeDraw.Text = "buttonItem19";
             // 
             // btnItemPaint
             // 
@@ -1615,7 +1615,7 @@ namespace TabletC
         private DevComponents.DotNetBar.ColorPickerDropDown cpkOutlineColor;
         private DevComponents.DotNetBar.ColorPickerDropDown cpkBackgroundColor;
         private DevComponents.DotNetBar.ItemContainer itemContainer7;
-        private DevComponents.DotNetBar.ButtonItem buttonItem19;
+        private DevComponents.DotNetBar.ButtonItem btnItemFreeDraw;
         private DevComponents.DotNetBar.ButtonItem btnItemPaint;
         private DevComponents.DotNetBar.SuperTabControl superTabControl1;
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel2;

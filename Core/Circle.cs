@@ -27,6 +27,8 @@ namespace TabletC.Core
 
         public Pen ShapePen { get; set; }
 
+        public Brush ShapeBrush { get; set; }
+
         /* Radius of circle */
         public float Radius
         {
@@ -51,6 +53,11 @@ namespace TabletC.Core
         public string Name
         {
             get { return "Circle"; }
+        }
+
+        public void FinishEdition()
+        {
+            //
         }
 
         public ShapeType GetShapeType()

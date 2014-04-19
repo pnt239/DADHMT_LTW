@@ -10,13 +10,14 @@ namespace TabletC.Core
     public class Polygon : IShape
     {
         private List<Point> _vertices;
-        private Pen _shapePen ;
         private int _sides;
 
         public Polygon(Point start, Point end)
         {
             _vertices = new List<Point> { start, end };
-            _shapePen = new Pen(Color.Black);
+            ShapePen = new Pen(Color.Black);
+            FileType = FillType.Outline;
+
             _sides = 5;
         }
 
@@ -29,17 +30,11 @@ namespace TabletC.Core
         }
 
         [Browsable(false)]
-        public Pen ShapePen
-        {
-            get
-            {
-                return _shapePen;
-            }
-            set
-            {
-                _shapePen = value;
-            }
-        }
+        public Pen ShapePen { get; set; }
+
+        public Brush ShapeBrush { get; set; }
+
+        public FillType FileType { get; set; }
 
         [Browsable(false)]
         public Point StartVertex
@@ -70,6 +65,11 @@ namespace TabletC.Core
         public string Name
         {
             get { return "Polygon"; }
+        }
+
+        public void FinishEdition()
+        {
+            //
         }
 
         public ShapeType GetShapeType()

@@ -9,12 +9,11 @@ namespace TabletC.Core
     public class Line : IShape
     {
         private List<Point> _vertices;
-        private Pen _shapePen ;
 
         public Line(Point start, Point end)
         {
             _vertices = new List<Point> { start, end };
-            _shapePen = new Pen(Color.Black);
+            ShapePen = new Pen(Color.Black);
         }
 
         public List<Point> Vertices
@@ -23,17 +22,9 @@ namespace TabletC.Core
             set { _vertices = value; }
         }
 
-        public Pen ShapePen
-        {
-            get
-            {
-                return _shapePen;
-            }
-            set
-            {
-                _shapePen = value;
-            }
-        }
+        public Pen ShapePen { get; set; }
+
+        public Brush ShapeBrush { get; set; }
 
         public Point StartVertex
         {
@@ -50,6 +41,11 @@ namespace TabletC.Core
         public string Name
         {
             get { return "Line"; }
+        }
+
+        public void FinishEdition()
+        {
+            //
         }
 
         public ShapeType GetShapeType()

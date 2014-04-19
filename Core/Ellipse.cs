@@ -28,6 +28,8 @@ namespace TabletC.Core
 
         public Pen ShapePen { get; set; }
 
+        public Brush ShapeBrush { get; set; }
+
         public int MajorAxis
         {
             get { return Math.Abs(EndVertex.X - StartVertex.X) / 2; }
@@ -53,6 +55,11 @@ namespace TabletC.Core
         public string Name
         {
             get { return "Ellipse"; }
+        }
+
+        public void FinishEdition()
+        {
+            //
         }
 
         public ShapeType GetShapeType()
