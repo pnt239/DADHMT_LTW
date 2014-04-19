@@ -120,45 +120,45 @@ namespace TabletC
             this.switchButtonItem2 = new DevComponents.DotNetBar.SwitchButtonItem();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.dotNetBarManager = new DevComponents.DotNetBar.DotNetBarManager(this.components);
-            this.dockSite1 = new DevComponents.DotNetBar.DockSite();
-            this.dockSite2 = new DevComponents.DotNetBar.DockSite();
-            this.dockSite3 = new DevComponents.DotNetBar.DockSite();
             this.dockSite4 = new DevComponents.DotNetBar.DockSite();
-            this.dockSite5 = new DevComponents.DotNetBar.DockSite();
-            this.dockSite6 = new DevComponents.DotNetBar.DockSite();
-            this.dockSite7 = new DevComponents.DotNetBar.DockSite();
-            this.dockSite8 = new DevComponents.DotNetBar.DockSite();
             this.dockSite9 = new DevComponents.DotNetBar.DockSite();
             this.barCenter = new DevComponents.DotNetBar.Bar();
-            this.dockContainerItem1 = new DevComponents.DotNetBar.DockContainerItem();
+            this.dockSite1 = new DevComponents.DotNetBar.DockSite();
+            this.dockSite2 = new DevComponents.DotNetBar.DockSite();
             this.barRight = new DevComponents.DotNetBar.Bar();
-            this.dockContainerItem2 = new DevComponents.DotNetBar.DockContainerItem();
-            this.panelDockContainer2 = new DevComponents.DotNetBar.PanelDockContainer();
-            this.dockContainerItem3 = new DevComponents.DotNetBar.DockContainerItem();
             this.panelDockContainer1 = new DevComponents.DotNetBar.PanelDockContainer();
-            this.pgdOptions = new System.Windows.Forms.PropertyGrid();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbxLayers = new System.Windows.Forms.ListBox();
-            this.btnLayerAdd = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuMergeShapes = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnLayerAdd = new System.Windows.Forms.Button();
+            this.panelDockContainer2 = new DevComponents.DotNetBar.PanelDockContainer();
+            this.pgdOptions = new System.Windows.Forms.PropertyGrid();
+            this.dockContainerItem2 = new DevComponents.DotNetBar.DockContainerItem();
+            this.dockContainerItem3 = new DevComponents.DotNetBar.DockContainerItem();
+            this.dockSite8 = new DevComponents.DotNetBar.DockSite();
+            this.dockSite5 = new DevComponents.DotNetBar.DockSite();
+            this.dockSite6 = new DevComponents.DotNetBar.DockSite();
+            this.dockSite7 = new DevComponents.DotNetBar.DockSite();
+            this.dockSite3 = new DevComponents.DotNetBar.DockSite();
+            this.dockContainerItem1 = new DevComponents.DotNetBar.DockContainerItem();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
             this.superTabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
-            this.dockSite2.SuspendLayout();
             this.dockSite9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barCenter)).BeginInit();
+            this.dockSite2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barRight)).BeginInit();
             this.barRight.SuspendLayout();
-            this.panelDockContainer2.SuspendLayout();
             this.panelDockContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.panelDockContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbonControl1
@@ -1244,41 +1244,6 @@ namespace TabletC
             this.dotNetBarManager.ToolbarTopDockSite = this.dockSite7;
             this.dotNetBarManager.TopDockSite = this.dockSite3;
             // 
-            // dockSite1
-            // 
-            this.dockSite1.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
-            this.dockSite1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dockSite1.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer();
-            this.dockSite1.Location = new System.Drawing.Point(5, 155);
-            this.dockSite1.Name = "dockSite1";
-            this.dockSite1.Size = new System.Drawing.Size(0, 342);
-            this.dockSite1.TabIndex = 4;
-            this.dockSite1.TabStop = false;
-            // 
-            // dockSite2
-            // 
-            this.dockSite2.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
-            this.dockSite2.Controls.Add(this.barRight);
-            this.dockSite2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dockSite2.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer(new DevComponents.DotNetBar.DocumentBaseContainer[] {
-            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barRight, 178, 342)))}, DevComponents.DotNetBar.eOrientation.Horizontal);
-            this.dockSite2.Location = new System.Drawing.Point(582, 155);
-            this.dockSite2.Name = "dockSite2";
-            this.dockSite2.Size = new System.Drawing.Size(181, 342);
-            this.dockSite2.TabIndex = 5;
-            this.dockSite2.TabStop = false;
-            // 
-            // dockSite3
-            // 
-            this.dockSite3.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
-            this.dockSite3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dockSite3.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer();
-            this.dockSite3.Location = new System.Drawing.Point(5, 1);
-            this.dockSite3.Name = "dockSite3";
-            this.dockSite3.Size = new System.Drawing.Size(758, 0);
-            this.dockSite3.TabIndex = 6;
-            this.dockSite3.TabStop = false;
-            // 
             // dockSite4
             // 
             this.dockSite4.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
@@ -1289,46 +1254,6 @@ namespace TabletC
             this.dockSite4.Size = new System.Drawing.Size(758, 0);
             this.dockSite4.TabIndex = 7;
             this.dockSite4.TabStop = false;
-            // 
-            // dockSite5
-            // 
-            this.dockSite5.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
-            this.dockSite5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dockSite5.Location = new System.Drawing.Point(5, 1);
-            this.dockSite5.Name = "dockSite5";
-            this.dockSite5.Size = new System.Drawing.Size(0, 522);
-            this.dockSite5.TabIndex = 8;
-            this.dockSite5.TabStop = false;
-            // 
-            // dockSite6
-            // 
-            this.dockSite6.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
-            this.dockSite6.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dockSite6.Location = new System.Drawing.Point(763, 1);
-            this.dockSite6.Name = "dockSite6";
-            this.dockSite6.Size = new System.Drawing.Size(0, 522);
-            this.dockSite6.TabIndex = 9;
-            this.dockSite6.TabStop = false;
-            // 
-            // dockSite7
-            // 
-            this.dockSite7.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
-            this.dockSite7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dockSite7.Location = new System.Drawing.Point(5, 1);
-            this.dockSite7.Name = "dockSite7";
-            this.dockSite7.Size = new System.Drawing.Size(758, 0);
-            this.dockSite7.TabIndex = 10;
-            this.dockSite7.TabStop = false;
-            // 
-            // dockSite8
-            // 
-            this.dockSite8.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
-            this.dockSite8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dockSite8.Location = new System.Drawing.Point(5, 523);
-            this.dockSite8.Name = "dockSite8";
-            this.dockSite8.Size = new System.Drawing.Size(758, 0);
-            this.dockSite8.TabIndex = 11;
-            this.dockSite8.TabStop = false;
             // 
             // dockSite9
             // 
@@ -1345,7 +1270,7 @@ namespace TabletC
             // 
             // barCenter
             // 
-            this.barCenter.AccessibleDescription = "DotNetBar Bar (bar2)";
+            this.barCenter.AccessibleDescription = "DotNetBar Bar (barCenter)";
             this.barCenter.AccessibleName = "DotNetBar Bar";
             this.barCenter.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
             this.barCenter.AlwaysDisplayDockTab = true;
@@ -1370,14 +1295,33 @@ namespace TabletC
             this.barCenter.TabStop = false;
             this.barCenter.DockTabChange += new DevComponents.DotNetBar.DotNetBarManager.DockTabChangeEventHandler(this.barCenter_DockTabChange);
             // 
-            // dockContainerItem1
+            // dockSite1
             // 
-            this.dockContainerItem1.Name = "dockContainerItem1";
-            this.dockContainerItem1.Text = "dockContainerItem1";
+            this.dockSite1.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
+            this.dockSite1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.dockSite1.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer();
+            this.dockSite1.Location = new System.Drawing.Point(5, 155);
+            this.dockSite1.Name = "dockSite1";
+            this.dockSite1.Size = new System.Drawing.Size(0, 342);
+            this.dockSite1.TabIndex = 4;
+            this.dockSite1.TabStop = false;
+            // 
+            // dockSite2
+            // 
+            this.dockSite2.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
+            this.dockSite2.Controls.Add(this.barRight);
+            this.dockSite2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.dockSite2.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer(new DevComponents.DotNetBar.DocumentBaseContainer[] {
+            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barRight, 178, 342)))}, DevComponents.DotNetBar.eOrientation.Horizontal);
+            this.dockSite2.Location = new System.Drawing.Point(582, 155);
+            this.dockSite2.Name = "dockSite2";
+            this.dockSite2.Size = new System.Drawing.Size(181, 342);
+            this.dockSite2.TabIndex = 5;
+            this.dockSite2.TabStop = false;
             // 
             // barRight
             // 
-            this.barRight.AccessibleDescription = "DotNetBar Bar (bar3)";
+            this.barRight.AccessibleDescription = "DotNetBar Bar (barRight)";
             this.barRight.AccessibleName = "DotNetBar Bar";
             this.barRight.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
             this.barRight.AutoSyncBarCaption = true;
@@ -1400,31 +1344,6 @@ namespace TabletC
             this.barRight.TabStop = false;
             this.barRight.Text = "Layers";
             // 
-            // dockContainerItem2
-            // 
-            this.dockContainerItem2.Control = this.panelDockContainer2;
-            this.dockContainerItem2.Name = "dockContainerItem2";
-            this.dockContainerItem2.Text = "Options";
-            // 
-            // panelDockContainer2
-            // 
-            this.panelDockContainer2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.panelDockContainer2.Controls.Add(this.pgdOptions);
-            this.panelDockContainer2.Location = new System.Drawing.Point(3, 23);
-            this.panelDockContainer2.Name = "panelDockContainer2";
-            this.panelDockContainer2.Size = new System.Drawing.Size(172, 291);
-            this.panelDockContainer2.Style.Alignment = System.Drawing.StringAlignment.Center;
-            this.panelDockContainer2.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.panelDockContainer2.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
-            this.panelDockContainer2.Style.GradientAngle = 90;
-            this.panelDockContainer2.TabIndex = 0;
-            // 
-            // dockContainerItem3
-            // 
-            this.dockContainerItem3.Control = this.panelDockContainer1;
-            this.dockContainerItem3.Name = "dockContainerItem3";
-            this.dockContainerItem3.Text = "Layers";
-            // 
             // panelDockContainer1
             // 
             this.panelDockContainer1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -1437,14 +1356,6 @@ namespace TabletC
             this.panelDockContainer1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
             this.panelDockContainer1.Style.GradientAngle = 90;
             this.panelDockContainer1.TabIndex = 2;
-            // 
-            // pgdOptions
-            // 
-            this.pgdOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pgdOptions.Location = new System.Drawing.Point(0, 0);
-            this.pgdOptions.Name = "pgdOptions";
-            this.pgdOptions.Size = new System.Drawing.Size(172, 291);
-            this.pgdOptions.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
@@ -1469,18 +1380,9 @@ namespace TabletC
             this.lbxLayers.ItemHeight = 17;
             this.lbxLayers.Location = new System.Drawing.Point(3, 3);
             this.lbxLayers.Name = "lbxLayers";
-            this.lbxLayers.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lbxLayers.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbxLayers.Size = new System.Drawing.Size(166, 256);
             this.lbxLayers.TabIndex = 1;
-            // 
-            // btnLayerAdd
-            // 
-            this.btnLayerAdd.Location = new System.Drawing.Point(3, 265);
-            this.btnLayerAdd.Name = "btnLayerAdd";
-            this.btnLayerAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnLayerAdd.TabIndex = 2;
-            this.btnLayerAdd.Text = "Add";
-            this.btnLayerAdd.UseVisualStyleBackColor = true;
             // 
             // contextMenuStrip1
             // 
@@ -1516,6 +1418,104 @@ namespace TabletC
             this.mnuMergeShapes.Text = "Merge Shapes";
             this.mnuMergeShapes.Click += new System.EventHandler(this.mnuMergeShapes_Click);
             // 
+            // btnLayerAdd
+            // 
+            this.btnLayerAdd.Location = new System.Drawing.Point(3, 265);
+            this.btnLayerAdd.Name = "btnLayerAdd";
+            this.btnLayerAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnLayerAdd.TabIndex = 2;
+            this.btnLayerAdd.Text = "Add";
+            this.btnLayerAdd.UseVisualStyleBackColor = true;
+            // 
+            // panelDockContainer2
+            // 
+            this.panelDockContainer2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.panelDockContainer2.Controls.Add(this.pgdOptions);
+            this.panelDockContainer2.Location = new System.Drawing.Point(3, 23);
+            this.panelDockContainer2.Name = "panelDockContainer2";
+            this.panelDockContainer2.Size = new System.Drawing.Size(172, 291);
+            this.panelDockContainer2.Style.Alignment = System.Drawing.StringAlignment.Center;
+            this.panelDockContainer2.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.panelDockContainer2.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
+            this.panelDockContainer2.Style.GradientAngle = 90;
+            this.panelDockContainer2.TabIndex = 0;
+            // 
+            // pgdOptions
+            // 
+            this.pgdOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pgdOptions.Location = new System.Drawing.Point(0, 0);
+            this.pgdOptions.Name = "pgdOptions";
+            this.pgdOptions.Size = new System.Drawing.Size(172, 291);
+            this.pgdOptions.TabIndex = 0;
+            // 
+            // dockContainerItem2
+            // 
+            this.dockContainerItem2.Control = this.panelDockContainer2;
+            this.dockContainerItem2.Name = "dockContainerItem2";
+            this.dockContainerItem2.Text = "Options";
+            // 
+            // dockContainerItem3
+            // 
+            this.dockContainerItem3.Control = this.panelDockContainer1;
+            this.dockContainerItem3.Name = "dockContainerItem3";
+            this.dockContainerItem3.Text = "Layers";
+            // 
+            // dockSite8
+            // 
+            this.dockSite8.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
+            this.dockSite8.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dockSite8.Location = new System.Drawing.Point(5, 523);
+            this.dockSite8.Name = "dockSite8";
+            this.dockSite8.Size = new System.Drawing.Size(758, 0);
+            this.dockSite8.TabIndex = 11;
+            this.dockSite8.TabStop = false;
+            // 
+            // dockSite5
+            // 
+            this.dockSite5.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
+            this.dockSite5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.dockSite5.Location = new System.Drawing.Point(5, 1);
+            this.dockSite5.Name = "dockSite5";
+            this.dockSite5.Size = new System.Drawing.Size(0, 522);
+            this.dockSite5.TabIndex = 8;
+            this.dockSite5.TabStop = false;
+            // 
+            // dockSite6
+            // 
+            this.dockSite6.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
+            this.dockSite6.Dock = System.Windows.Forms.DockStyle.Right;
+            this.dockSite6.Location = new System.Drawing.Point(763, 1);
+            this.dockSite6.Name = "dockSite6";
+            this.dockSite6.Size = new System.Drawing.Size(0, 522);
+            this.dockSite6.TabIndex = 9;
+            this.dockSite6.TabStop = false;
+            // 
+            // dockSite7
+            // 
+            this.dockSite7.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
+            this.dockSite7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dockSite7.Location = new System.Drawing.Point(5, 1);
+            this.dockSite7.Name = "dockSite7";
+            this.dockSite7.Size = new System.Drawing.Size(758, 0);
+            this.dockSite7.TabIndex = 10;
+            this.dockSite7.TabStop = false;
+            // 
+            // dockSite3
+            // 
+            this.dockSite3.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
+            this.dockSite3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dockSite3.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer();
+            this.dockSite3.Location = new System.Drawing.Point(5, 1);
+            this.dockSite3.Name = "dockSite3";
+            this.dockSite3.Size = new System.Drawing.Size(758, 0);
+            this.dockSite3.TabIndex = 6;
+            this.dockSite3.TabStop = false;
+            // 
+            // dockContainerItem1
+            // 
+            this.dockContainerItem1.Name = "dockContainerItem1";
+            this.dockContainerItem1.Text = "dockContainerItem1";
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1543,15 +1543,15 @@ namespace TabletC
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
             this.superTabControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
-            this.dockSite2.ResumeLayout(false);
             this.dockSite9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.barCenter)).EndInit();
+            this.dockSite2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.barRight)).EndInit();
             this.barRight.ResumeLayout(false);
-            this.panelDockContainer2.ResumeLayout(false);
             this.panelDockContainer1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
+            this.panelDockContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

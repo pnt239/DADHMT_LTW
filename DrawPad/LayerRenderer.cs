@@ -14,12 +14,16 @@ namespace TabletC.DrawPad
             if (layer.IsRendered)
                 return;
 
-            ShapeDrawer sd = new ShapeDrawer();
+            var sd = new ShapeDrawer();
+            var sf = new ShapeFiller();
 
             layer.GraphicsBuffer.Clear(Color.FromArgb(0));
 
             foreach (IShape shape in layer.Shapes)
+            {
                 sd.Draw(layer.GraphicsBuffer, shape);
+                
+            }
             
             layer.IsRendered = true;
         }
