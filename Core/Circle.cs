@@ -29,6 +29,8 @@ namespace TabletC.Core
 
         public Brush ShapeBrush { get; set; }
 
+        public FillType FileType { get; set; }
+
         /* Radius of circle */
         public float Radius
         {

@@ -16,24 +16,25 @@ namespace TabletC.DrawPad
         private Color _BorderColor;   //Màu đường biên
         private Color _FillColor;  //Màu cần tô
         private Point _point;  //Điểm click
-        private Graphics _graphic;
-        private Bitmap _bitmap;
 
-        public void FloodFill(object graphic, IShape shape) 
+        public void FloodFill(Layer layer, IShape shape, Point? pstart)
         {
-            Color _colortmp;
-            _colortmp = _bitmap.GetPixel(_point.X, _point.Y);
-            if (_colortmp == _BorderColor)
+            if (pstart == null)
+                pstart = GetInnerPoint(shape);
+            
+            Color _colorBg;
+            _colorBg = layer.ImageBuffer.GetPixel(pstart.Value.X, pstart.Value.X);
+            if (_colorBg == _BorderColor)
                 return;
             else
                 _queue.Enqueue(_point);
             while(_queue.Count() != 0)
             {
                 Point _ptmp = _queue.Dequeue();
-                _colortmp = _bitmap.GetPixel(_ptmp.X, _ptmp.Y);
-                if(_colortmp != _BorderColor)
+                _colorBg = layer.ImageBuffer.GetPixel(_ptmp.X, _ptmp.Y);
+                if(_colorBg != _BorderColor)
                 {
-                    _bitmap.SetPixel(_ptmp.X, _ptmp.Y, _FillColor);
+                    layer.ImageBuffer.SetPixel(_ptmp.X, _ptmp.Y, _FillColor);
                     GetNeighbour(_ptmp);
                 }
             }
@@ -54,6 +55,11 @@ namespace TabletC.DrawPad
 
             tmp.Y -= 2;
             _queue.Enqueue(tmp);
+        }
+
+        private Point GetInnerPoint(IShape shape)
+        {
+            return new Point();
         }
     }
 }

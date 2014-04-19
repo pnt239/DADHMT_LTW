@@ -30,6 +30,8 @@ namespace TabletC.Core
 
         public Brush ShapeBrush { get; set; }
 
+        public FillType FileType { get; set; }
+
         public int MajorAxis
         {
             get { return Math.Abs(EndVertex.X - StartVertex.X) / 2; }

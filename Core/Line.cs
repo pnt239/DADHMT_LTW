@@ -26,6 +26,8 @@ namespace TabletC.Core
 
         public Brush ShapeBrush { get; set; }
 
+        public FillType FileType { get; set; }
+
         public Point StartVertex
         {
             get { return _vertices[0]; }
