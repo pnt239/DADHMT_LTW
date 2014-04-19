@@ -23,6 +23,7 @@ namespace TabletC.DrawPad
             InitializeComponent();
 
             _currentPen = new Pen(Color.Black, 1.0F);
+            _currentBursh = new SolidBrush(Color.FromArgb(0, Color.White));
             _currentPage = null;
             CurrentLayer = null;
 
