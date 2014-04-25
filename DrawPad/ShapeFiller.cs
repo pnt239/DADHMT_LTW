@@ -23,21 +23,48 @@ namespace TabletC.DrawPad
                 pstart = GetInnerPoint(shape);
             
             Color _colorBg;
-            _colorBg = layer.ImageBuffer.GetPixel(pstart.Value.X, pstart.Value.X);
-            if (_colorBg == _BorderColor)
-                return;
-            else
-                _queue.Enqueue(_point);
-            while(_queue.Count() != 0)
+            BitmapData pixelData = layer.ImageBuffer.LockBits(new Rectangle(0, 0, layer.ImageBuffer.Width, layer.ImageBuffer.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+            unsafe
             {
-                Point _ptmp = _queue.Dequeue();
-                _colorBg = layer.ImageBuffer.GetPixel(_ptmp.X, _ptmp.Y);
-                if(_colorBg != _BorderColor)
+                int* pData = (int*)pixelData.Scan0.ToPointer();
+                pData += pstart.Value.X * layer.ImageBuffer.Width + pstart.Value.Y;
+                _colorBg = Color.FromArgb(*pData);
+
+                if (_colorBg == _BorderColor)
+                    return;
+                else
+                    _queue.Enqueue(_point);
+                while (_queue.Count() != 0)
                 {
-                    layer.ImageBuffer.SetPixel(_ptmp.X, _ptmp.Y, _FillColor);
-                    GetNeighbour(_ptmp);
+                    Point _ptmp = _queue.Dequeue();
+                    pData += _ptmp.X * layer.ImageBuffer.Width + _ptmp.Y;
+                    _colorBg = Color.FromArgb(*pData);
+                    if (_colorBg != _BorderColor)
+                    {
+                        layer.ImageBuffer.SetPixel(_ptmp.X, _ptmp.Y, _FillColor);
+                        GetNeighbour(_ptmp);
+                    }
                 }
             }
+            layer.ImageBuffer.UnlockBits(pixelData);
+           
+            //Old Code
+            //_colorBg = layer.ImageBuffer.GetPixel(pstart.Value.X, pstart.Value.Y);
+ 
+            //if (_colorBg == _BorderColor)
+            //    return;
+            //else
+            //    _queue.Enqueue(_point);
+            //while(_queue.Count() != 0)
+            //{
+            //    Point _ptmp = _queue.Dequeue();
+            //    _colorBg = layer.ImageBuffer.GetPixel(_ptmp.X, _ptmp.Y);
+            //    if(_colorBg != _BorderColor)
+            //    {
+            //        layer.ImageBuffer.SetPixel(_ptmp.X, _ptmp.Y, _FillColor);
+            //        GetNeighbour(_ptmp);
+            //    }
+            //}
         }
 
         private void GetNeighbour(Point _ptmp)  //Ham lay lien thong 4 dua cac diem do vao queue
