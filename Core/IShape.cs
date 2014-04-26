@@ -13,7 +13,7 @@ namespace TabletC.Core
 
     public enum FillType
     {
-        Outline = 1, Fill, OutlineWithFill
+        Fill, NoFill
     }
 
     public interface IShape

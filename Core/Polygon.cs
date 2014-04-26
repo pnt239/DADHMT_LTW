@@ -16,7 +16,7 @@ namespace TabletC.Core
         {
             _vertices = new List<Point> { start, end };
             ShapePen = new Pen(Color.Black);
-            FileType = FillType.Outline;
+            FileType = FillType.NoFill;
 
             _sides = 5;
         }

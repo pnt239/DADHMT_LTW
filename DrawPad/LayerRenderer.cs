@@ -25,10 +25,12 @@ namespace TabletC.DrawPad
 
             layer.GraphicsBuffer.Clear(Color.FromArgb(0));
 
-            foreach (IShape shape in layer.Shapes)
+            foreach (var shape in layer.Shapes)
             {
+                //_shapeFill.GdiFill(layer, shape);
                 _shapeDraw.Draw(layer.GraphicsBuffer, shape);
-                _shapeFill.FloodFill(layer, shape, null);
+                if (shape.FileType == FillType.Fill)
+                    _shapeFill.FloodFill(layer, shape, null);
             }
             
             layer.IsRendered = true;

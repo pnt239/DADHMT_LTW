@@ -65,7 +65,8 @@ namespace TabletC.Core
 
         public IShape Clone()
         {
-            return new Quad(new Point(), new Point());
+            var obj = new Quad(new Point(), new Point()) {FileType = FileType};
+            return obj;
         }
     }
 }

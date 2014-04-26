@@ -112,7 +112,8 @@ namespace TabletC
 
         private void cpkBackgroundColor_SelectedColorChanged(object sender, EventArgs e)
         {
-            // Comming soon
+            if (_currentDrawPad != null)
+                ((SolidBrush)_currentDrawPad.CurrentBursh).Color = cpkBackgroundColor.SelectedColor;
         }
 
         private void cpkOutlineColor_SelectedColorChanged(object sender, EventArgs e)

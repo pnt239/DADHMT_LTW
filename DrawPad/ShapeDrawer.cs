@@ -9,22 +9,17 @@ namespace TabletC.DrawPad
 {
     public class ShapeDrawer
     {
-        Point[] PolygonPoints;
+        Point[] _polygonPoints;
 
         private Graphics _graphic;
-        private bool _useLibrary;
 
         public ShapeDrawer()
         {
-            _useLibrary = false;
+            UseLibrary = false;
         }
 
         /* true - use sharpGL to draw */
-        public bool UseLibrary
-        {
-            get { return _useLibrary; }
-            set { _useLibrary = value; }
-        }
+        public bool UseLibrary { get; set; }
 
         public void Draw(object graphic, IShape shape)
         {
@@ -69,14 +64,14 @@ namespace TabletC.DrawPad
 
         private void DrawPoplygon(Polygon polygon)
         {
-            Rectangle rec = CreateShapeArea(polygon.StartVertex, polygon.EndVertex);
+            //Rectangle rec = CreateShapeArea(polygon.StartVertex, polygon.EndVertex);
   
-            int radius = (int)Math.Sqrt((polygon.StartVertex.X - polygon.EndVertex.X)*(polygon.StartVertex.X - polygon.EndVertex.X) + (polygon.StartVertex.Y - polygon.EndVertex.Y)*(polygon.StartVertex.Y - polygon.EndVertex.Y));
-            int startAngle = (int)XYToDegrees(polygon.EndVertex, polygon.StartVertex);
+            var radius = (int)Math.Sqrt((polygon.StartVertex.X - polygon.EndVertex.X)*(polygon.StartVertex.X - polygon.EndVertex.X) + (polygon.StartVertex.Y - polygon.EndVertex.Y)*(polygon.StartVertex.Y - polygon.EndVertex.Y));
+            var startAngle = (int)XYToDegrees(polygon.EndVertex, polygon.StartVertex);
 
-            PolygonPoints = CalculateVertices(polygon.Sides, radius, startAngle, polygon.StartVertex);
+            _polygonPoints = CalculateVertices(polygon.Sides, radius, startAngle, polygon.StartVertex);
 
-            _graphic.DrawPolygon(polygon.ShapePen, PolygonPoints);
+            _graphic.DrawPolygon(polygon.ShapePen, _polygonPoints);
         }
 
         private void DrawCircle(Circle circle)
@@ -97,20 +92,22 @@ namespace TabletC.DrawPad
             _graphic.DrawLine(triangle.ShapePen, rec.X + rec.Width/2, rec.Y, rec.X + rec.Width, rec.Y + rec.Height);
         }
 
-        private Rectangle CreateShapeArea(Point p1, Point p2)
+        public static Rectangle CreateShapeArea(Point p1, Point p2)
         {
-            var rec = new Rectangle();
-            rec.X = p1.X < p2.X ? p1.X : p2.X;
-            rec.Y = p1.Y < p2.Y ? p1.Y : p2.Y;
+            var rec = new Rectangle
+            {
+                X = p1.X < p2.X ? p1.X : p2.X,
+                Y = p1.Y < p2.Y ? p1.Y : p2.Y,
+                Width = Math.Abs(p1.X - p2.X),
+                Height = Math.Abs(p1.Y - p2.Y)
+            };
 
-            rec.Width = Math.Abs(p1.X - p2.X);
-            rec.Height = Math.Abs(p1.Y - p2.Y);
             return rec;
         }
 
         private Point DegreesToXY(float degrees, float radius, Point origin)
         {
-            Point xy = new Point();
+            var xy = new Point();
             double radians = degrees * Math.PI / 180.0;
 
             xy.X = (int)(Math.Cos(radians) * radius + origin.X);
@@ -135,7 +132,7 @@ namespace TabletC.DrawPad
             if (sides < 3)
                 throw new ArgumentException("Polygon must have 3 sides or more.");
 
-            List<Point> points = new List<Point>();
+            var points = new List<Point>();
             float step = 360.0f / sides;
 
             float angle = startingAngle; //starting angle
