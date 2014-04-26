@@ -91,7 +91,7 @@ namespace TabletC.DrawPad
                 shape.StartVertex.Y == shape.EndVertex.Y)
                 return;
 
-            var colorFill = new CColor(Color.Red);//((SolidBrush)shape.ShapeBrush).Color;
+            var colorFill = new CColor(((SolidBrush)shape.ShapeBrush).Color);
             var colorBound = new CColor(shape.ShapePen.Color);
 
             BitmapData pixelData = layer.ImageBuffer.LockBits(new Rectangle(0, 0, layer.ImageBuffer.Width, layer.ImageBuffer.Height), ImageLockMode.ReadOnly, layer.ImageBuffer.PixelFormat);
@@ -126,7 +126,11 @@ namespace TabletC.DrawPad
             layer.ImageBuffer.UnlockBits(pixelData);
         }
 
-
+        public void GdiFill(Layer layer, IShape shape)
+        {
+            layer.GraphicsBuffer.FillRectangle(shape.ShapeBrush,
+                ShapeDrawer.CreateShapeArea(shape.StartVertex, shape.EndVertex));
+        }
 
         public void QueueFloodFill4(ref byte[] arr, ref Queue<Point> queue, int x, int y, int w, int h, int stride, CColor cfill, CColor cbound)
         {
