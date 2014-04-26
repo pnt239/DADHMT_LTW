@@ -86,10 +86,11 @@ namespace TabletC.DrawPad
 
         private void DrawTriangle(Triangle triangle)
         {
-            Rectangle rec = CreateShapeArea(triangle.StartVertex, triangle.EndVertex);
-            _graphic.DrawLine(triangle.ShapePen, rec.X, rec.Y + rec.Height, rec.X + rec.Width, rec.Y + rec.Height);
-            _graphic.DrawLine(triangle.ShapePen, rec.X, rec.Y + rec.Height, rec.X + rec.Width/2, rec.Y);
-            _graphic.DrawLine(triangle.ShapePen, rec.X + rec.Width/2, rec.Y, rec.X + rec.Width, rec.Y + rec.Height);
+            //Rectangle rec = CreateShapeArea(triangle.StartVertex, triangle.EndVertex);
+            //_graphic.DrawLine(triangle.ShapePen, rec.X, rec.Y + rec.Height, rec.X + rec.Width, rec.Y + rec.Height);
+            //_graphic.DrawLine(triangle.ShapePen, rec.X, rec.Y + rec.Height, rec.X + rec.Width/2, rec.Y);
+            //_graphic.DrawLine(triangle.ShapePen, rec.X + rec.Width/2, rec.Y, rec.X + rec.Width, rec.Y + rec.Height);
+            _graphic.DrawLines(triangle.ShapePen, new Point[] { triangle.Vertices[0], triangle.Vertices[1], triangle.Vertices[2], triangle.Vertices[0] });
         }
 
         public static Rectangle CreateShapeArea(Point p1, Point p2)

@@ -15,8 +15,13 @@ namespace TabletC.Core
 
         public Triangle(Point start, Point end)
         {
-            _vertices = new List<Point> { start, end };
+            _vertices = new List<Point>();
             ShapePen = new Pen(Color.Black);
+
+            // theo chieu kim dong ho
+            _vertices.Add(start);
+            _vertices.Add(end);
+            _vertices.Add(new Point(start.X, end.Y));
         }
 
         public List<Point> Vertices
@@ -40,7 +45,11 @@ namespace TabletC.Core
         public Point EndVertex
         {
             get { return _endVertex; }
-            set { _endVertex = value; }
+            set
+            {
+                _endVertex = value;
+                FinishEdition();
+            }
         }
 
         [Browsable(false)]
@@ -51,7 +60,15 @@ namespace TabletC.Core
 
         public void FinishEdition()
         {
-            //
+            int x = _startVertex.X < _endVertex.X ? _startVertex.X : _endVertex.X;
+            int y = _startVertex.Y < _endVertex.Y ? _startVertex.Y : _endVertex.Y;
+            int width = Math.Abs(_startVertex.X - _endVertex.X);
+            int height = Math.Abs(_startVertex.Y - _endVertex.Y);
+
+
+            _vertices[0] = new Point(x + width/2, y);
+            _vertices[1] = new Point(x+width, y+height);
+            _vertices[2] = new Point(x, y+height);
         }
 
         public ShapeType GetShapeType()
@@ -61,7 +78,8 @@ namespace TabletC.Core
 
         public IShape Clone()
         {
-            return new Triangle(new Point(), new Point());
+            var obj = new Triangle(new Point(), new Point()) { FileType = FileType };
+            return obj;
         }
     }
 }
