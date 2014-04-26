@@ -185,8 +185,8 @@ namespace TabletC.DrawPad
                     break;
                 case ShapeType.Triangle:
                     {
-                        //ret.X = (shape.StartVertex.X + shape.EndVertex.X) / 2;
-                        //ret.Y = (shape.StartVertex.Y + shape.EndVertex.Y) / 2;
+                        ret.X = (shape.Vertices[0].X + shape.Vertices[1].X + shape.Vertices[2].X) / 3;
+                        ret.Y = (shape.Vertices[0].Y + shape.Vertices[1].Y + shape.Vertices[2].Y) / 3;
                     }
                     break;
             }
