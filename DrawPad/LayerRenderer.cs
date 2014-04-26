@@ -9,20 +9,26 @@ namespace TabletC.DrawPad
 {
     public class LayerRenderer
     {
-        public static void Render(Layer layer)
+        private readonly ShapeDrawer _shapeDraw;
+        private readonly ShapeFiller _shapeFill;
+
+        public LayerRenderer()
+        {
+            _shapeDraw = new ShapeDrawer();
+            _shapeFill = new ShapeFiller();
+        }
+
+        public void Render(Layer layer)
         {
             if (layer.IsRendered)
                 return;
-
-            var sd = new ShapeDrawer();
-            var sf = new ShapeFiller();
 
             layer.GraphicsBuffer.Clear(Color.FromArgb(0));
 
             foreach (IShape shape in layer.Shapes)
             {
-                sd.Draw(layer.GraphicsBuffer, shape);
-                //sf.FloodFill(layer.GraphicsBuffer, shape, null);
+                _shapeDraw.Draw(layer.GraphicsBuffer, shape);
+                _shapeFill.FloodFill(layer, shape, null);
             }
             
             layer.IsRendered = true;

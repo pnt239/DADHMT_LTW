@@ -26,6 +26,7 @@ namespace TabletC.DrawPad
             _currentBursh = new SolidBrush(Color.FromArgb(0, Color.White));
             _currentPage = null;
             CurrentLayer = null;
+            _cache = null;
 
             DrawMode = DrawMode.Select;
             IsShift = false;
@@ -47,6 +48,7 @@ namespace TabletC.DrawPad
             {
                 _currentPage = value;
                 CurrentLayer = _currentPage.Layers[0];
+                _cache = new ImageCache(_currentPage.PageSize);
                 ChangeLayout();
             }
         }
@@ -98,11 +100,16 @@ namespace TabletC.DrawPad
                 return;
 
             Graphics gp = e.Graphics;
-            
+            var lr = new LayerRenderer();
+
+            gp.DrawImageUnscaled(_cache.ImageBuffer, 0, 0);
+
             foreach (Layer layer in _currentPage.Layers)
             {
-                LayerRenderer.Render(layer);
-                gp.DrawImageUnscaled(layer.ImageBuffer, 0, 0);
+                lr.Render(layer);
+
+                if (!_cache.IsExist(layer))
+                    gp.DrawImageUnscaled(layer.ImageBuffer, 0, 0);
             }
         }
 
@@ -119,8 +126,11 @@ namespace TabletC.DrawPad
             _lastShape.ShapeBrush = (Brush) _currentBursh.Clone();
 
             // Add Shape to Layer
-            CurrentLayer = new Layer(_currentPage.PageSize);
-            CurrentLayer.Name = _lastShape.Name + " " + _nameCount[_lastShape.GetShapeType()].ToString(CultureInfo.InvariantCulture);
+            CurrentLayer = new Layer(_currentPage.PageSize)
+            {
+                Name =
+                    _lastShape.Name + " " + _nameCount[_lastShape.GetShapeType()].ToString(CultureInfo.InvariantCulture)
+            };
             _nameCount[_lastShape.GetShapeType()] += 1;
 
             _currentPage.Layers.Add(CurrentLayer);
@@ -180,6 +190,7 @@ namespace TabletC.DrawPad
 
         private void ctrDrawArea_MouseUp(object sender, MouseEventArgs e)
         {
+            _cache.AddLayer(CurrentLayer);
             _lastShape.FinishEdition();
         }
 
@@ -195,7 +206,9 @@ namespace TabletC.DrawPad
         private IShape _lastShape;
         private DrawMode _drawMode;
         private bool _isShift;
+        private ImageCache _cache;
 
+        
         private readonly Dictionary<ShapeType, int> _nameCount;
     }
 }

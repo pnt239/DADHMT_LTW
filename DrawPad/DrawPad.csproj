@@ -53,6 +53,7 @@
     <Compile Include="GdiArea.Designer.cs">
       <DependentUpon>GdiArea.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageCache.cs" />
     <Compile Include="LayerRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShapeDrawer.cs" />

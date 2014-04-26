@@ -73,8 +73,15 @@ namespace TabletC
 
             lbxLayers.DataSource = _currentDrawPad.CurrentPage.Layers;
             lbxLayers.DisplayMember = "Name";
+            _currentDrawPad.CurrentPage.Layers.ListChanged += Layers_ListChanged;
 
             _currentTabId++;
+        }
+
+        void Layers_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            lbxLayers.SelectedIndex = -1;
+            lbxLayers.SelectedIndex = e.NewIndex;
         }
 
         private void barCenter_DockTabChange(object sender, DockTabChangeEventArgs e)

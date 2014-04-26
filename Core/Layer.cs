@@ -22,8 +22,8 @@ namespace TabletC.Core
             _isRendered = false;
             _name = "";
 
-            ImageBuffer = new Bitmap(size.Width, size.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            _graphicsBuffer = Graphics.FromImage(ImageBuffer);
+            _imageBuffer = new Bitmap(size.Width, size.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            _graphicsBuffer = Graphics.FromImage(_imageBuffer);
             Shapes = new List<IShape>();
         }
 
