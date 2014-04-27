@@ -25,7 +25,7 @@ namespace TabletC.DrawPad
             _currentPen = new Pen(Color.Black, 1.0F);
             _currentBursh = new SolidBrush(Color.FromArgb(0, Color.White));
             _currentPage = null;
-            CurrentLayer = null;
+            _currentLayer = null;
             _cache = null;
             _drawingbyclick = false;
 
@@ -55,7 +55,11 @@ namespace TabletC.DrawPad
             }
         }
 
-        public Layer CurrentLayer { get; set; }
+        public Layer CurrentLayer
+        {
+            get { return _currentLayer; }
+            set { _currentLayer = value; }
+        }
 
         public Pen CurrentPen
         {
@@ -101,18 +105,7 @@ namespace TabletC.DrawPad
             if (_currentPage == null)
                 return;
 
-            Graphics gp = e.Graphics;
-            var lr = new LayerRenderer();
-
-            gp.DrawImageUnscaled(_cache.ImageBuffer, 0, 0);
-
-            foreach (Layer layer in _currentPage.Layers)
-            {
-                lr.Render(layer);
-
-                if (!_cache.IsExist(layer))
-                    gp.DrawImageUnscaled(layer.ImageBuffer, 0, 0);
-            }
+            _cache.Render(e.Graphics);
         }
 
         private void ctrDrawArea_MouseDown(object sender, MouseEventArgs e)
@@ -126,33 +119,44 @@ namespace TabletC.DrawPad
             if (_drawingbyclick)
                 return;
 
+            // Prototype method
             _lastShape = _currentShape.Clone();
             _lastShape.ShapePen = (Pen)_currentPen.Clone();
             _lastShape.ShapeBrush = (Brush) _currentBursh.Clone();
 
             if (_lastShape.GetShapeType() == ShapeType.Polygon)
             {
+                // Draw by click
                 _drawingbyclick = true;
             }
-            
+            // Assign start and end point
             _lastShape.StartVertex = _lastShape.EndVertex = e.Location;
             
 
-            // Add Shape to Layer
+            // Create new layer
             CurrentLayer = new Layer(_currentPage.PageSize)
             {
                 Name =
                     _lastShape.Name + " " + _nameCount[_lastShape.GetShapeType()].ToString(CultureInfo.InvariantCulture)
             };
+            // Assign NO. for new layer, uing for display on Bindlist
             _nameCount[_lastShape.GetShapeType()] += 1;
-
+            // Add new layer into current page
             _currentPage.Layers.Add(CurrentLayer);
-
+            // Add new shape into new layer
             CurrentLayer.Shapes.Add(_lastShape);
+            // Push layer into cache
+            _cache.PushLayer(ref _currentLayer);
         }
 
         private void ctrDrawArea_MouseMove(object sender, MouseEventArgs e)
         {
+            if (DrawMode == DrawMode.Select)
+            {
+                //
+                return;
+            }
+
             if (e.Button == MouseButtons.Left)
             {
                 if (_drawMode == DrawMode.Select)
@@ -214,12 +218,18 @@ namespace TabletC.DrawPad
 
         private void ctrDrawArea_MouseUp(object sender, MouseEventArgs e)
         {
+            if (DrawMode == DrawMode.Select)
+            {
+                //
+                return;
+            }
+
             if (_drawingbyclick)
             {
                 if (_lastShape.Vertices.Count > 0 && Math.Abs(_lastShape.Vertices[0].X - e.Location.X) < 5 &&
                         Math.Abs(_lastShape.Vertices[0].Y - e.Location.Y) < 5)
                 {
-                    _lastShape.EndVertex = _lastShape.Vertices[0];
+                    _lastShape.EndVertex = new Point(-1, -1);
                     _drawingbyclick = false;
                     CurrentLayer.IsRendered = false;
                     ctrDrawArea.Invalidate();
@@ -232,9 +242,6 @@ namespace TabletC.DrawPad
                 }
                 
             }
-
-            // Release shape and push into cache
-            _cache.AddLayer(CurrentLayer);
 
             // Update point
             _lastShape.FinishEdition();
@@ -251,6 +258,7 @@ namespace TabletC.DrawPad
         }
 
         private IPage _currentPage;
+        private Layer _currentLayer;
         private IShape _currentShape;
         private Pen _currentPen;
         private Brush _currentBursh;

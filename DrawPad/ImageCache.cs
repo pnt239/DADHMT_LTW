@@ -13,47 +13,45 @@ namespace TabletC.DrawPad
         public ImageCache(Size size)
         {
             _startPos = new Point(0, 0);
-            _nameLayers = new List<string>();
+            _layers = new List<Layer>();
+            _layer = null;
+
             _imageBuffer = new Bitmap(size.Width, size.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             _graphicsBuffer = Graphics.FromImage(_imageBuffer);
+            _layerRender = new LayerRenderer();
         }
 
-        public Bitmap ImageBuffer
+        public void Render(Graphics g)
         {
-            get { return _imageBuffer; }
-            set { _imageBuffer = value; }
+            g.DrawImageUnscaled(_imageBuffer, 0, 0);
+
+            if (_layer == null)
+                return;
+
+            _layerRender.Render(_layer);
+            g.DrawImageUnscaled(_layer.ImageBuffer, 0, 0);
         }
 
-        public void AddLayers(BindingList<Layer> layers)
+        public void PushLayer(ref Layer layer)
         {
-            foreach (Layer layer in layers)
+            if (_layer != null)
             {
-                if (!_nameLayers.Contains(layer.Name))
-                    _graphicsBuffer.DrawImageUnscaled(layer.ImageBuffer, _startPos);
-            }
-        }
-
-        public bool AddLayer(Layer layer)
-        {
-            if (!_nameLayers.Contains(layer.Name))
-            {
-                _nameLayers.Add(layer.Name);
-                _graphicsBuffer.DrawImageUnscaled(layer.ImageBuffer, _startPos);
-                return true;
+                // Add old layer into cache
+                _layers.Add(_layer);
+                _layerRender.Render(_layer);
+                _graphicsBuffer.DrawImageUnscaled(_layer.ImageBuffer, _startPos);
             }
 
-            return false;
+            // Set new Layer as current layer for edition
+            _layer = layer;
         }
 
-        public bool IsExist(Layer layer)
-        {
-            return _nameLayers.Contains(layer.Name);
-        }
+        private readonly Bitmap _imageBuffer;
+        private readonly Graphics _graphicsBuffer;
+        private readonly LayerRenderer _layerRender;
+        private readonly Point _startPos;
 
-        private Bitmap _imageBuffer;
-        private Graphics _graphicsBuffer;
-        private Point _startPos;
-
-        private List<string> _nameLayers;
+        private Layer _layer;
+        private readonly List<Layer> _layers;
     }
 }

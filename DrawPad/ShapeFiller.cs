@@ -81,15 +81,15 @@ namespace TabletC.DrawPad
     {
         public void FloodFill(Layer layer, IShape shape, Point? pstart)
         {
+            var st = shape.GetShapeType();
+            if ((st == ShapeType.Line) ||
+                (st != ShapeType.Polygon 
+                && (shape.StartVertex.X == shape.EndVertex.X || shape.StartVertex.Y == shape.EndVertex.Y)) ||
+                (st == ShapeType.Polygon && shape.EndVertex.X != -1))
+                return;
+
             if (pstart == null)
                 pstart = GetInnerPoint(shape);
-
-            if (shape.GetShapeType() == ShapeType.Line)
-                return;
-
-            if (shape.StartVertex.X == shape.EndVertex.X ||
-                shape.StartVertex.Y == shape.EndVertex.Y)
-                return;
 
             var colorFill = new CColor(((SolidBrush)shape.ShapeBrush).Color);
             var colorBound = new CColor(shape.ShapePen.Color);
@@ -219,6 +219,7 @@ namespace TabletC.DrawPad
                 }
                     break;
                 case ShapeType.RegPolygon:
+                case ShapeType.Polygon:
                 {
                     var finded = false;
                     for (int i = 0; i <  shape.Vertices.Count; i++)

@@ -15,9 +15,11 @@ namespace TabletC.Core
         public Polygon(Point start, Point end)
         {
             _vertices = new List<Point>();
+            ShapePen = new Pen(Color.Black);
+            FileType = FillType.NoFill;
+
             _startVertex = start;
             _endVertex = end;
-            FileType = FillType.NoFill;
         }
 
         public List<Point> Vertices

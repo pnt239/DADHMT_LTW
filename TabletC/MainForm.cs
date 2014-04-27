@@ -39,7 +39,8 @@ namespace TabletC
             _currentTabId = 0; 
             CreateNewPage();
 
-            //
+            // Select mode
+            _currentDrawPad.DrawMode = DrawPad.DrawMode.Select;
         }
 
         public void CreateNewPage()
@@ -51,10 +52,12 @@ namespace TabletC
             barCenter.Controls.Add(dclPanel);
             barCenter.Items.Add(dckItem);
 
+            // New tab
             dckItem.Control = dclPanel;
             dckItem.Name = String.Format("tabItem{0}", _currentTabId);
             dckItem.Text = String.Format("Untitled {0}", _currentTabId);
 
+            // New panel for new tab
             dclPanel.ColorSchemeStyle = eDotNetBarStyle.StyleManagerControlled;
             dclPanel.Controls.Add(_currentDrawPad);
             dclPanel.Name = String.Format("tabPanel{0}", _currentTabId);
@@ -64,6 +67,7 @@ namespace TabletC
             dclPanel.Style.GradientAngle = 90;
             dclPanel.TabIndex = 0;
 
+            // New drawpad
             _currentDrawPad.BackColor = Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             _currentDrawPad.Dock = DockStyle.Fill;
             _currentDrawPad.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -72,6 +76,7 @@ namespace TabletC
             _currentDrawPad.CurrentPage = new CustomPage(new Size(720, 480));
             _listDrawPad.Add(_currentDrawPad);
 
+            // Connect to bindinglist
             lbxLayers.DataSource = _currentDrawPad.CurrentPage.Layers;
             lbxLayers.DisplayMember = "Name";
             _currentDrawPad.CurrentPage.Layers.ListChanged += Layers_ListChanged;

@@ -80,12 +80,15 @@ namespace TabletC.DrawPad
             if (polygon.Vertices == null || polygon.Vertices.Count < 1)
                 return;
 
-            _graphic.DrawLine(polygon.ShapePen, polygon.Vertices[polygon.Vertices.Count - 1], polygon.EndVertex);
+            bool endpol = polygon.EndVertex.X == -1;
+
+            if (!endpol)
+                _graphic.DrawLine(polygon.ShapePen, polygon.Vertices[polygon.Vertices.Count - 1], polygon.EndVertex);
 
             if (polygon.Vertices.Count < 2)
                 return;
 
-            if (polygon.Vertices[0] == polygon.EndVertex)
+            if (endpol)
                 _graphic.DrawPolygon(polygon.ShapePen, polygon.Vertices.ToArray());
             else
                 _graphic.DrawLines(polygon.ShapePen, polygon.Vertices.ToArray());

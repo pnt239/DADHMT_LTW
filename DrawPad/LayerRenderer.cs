@@ -20,7 +20,7 @@ namespace TabletC.DrawPad
 
         public void Render(Layer layer)
         {
-            if (layer.IsRendered)
+            if (layer == null || layer.IsRendered)
                 return;
 
             layer.GraphicsBuffer.Clear(Color.FromArgb(0));
