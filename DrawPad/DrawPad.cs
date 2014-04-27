@@ -23,7 +23,7 @@ namespace TabletC.DrawPad
             InitializeComponent();
 
             _currentPen = new Pen(Color.Black, 1.0F);
-            _currentBursh = new SolidBrush(Color.FromArgb(0, Color.White));
+            _currentBrush = new SolidBrush(Color.White);
             _currentPage = null;
             _currentLayer = null;
             _cache = null;
@@ -85,10 +85,10 @@ namespace TabletC.DrawPad
             set { _isShift = value; }
         }
 
-        public Brush CurrentBursh
+        public Brush CurrentBrush
         {
-            get { return _currentBursh; }
-            set { _currentBursh = value; }
+            get { return _currentBrush; }
+            set { _currentBrush = value; }
         }
 
         private void ChangeLayout()
@@ -116,13 +116,14 @@ namespace TabletC.DrawPad
                 return;
             }
 
+            // Continue drawing shape
             if (_drawingbyclick)
                 return;
 
             // Prototype method
             _lastShape = _currentShape.Clone();
             _lastShape.ShapePen = (Pen)_currentPen.Clone();
-            _lastShape.ShapeBrush = (Brush) _currentBursh.Clone();
+            _lastShape.ShapeBrush = (Brush) _currentBrush.Clone();
 
             if (_lastShape.GetShapeType() == ShapeType.Polygon)
             {
@@ -167,6 +168,7 @@ namespace TabletC.DrawPad
                 var p = new Point(e.Location.X, e.Location.Y);
                 if (IsShift && _lastShape.GetShapeType() != ShapeType.RegPolygon)
                 {
+                    // Snap point
                     var deltaX = _lastShape.StartVertex.X - p.X;
                     var deltaY = _lastShape.StartVertex.Y - p.Y;
                     var asbX = Math.Abs(deltaX);
@@ -174,11 +176,18 @@ namespace TabletC.DrawPad
 
                     if (Math.Abs(deltaX) > Math.Abs(deltaY))
                     {
-                        p.Y = _lastShape.StartVertex.Y;
+                        // Tinh y theo x
+                        p.Y = _lastShape.StartVertex.Y; // Default is horital
                         if (
                             !((_lastShape.GetShapeType() == ShapeType.Line) &&
                               ((double) asbY/asbX < Math.Tan(Math.PI/8))))
                         {
+                            // if deltaY = 0 then line is horital
+                            // else if deltaY != then
+                            //      if shape is triangle then
+                            //          heigth of triangle is y*sin(60)
+                            //      else
+                            //          line is crisscross
                             p.Y -= (deltaY == 0
                                 ? 0
                                 : (int)
@@ -188,7 +197,8 @@ namespace TabletC.DrawPad
                     }
                     else
                     {
-                        p.X = _lastShape.StartVertex.X;
+                        // Tinh x theo y
+                        p.X = _lastShape.StartVertex.X; // Default is vertical
                         if (
                             !((_lastShape.GetShapeType() == ShapeType.Line) &&
                               ((double) asbX/asbY < Math.Tan(Math.PI/8))))
@@ -226,6 +236,8 @@ namespace TabletC.DrawPad
 
             if (_drawingbyclick)
             {
+                // Draw by click
+                // Add new point
                 if (_lastShape.Vertices.Count > 0 && Math.Abs(_lastShape.Vertices[0].X - e.Location.X) < 5 &&
                         Math.Abs(_lastShape.Vertices[0].Y - e.Location.Y) < 5)
                 {
@@ -261,7 +273,7 @@ namespace TabletC.DrawPad
         private Layer _currentLayer;
         private IShape _currentShape;
         private Pen _currentPen;
-        private Brush _currentBursh;
+        private Brush _currentBrush;
         private IShape _lastShape;
         private DrawMode _drawMode;
         private bool _isShift;

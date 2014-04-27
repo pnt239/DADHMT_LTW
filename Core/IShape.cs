@@ -26,7 +26,7 @@ namespace TabletC.Core
 
         Brush ShapeBrush { get; set; }
 
-        FillType FileType { get; set; }
+        FillType Fill { get; set; }
         
         /* Mouse start point */
         Point StartVertex { get; set; }

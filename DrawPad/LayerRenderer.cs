@@ -29,7 +29,7 @@ namespace TabletC.DrawPad
             {
                 //_shapeFill.GdiFill(layer, shape);
                 _shapeDraw.Draw(layer.GraphicsBuffer, shape);
-                if (shape.FileType == FillType.Fill)
+                if (shape.Fill == FillType.Fill)
                     _shapeFill.FloodFill(layer, shape, null);
             }
             

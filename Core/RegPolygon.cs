@@ -12,16 +12,17 @@ namespace TabletC.Core
         private List<Point> _vertices;
         private int _sides;
         private Point _endVertex;
+        private FillType _fill;
 
-        public RegPolygon(Point start, Point end)
+        public RegPolygon()
         {
             _vertices = new List<Point>();
             ShapePen = new Pen(Color.Black);
-            FileType = FillType.NoFill;
+            _fill = FillType.NoFill;
 
             _sides = 5;
-            StartVertex = StartVertex;
-            _endVertex = end;
+            StartVertex = new Point();
+            _endVertex = new Point();
         }
 
         [Browsable(false)]
@@ -35,9 +36,14 @@ namespace TabletC.Core
         [Browsable(false)]
         public Pen ShapePen { get; set; }
 
+        [Browsable(false)]
         public Brush ShapeBrush { get; set; }
 
-        public FillType FileType { get; set; }
+        public FillType Fill
+        {
+            get { return _fill; }
+            set { _fill = value; }
+        }
 
         [Browsable(false)]
         public Point StartVertex { get; set; }
@@ -101,7 +107,11 @@ namespace TabletC.Core
 
         public IShape Clone()
         {
-            var obj = new RegPolygon(new Point(), new Point()) {Sides = _sides, FileType = FileType};
+            var obj = new RegPolygon
+            {
+                Sides = _sides,
+                Fill = _fill
+            };
             return obj;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace TabletC.Core
@@ -7,27 +8,35 @@ namespace TabletC.Core
     public class Circle : IShape
     {
         private List<Point> _vertices;
+        private FillType _fill;
 
-        public Circle(Point start, Point end)
+        public Circle()
         {
             _vertices = new List<Point>();
             ShapePen = new Pen(Color.Black);
 
-            _vertices.Add(start);
-            _vertices.Add(end);
+            _vertices.Add(new Point());
+            _vertices.Add(new Point());
         }
 
+        [Browsable(false)]
         public List<Point> Vertices
         {
             get { return _vertices; }
             set { _vertices = value; }
         }
 
+        [Browsable(false)]
         public Pen ShapePen { get; set; }
 
+        [Browsable(false)]
         public Brush ShapeBrush { get; set; }
 
-        public FillType FileType { get; set; }
+        public FillType Fill
+        {
+            get { return _fill; }
+            set { _fill = value; }
+        }
 
         /* Radius of circle */
         public float Radius
@@ -38,18 +47,21 @@ namespace TabletC.Core
             }
         }
 
+        [Browsable(false)]
         public Point StartVertex
         {
             get { return _vertices[0]; }
             set { Vertices[0] = value; }
         }
 
+        [Browsable(false)]
         public Point EndVertex
         {
             get { return _vertices[1]; }
             set { _vertices[1] = value; }
         }
 
+        [Browsable(false)]
         public string Name
         {
             get { return "Circle"; }
@@ -67,7 +79,13 @@ namespace TabletC.Core
 
         public IShape Clone()
         {
-            return new Circle(new Point(), new Point());
+            var obj = new Circle
+            {
+                Fill = _fill,
+                ShapePen = ShapePen,
+                ShapeBrush = ShapeBrush
+            };
+            return obj;
         }
     }
 }

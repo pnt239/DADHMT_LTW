@@ -10,36 +10,48 @@ namespace TabletC.Core
     public class Quad : IShape
     {
         private List<Point> _vertices;
+        private FillType _fill;
 
-        public Quad(Point start, Point end)
+        public Quad()
         {
             _vertices = new List<Point>();
             ShapePen = new Pen(Color.Black);
+            ShapeBrush = new SolidBrush(Color.White);
+            _fill = FillType.NoFill;
 
-            _vertices.Add(start);
-            _vertices.Add(new Point(end.X, start.Y));
-            _vertices.Add(end);
-            _vertices.Add(new Point(start.X, end.Y));
+            _vertices.Add(new Point());
+            _vertices.Add(new Point());
+            _vertices.Add(new Point());
+            _vertices.Add(new Point());
         }
 
+        [Browsable(false)]
         public List<Point> Vertices
         {
             get { return _vertices; }
             set { _vertices = value; }
         }
 
+        [Browsable(false)]
         public Pen ShapePen { get; set; }
 
+        [Browsable(false)]
         public Brush ShapeBrush { get; set; }
 
-        public FillType FileType { get; set; }
+        public FillType Fill
+        {
+            get { return _fill; }
+            set { _fill = value; }
+        }
 
+        [Browsable(false)]
         public Point StartVertex
         {
             get { return _vertices[0]; }
             set { _vertices[0] = value; }
         }
 
+        [Browsable(false)]
         public Point EndVertex
         {
             get { return _vertices[2]; }
@@ -65,7 +77,10 @@ namespace TabletC.Core
 
         public IShape Clone()
         {
-            var obj = new Quad(new Point(), new Point()) {FileType = FileType};
+            var obj = new Quad
+            {
+                Fill = _fill,
+            };
             return obj;
         }
     }

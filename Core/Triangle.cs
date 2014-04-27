@@ -12,36 +12,48 @@ namespace TabletC.Core
         private List<Point> _vertices;
         private Point _startVertex;
         private Point _endVertex;
+        private FillType _fill;
 
-        public Triangle(Point start, Point end)
+        public Triangle()
         {
             _vertices = new List<Point>();
             ShapePen = new Pen(Color.Black);
+            ShapeBrush = new SolidBrush(Color.White);
+            _fill = FillType.NoFill;
 
             // theo chieu kim dong ho
-            _vertices.Add(start);
-            _vertices.Add(end);
-            _vertices.Add(new Point(start.X, end.Y));
+            _vertices.Add(new Point());
+            _vertices.Add(new Point());
+            _vertices.Add(new Point());
         }
 
+        [Browsable(false)]
         public List<Point> Vertices
         {
             get { return _vertices; }
             set { _vertices = value; }
         }
 
+        [Browsable(false)]
         public Pen ShapePen { get; set; }
 
+        [Browsable(false)]
         public Brush ShapeBrush { get; set; }
 
-        public FillType FileType { get; set; }
+        public FillType Fill
+        {
+            get { return _fill; }
+            set { _fill = value; }
+        }
 
+        [Browsable(false)]
         public Point StartVertex
         {
             get { return _startVertex; }
             set { _startVertex = value; }
         }
 
+        [Browsable(false)]
         public Point EndVertex
         {
             get { return _endVertex; }
@@ -65,7 +77,6 @@ namespace TabletC.Core
             int width = Math.Abs(_startVertex.X - _endVertex.X);
             int height = Math.Abs(_startVertex.Y - _endVertex.Y);
 
-
             _vertices[0] = new Point(x + width/2, y);
             _vertices[1] = new Point(x+width, y+height);
             _vertices[2] = new Point(x, y+height);
@@ -78,7 +89,10 @@ namespace TabletC.Core
 
         public IShape Clone()
         {
-            var obj = new Triangle(new Point(), new Point()) { FileType = FileType };
+            var obj = new Triangle
+            {
+                Fill = _fill
+            };
             return obj;
         }
     }

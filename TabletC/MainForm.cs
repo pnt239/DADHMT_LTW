@@ -20,17 +20,20 @@ namespace TabletC
         {
             InitializeComponent();
 
-            // Add dump shape to control.tag to use for cloning
-            btnShapeLine.Tag = new Line(new Point(), new Point());
-            btnShapeRectangle.Tag = new Quad(new Point(), new Point());
-            btnShapeEllipse.Tag = new Ellipse(new Point(), new Point());
-            btnShapeTriangle.Tag = new Triangle(new Point(), new Point());
-            btnShapeRegPolygon.Tag = new RegPolygon(new Point(), new Point());
-            btnShapePolygon.Tag = new Polygon(new Point(), new Point());
-
             // Init color
             cpkBackgroundColor.SelectedColor = Color.White;
             cpkOutlineColor.SelectedColor = Color.Black;
+
+            // Init brush
+            btnBrushSolidColor.Tag = new SolidBrush(cpkBackgroundColor.SelectedColor);
+
+            // Add dump shape to control.tag to use for cloning
+            btnShapeLine.Tag = new Line();
+            btnShapeRectangle.Tag = new Quad();
+            btnShapeEllipse.Tag = new Ellipse();
+            btnShapeTriangle.Tag = new Triangle();
+            btnShapeRegPolygon.Tag = new RegPolygon();
+            btnShapePolygon.Tag = new Polygon();
 
             // Create DrawPad Control List
             _listDrawPad = new List<DrawPad.DrawPad>();
@@ -41,6 +44,9 @@ namespace TabletC
 
             // Select mode
             _currentDrawPad.DrawMode = DrawPad.DrawMode.Select;
+            // Pen and brush
+            _currentDrawPad.CurrentPen.Color = cpkOutlineColor.SelectedColor;
+            _currentDrawPad.CurrentBrush = (Brush) btnBrushSolidColor.Tag;
         }
 
         public void CreateNewPage()
@@ -119,7 +125,7 @@ namespace TabletC
         private void cpkBackgroundColor_SelectedColorChanged(object sender, EventArgs e)
         {
             if (_currentDrawPad != null)
-                ((SolidBrush)_currentDrawPad.CurrentBursh).Color = cpkBackgroundColor.SelectedColor;
+                ((SolidBrush)_currentDrawPad.CurrentBrush).Color = cpkBackgroundColor.SelectedColor;
         }
 
         private void cpkOutlineColor_SelectedColorChanged(object sender, EventArgs e)

@@ -51,7 +51,7 @@ namespace TabletC
             this.btnDashDashDotDot = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar5 = new DevComponents.DotNetBar.RibbonBar();
             this.buttonItem23 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem24 = new DevComponents.DotNetBar.ButtonItem();
+            this.btnBrushSolidColor = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem25 = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar4 = new DevComponents.DotNetBar.RibbonBar();
             this.galleryContainer2 = new DevComponents.DotNetBar.GalleryContainer();
@@ -145,6 +145,7 @@ namespace TabletC
             this.dockSite7 = new DevComponents.DotNetBar.DockSite();
             this.dockSite3 = new DevComponents.DotNetBar.DockSite();
             this.dockContainerItem1 = new DevComponents.DotNetBar.DockContainerItem();
+            this.cbxHit = new System.Windows.Forms.CheckBox();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
@@ -467,15 +468,15 @@ namespace TabletC
             this.buttonItem23.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.buttonItem23.Name = "buttonItem23";
             this.buttonItem23.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItem24,
+            this.btnBrushSolidColor,
             this.buttonItem25});
             this.buttonItem23.SubItemsExpandWidth = 14;
             this.buttonItem23.Text = "&Brush";
             // 
-            // buttonItem24
+            // btnBrushSolidColor
             // 
-            this.buttonItem24.Name = "buttonItem24";
-            this.buttonItem24.Text = "New Item";
+            this.btnBrushSolidColor.Name = "btnBrushSolidColor";
+            this.btnBrushSolidColor.Text = "Solid Color";
             // 
             // buttonItem25
             // 
@@ -1363,12 +1364,14 @@ namespace TabletC
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.lbxLayers, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnLayerAdd, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnLayerAdd, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.cbxHit, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(172, 291);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -1382,7 +1385,7 @@ namespace TabletC
             this.lbxLayers.Location = new System.Drawing.Point(3, 3);
             this.lbxLayers.Name = "lbxLayers";
             this.lbxLayers.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbxLayers.Size = new System.Drawing.Size(166, 256);
+            this.lbxLayers.Size = new System.Drawing.Size(166, 229);
             this.lbxLayers.TabIndex = 1;
             // 
             // contextMenuStrip1
@@ -1517,6 +1520,18 @@ namespace TabletC
             this.dockContainerItem1.Name = "dockContainerItem1";
             this.dockContainerItem1.Text = "dockContainerItem1";
             // 
+            // cbxHit
+            // 
+            this.cbxHit.AutoSize = true;
+            this.cbxHit.Checked = true;
+            this.cbxHit.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxHit.Location = new System.Drawing.Point(3, 238);
+            this.cbxHit.Name = "cbxHit";
+            this.cbxHit.Size = new System.Drawing.Size(105, 21);
+            this.cbxHit.TabIndex = 3;
+            this.cbxHit.Text = "Select by Hits";
+            this.cbxHit.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1551,6 +1566,7 @@ namespace TabletC
             this.barRight.ResumeLayout(false);
             this.panelDockContainer1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             this.panelDockContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -1598,7 +1614,7 @@ namespace TabletC
         private DevComponents.DotNetBar.ButtonItem btnShapeLine;
         private DevComponents.DotNetBar.RibbonBar ribbonBar5;
         private DevComponents.DotNetBar.ButtonItem buttonItem23;
-        private DevComponents.DotNetBar.ButtonItem buttonItem24;
+        private DevComponents.DotNetBar.ButtonItem btnBrushSolidColor;
         private DevComponents.DotNetBar.ButtonItem buttonItem25;
         private DevComponents.DotNetBar.RibbonBar ribbonBar6;
         private DevComponents.DotNetBar.SwitchButtonItem switchButtonItem1;
@@ -1674,5 +1690,6 @@ namespace TabletC
         private System.Windows.Forms.ToolStripMenuItem removeLayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem mnuMergeShapes;
+        private System.Windows.Forms.CheckBox cbxHit;
     }
 }

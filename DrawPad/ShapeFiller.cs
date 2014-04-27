@@ -164,7 +164,7 @@ namespace TabletC.DrawPad
             return new CColor(arr[y * linesize + x * 4 + 3], arr[y * linesize + x * 4 + 2], arr[y * linesize + x * 4 + 1], arr[y * linesize + x * 4]);
         }
 
-        private bool CheckInnerPoint(List<Point> points, Point point)
+        private bool CheckInnerPoint(IList<Point> points, Point point)
         {
             PointF currentPoint = point;
             //Ray-cast algorithm is here onward
