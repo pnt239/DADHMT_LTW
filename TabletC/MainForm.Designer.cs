@@ -59,7 +59,7 @@ namespace TabletC
             this.btnShapeRectangle = new DevComponents.DotNetBar.ButtonItem();
             this.btnShapeEllipse = new DevComponents.DotNetBar.ButtonItem();
             this.btnShapeTriangle = new DevComponents.DotNetBar.ButtonItem();
-            this.btnItemPolygon = new DevComponents.DotNetBar.ButtonItem();
+            this.btnShapeRegPolygon = new DevComponents.DotNetBar.ButtonItem();
             this.btnShapePolygon = new DevComponents.DotNetBar.ButtonItem();
             this.itemContainer6 = new DevComponents.DotNetBar.ItemContainer();
             this.cpkOutlineColor = new DevComponents.DotNetBar.ColorPickerDropDown();
@@ -526,7 +526,7 @@ namespace TabletC
             this.btnShapeRectangle,
             this.btnShapeEllipse,
             this.btnShapeTriangle,
-            this.btnItemPolygon,
+            this.btnShapeRegPolygon,
             this.btnShapePolygon});
             // 
             // 
@@ -561,18 +561,19 @@ namespace TabletC
             this.btnShapeTriangle.Text = "buttonItem22";
             this.btnShapeTriangle.Click += new System.EventHandler(this.btnShape_Click);
             // 
-            // btnItemPolygon
+            // btnShapeRegPolygon
             // 
-            this.btnItemPolygon.Image = global::TabletC.Properties.Resources.polygon;
-            this.btnItemPolygon.Name = "btnItemPolygon";
-            this.btnItemPolygon.Text = "buttonItem22";
-            this.btnItemPolygon.Click += new System.EventHandler(this.btnShape_Click);
+            this.btnShapeRegPolygon.Image = global::TabletC.Properties.Resources.polygon;
+            this.btnShapeRegPolygon.Name = "btnShapeRegPolygon";
+            this.btnShapeRegPolygon.Text = "buttonItem22";
+            this.btnShapeRegPolygon.Click += new System.EventHandler(this.btnShape_Click);
             // 
             // btnShapePolygon
             // 
-            this.btnShapePolygon.Image = global::TabletC.Properties.Resources.polygon;
+            this.btnShapePolygon.Image = global::TabletC.Properties.Resources.polygon1;
             this.btnShapePolygon.Name = "btnShapePolygon";
             this.btnShapePolygon.Text = "btnShapePolygon";
+            this.btnShapePolygon.Click += new System.EventHandler(this.btnShape_Click);
             // 
             // itemContainer6
             // 
@@ -1644,7 +1645,7 @@ namespace TabletC
         private DevComponents.DotNetBar.ButtonItem btnDashDash;
         private DevComponents.DotNetBar.ButtonItem btnDashDashDot;
         private DevComponents.DotNetBar.ButtonItem btnDashDashDotDot;
-        private DevComponents.DotNetBar.ButtonItem btnItemPolygon;
+        private DevComponents.DotNetBar.ButtonItem btnShapeRegPolygon;
         private DevComponents.DotNetBar.ButtonItem btnItemCursor;
         private DevComponents.DotNetBar.Bar bar1;
         private DevComponents.DotNetBar.DotNetBarManager dotNetBarManager;

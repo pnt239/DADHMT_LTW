@@ -97,7 +97,6 @@ namespace TabletC.DrawPad
             BitmapData pixelData = layer.ImageBuffer.LockBits(new Rectangle(0, 0, layer.ImageBuffer.Width, layer.ImageBuffer.Height), ImageLockMode.ReadOnly, layer.ImageBuffer.PixelFormat);
 
             IntPtr ptr = pixelData.Scan0;
-
             int bytes = pixelData.Stride * layer.ImageBuffer.Height;
             var rgbValues = new byte[bytes];
 
@@ -122,7 +121,6 @@ namespace TabletC.DrawPad
             // End Fill
 
             System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
-
             layer.ImageBuffer.UnlockBits(pixelData);
         }
 
@@ -166,6 +164,37 @@ namespace TabletC.DrawPad
             return new CColor(arr[y * linesize + x * 4 + 3], arr[y * linesize + x * 4 + 2], arr[y * linesize + x * 4 + 1], arr[y * linesize + x * 4]);
         }
 
+        private bool CheckInnerPoint(List<Point> points, Point point)
+        {
+            PointF currentPoint = point;
+            //Ray-cast algorithm is here onward
+            int k, j = points.Count - 1;
+            var oddNodes = false; //to check whether number of intersections is odd
+
+            for (k = 0; k < points.Count; k++)
+            {
+                //fetch adjucent points of the polygon
+                PointF polyK = points[k];
+                PointF polyJ = points[j];
+
+                //check the intersections
+                if (((polyK.Y > currentPoint.Y) != (polyJ.Y > currentPoint.Y)) &&
+                 (currentPoint.X < (polyJ.X - polyK.X) * (currentPoint.Y - polyK.Y) / (polyJ.Y - polyK.Y) + polyK.X))
+                    oddNodes = !oddNodes; //switch between odd and even
+                j = k;
+            }
+
+            //if odd number of intersections
+            if (oddNodes)
+            {
+                //mouse point is inside the polygon
+                return true;
+            }
+
+            //if even number of intersections
+            return false;
+        }
+
         private Point GetInnerPoint(IShape shape)
         {
             var ret = new Point();
@@ -184,10 +213,28 @@ namespace TabletC.DrawPad
                 }
                     break;
                 case ShapeType.Triangle:
+                {
+                    ret.X = (shape.Vertices[0].X + shape.Vertices[1].X + shape.Vertices[2].X) / 3;
+                    ret.Y = (shape.Vertices[0].Y + shape.Vertices[1].Y + shape.Vertices[2].Y) / 3;
+                }
+                    break;
+                case ShapeType.RegPolygon:
+                {
+                    var finded = false;
+                    for (int i = 0; i <  shape.Vertices.Count; i++)
                     {
-                        ret.X = (shape.Vertices[0].X + shape.Vertices[1].X + shape.Vertices[2].X) / 3;
-                        ret.Y = (shape.Vertices[0].Y + shape.Vertices[1].Y + shape.Vertices[2].Y) / 3;
+                        for (int j = i+2; j < shape.Vertices.Count; j++)
+                        {
+                            ret.X = (shape.Vertices[i].X + shape.Vertices[j].X) / 2;
+                            ret.Y = (shape.Vertices[i].Y + shape.Vertices[j].Y) / 2;
+                            finded = CheckInnerPoint(shape.Vertices, ret);
+                            if (finded)
+                                break;
+                        }
+                        if (finded)
+                            break;
                     }
+                }
                     break;
             }
             return ret;

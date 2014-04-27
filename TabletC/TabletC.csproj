@@ -173,6 +173,7 @@
     <None Include="Resources\dashdot.png" />
     <None Include="Resources\dashdotdot.png" />
     <None Include="Resources\cursor.png" />
+    <None Include="Resources\polygon1.png" />
     <Content Include="TabletC.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -60,6 +60,7 @@
             this.ctrDrawArea.Name = "ctrDrawArea";
             this.ctrDrawArea.Size = new System.Drawing.Size(30, 30);
             this.ctrDrawArea.TabIndex = 0;
+            this.ctrDrawArea.Click += new System.EventHandler(this.ctrDrawArea_Click);
             this.ctrDrawArea.Paint += new System.Windows.Forms.PaintEventHandler(this.ctrDrawArea_Paint);
             this.ctrDrawArea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ctrDrawArea_KeyDown);
             this.ctrDrawArea.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ctrDrawArea_KeyDown);

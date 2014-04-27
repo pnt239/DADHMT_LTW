@@ -46,8 +46,11 @@ namespace TabletC.DrawPad
                 case ShapeType.Triangle:
                     DrawTriangle((Triangle)shape);
                     break;
+                case ShapeType.RegPolygon:
+                    DrawRegPolygon((RegPolygon)shape);
+                    break;
                 case ShapeType.Polygon:
-                    DrawPoplygon((Polygon)shape);
+                    DrawPolygon((Polygon)shape);
                     break;
             }
         }
@@ -62,16 +65,30 @@ namespace TabletC.DrawPad
             _graphic.DrawRectangle(rectangle.ShapePen, CreateShapeArea(rectangle.StartVertex, rectangle.EndVertex));
         }
 
-        private void DrawPoplygon(Polygon polygon)
+        private void DrawRegPolygon(RegPolygon polygon)
         {
-            //Rectangle rec = CreateShapeArea(polygon.StartVertex, polygon.EndVertex);
-  
-            var radius = (int)Math.Sqrt((polygon.StartVertex.X - polygon.EndVertex.X)*(polygon.StartVertex.X - polygon.EndVertex.X) + (polygon.StartVertex.Y - polygon.EndVertex.Y)*(polygon.StartVertex.Y - polygon.EndVertex.Y));
-            var startAngle = (int)XYToDegrees(polygon.EndVertex, polygon.StartVertex);
+            //var radius = (int)Math.Sqrt((polygon.StartVertex.X - polygon.EndVertex.X)*(polygon.StartVertex.X - polygon.EndVertex.X) + (polygon.StartVertex.Y - polygon.EndVertex.Y)*(polygon.StartVertex.Y - polygon.EndVertex.Y));
+            //var startAngle = (int)XYToDegrees(polygon.EndVertex, polygon.StartVertex);
 
-            _polygonPoints = CalculateVertices(polygon.Sides, radius, startAngle, polygon.StartVertex);
+            //_polygonPoints = CalculateVertices(polygon.Sides, radius, startAngle, polygon.StartVertex);
 
-            _graphic.DrawPolygon(polygon.ShapePen, _polygonPoints);
+            _graphic.DrawPolygon(polygon.ShapePen, polygon.Vertices.ToArray());
+        }
+
+        private void DrawPolygon(Polygon polygon)
+        {
+            if (polygon.Vertices == null || polygon.Vertices.Count < 1)
+                return;
+
+            _graphic.DrawLine(polygon.ShapePen, polygon.Vertices[polygon.Vertices.Count - 1], polygon.EndVertex);
+
+            if (polygon.Vertices.Count < 2)
+                return;
+
+            if (polygon.Vertices[0] == polygon.EndVertex)
+                _graphic.DrawPolygon(polygon.ShapePen, polygon.Vertices.ToArray());
+            else
+                _graphic.DrawLines(polygon.ShapePen, polygon.Vertices.ToArray());
         }
 
         private void DrawCircle(Circle circle)

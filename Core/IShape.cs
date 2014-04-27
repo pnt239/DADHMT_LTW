@@ -8,7 +8,7 @@ namespace TabletC.Core
 {
     public enum ShapeType
     {
-        Line = 1, Rectangle, Circle, Ellipse, Triangle, Polygon
+        Line = 1, Rectangle, Circle, Ellipse, Triangle, RegPolygon, Polygon
     }
 
     public enum FillType

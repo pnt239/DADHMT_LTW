@@ -27,6 +27,7 @@ namespace TabletC.DrawPad
             _currentPage = null;
             CurrentLayer = null;
             _cache = null;
+            _drawingbyclick = false;
 
             DrawMode = DrawMode.Select;
             IsShift = false;
@@ -37,6 +38,7 @@ namespace TabletC.DrawPad
                 {ShapeType.Rectangle, 1},
                 {ShapeType.Ellipse, 1},
                 {ShapeType.Triangle, 1},
+                {ShapeType.RegPolygon, 1},
                 {ShapeType.Polygon, 1}
             };
         }
@@ -120,10 +122,21 @@ namespace TabletC.DrawPad
                 //
                 return;
             }
+
+            if (_drawingbyclick)
+                return;
+
             _lastShape = _currentShape.Clone();
-            _lastShape.StartVertex = _lastShape.EndVertex = e.Location;
             _lastShape.ShapePen = (Pen)_currentPen.Clone();
             _lastShape.ShapeBrush = (Brush) _currentBursh.Clone();
+
+            if (_lastShape.GetShapeType() == ShapeType.Polygon)
+            {
+                _drawingbyclick = true;
+            }
+            
+            _lastShape.StartVertex = _lastShape.EndVertex = e.Location;
+            
 
             // Add Shape to Layer
             CurrentLayer = new Layer(_currentPage.PageSize)
@@ -148,7 +161,7 @@ namespace TabletC.DrawPad
                     return;
                 }
                 var p = new Point(e.Location.X, e.Location.Y);
-                if (IsShift && _lastShape.GetShapeType() != ShapeType.Polygon)
+                if (IsShift && _lastShape.GetShapeType() != ShapeType.RegPolygon)
                 {
                     var deltaX = _lastShape.StartVertex.X - p.X;
                     var deltaY = _lastShape.StartVertex.Y - p.Y;
@@ -158,7 +171,9 @@ namespace TabletC.DrawPad
                     if (Math.Abs(deltaX) > Math.Abs(deltaY))
                     {
                         p.Y = _lastShape.StartVertex.Y;
-                        if (!((_lastShape.GetShapeType() == ShapeType.Line) && ((double)asbY/asbX < Math.Tan(Math.PI/8))))
+                        if (
+                            !((_lastShape.GetShapeType() == ShapeType.Line) &&
+                              ((double) asbY/asbX < Math.Tan(Math.PI/8))))
                         {
                             p.Y -= (deltaY == 0
                                 ? 0
@@ -170,7 +185,9 @@ namespace TabletC.DrawPad
                     else
                     {
                         p.X = _lastShape.StartVertex.X;
-                        if (!((_lastShape.GetShapeType() == ShapeType.Line) && ((double)asbX / asbY < Math.Tan(Math.PI / 8))))
+                        if (
+                            !((_lastShape.GetShapeType() == ShapeType.Line) &&
+                              ((double) asbX/asbY < Math.Tan(Math.PI/8))))
                         {
                             p.X -= (deltaX == 0
                                 ? 0
@@ -179,19 +196,53 @@ namespace TabletC.DrawPad
                                   deltaX/asbX);
                         }
                     }
-                    
+
                 }
 
                 _lastShape.EndVertex = p;
                 CurrentLayer.IsRendered = false;
                 ctrDrawArea.Invalidate();
             }
+            else if (_drawingbyclick)
+            {
+                _lastShape.EndVertex = e.Location;
+                CurrentLayer.IsRendered = false;
+                ctrDrawArea.Invalidate();
+            }
+            
         }
 
         private void ctrDrawArea_MouseUp(object sender, MouseEventArgs e)
         {
+            if (_drawingbyclick)
+            {
+                if (_lastShape.Vertices.Count > 0 && Math.Abs(_lastShape.Vertices[0].X - e.Location.X) < 5 &&
+                        Math.Abs(_lastShape.Vertices[0].Y - e.Location.Y) < 5)
+                {
+                    _lastShape.EndVertex = _lastShape.Vertices[0];
+                    _drawingbyclick = false;
+                    CurrentLayer.IsRendered = false;
+                    ctrDrawArea.Invalidate();
+                }
+                else
+                {
+                    _lastShape.Vertices.Add(e.Location);
+                    CurrentLayer.IsRendered = false;
+                    return;
+                }
+                
+            }
+
+            // Release shape and push into cache
             _cache.AddLayer(CurrentLayer);
+
+            // Update point
             _lastShape.FinishEdition();
+        }
+
+        private void ctrDrawArea_Click(object sender, EventArgs e)
+        {
+            //
         }
 
         private void ctrDrawArea_KeyDown(object sender, KeyEventArgs e)
@@ -208,7 +259,9 @@ namespace TabletC.DrawPad
         private bool _isShift;
         private ImageCache _cache;
 
-        
+        private bool _drawingbyclick;
+
+
         private readonly Dictionary<ShapeType, int> _nameCount;
     }
 }
