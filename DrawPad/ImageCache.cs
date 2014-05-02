@@ -12,6 +12,7 @@ namespace TabletC.DrawPad
     {
         public ImageCache(Size size)
         {
+            // Diem bat dau
             _startPos = new Point(0, 0);
             _layers = new List<Layer>();
             _layer = null;
