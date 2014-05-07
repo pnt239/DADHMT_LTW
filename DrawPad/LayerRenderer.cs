@@ -29,8 +29,8 @@ namespace TabletC.DrawPad
             {
                 //_shapeFill.GdiFill(layer, shape);
                 _shapeDraw.Draw(layer.GraphicsBuffer, shape);
-                if (shape.Fill == FillType.Fill)
-                    _shapeFill.FloodFill(layer, shape, null);
+                if (shape.Fill == FillType.FloodFill)
+                    _shapeFill.FillByFlood(layer, shape, null);
             }
             
             layer.IsRendered = true;

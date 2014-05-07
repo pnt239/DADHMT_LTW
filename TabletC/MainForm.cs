@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using TabletC.Core;
+using TabletC.Adapters;
 
 namespace TabletC
 {
@@ -191,6 +192,12 @@ namespace TabletC
         private void btnItemPaint_Click(object sender, EventArgs e)
         {
             //
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            var t = new SimpleAdapter();
+            t.SaveTablet(_currentDrawPad.CurrentPage);
         }
     }
 }

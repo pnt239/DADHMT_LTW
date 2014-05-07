@@ -7,6 +7,7 @@ using System.Text;
 
 namespace TabletC.Core
 {
+    [Serializable]
     public class CustomPage : IPage
     {
         public CustomPage()
@@ -42,6 +43,11 @@ namespace TabletC.Core
         {
             get { return _layers; }
             set { _layers = value; }
+        }
+
+        public PageType GetPageType()
+        {
+            return PageType.Custom;
         }
 
         public IPage Clone()

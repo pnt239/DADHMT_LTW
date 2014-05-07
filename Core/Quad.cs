@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 
 namespace TabletC.Core
 {
+    [Serializable]
     public class Quad : IShape
     {
         private List<Point> _vertices;
         private FillType _fill;
+        [NonSerialized]
+        private Pen _pen;
+        [NonSerialized]
+        private Brush _brush;
 
         public Quad()
         {
@@ -33,10 +36,18 @@ namespace TabletC.Core
         }
 
         [Browsable(false)]
-        public Pen ShapePen { get; set; }
+        public Pen ShapePen
+        {
+            get { return _pen; }
+            set { _pen = value; }
+        }
 
         [Browsable(false)]
-        public Brush ShapeBrush { get; set; }
+        public Brush ShapeBrush
+        {
+            get { return _brush; }
+            set { _brush = value; }
+        }
 
         public FillType Fill
         {
@@ -48,14 +59,22 @@ namespace TabletC.Core
         public Point StartVertex
         {
             get { return _vertices[0]; }
-            set { _vertices[0] = value; }
+            set
+            {
+                _vertices[0] = value;
+                FinishEdition();
+            }
         }
 
         [Browsable(false)]
         public Point EndVertex
         {
             get { return _vertices[2]; }
-            set { _vertices[2] = value; }
+            set
+            {
+                _vertices[2] = value;
+                FinishEdition();
+            }
         }
 
         [Browsable(false)]

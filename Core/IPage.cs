@@ -12,6 +12,12 @@ namespace TabletC.Core
         Vertical = 1, Horizontal
     }
 
+    public enum PageType
+    {
+        Custom = 1,
+        A4
+    }
+
     public interface IPage
     {
         Size PageSize { get; set; }
@@ -19,6 +25,8 @@ namespace TabletC.Core
         PageOrientation Orientation { get; set; }
 
         BindingList<Layer> Layers { get; set; }
+
+        PageType GetPageType();
 
         IPage Clone();
     }

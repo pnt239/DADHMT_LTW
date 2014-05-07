@@ -23,7 +23,10 @@ namespace TabletC.Core
         public List<Point> Vertices
         {
             get { return _vertices; }
-            set { _vertices = value; }
+            set
+            {
+                _vertices = value;
+            }
         }
 
         [Browsable(false)]
@@ -61,7 +64,6 @@ namespace TabletC.Core
 
         public void FinishEdition()
         {
-            //
         }
 
         public ShapeType GetShapeType()

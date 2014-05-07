@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
 namespace TabletC.Core
@@ -13,7 +10,7 @@ namespace TabletC.Core
 
     public enum FillType
     {
-        Fill, NoFill
+        NoFill, FloodFill, ScanlineFill
     }
 
     public interface IShape

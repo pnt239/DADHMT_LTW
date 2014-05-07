@@ -6,14 +6,18 @@ using System.Text;
 
 namespace TabletC.Core
 {
+    [Serializable]
     public class Layer
     {
+        [NonSerialized]
         private Bitmap _imageBuffer;
-        private Graphics _graphicsBuffer;
+        [NonSerialized]
+        private readonly Graphics _graphicsBuffer;
         private List<IShape> _shapes;
         private Size _layerSize;
         private bool _isRendered;
         private string _name;
+        [NonSerialized]
         private Bitmap _thumb;
 
         public Layer(Size size)

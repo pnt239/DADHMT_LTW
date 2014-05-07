@@ -106,6 +106,10 @@
     <None Include="Resources\buttonBucket.Image.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Adapters\Adapters.csproj">
+      <Project>{359834ab-6f1f-4023-9a82-ee9b07c414bc}</Project>
+      <Name>Adapters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{d1cab7e3-5c20-491c-8476-61ec695f881a}</Project>
       <Name>Core</Name>

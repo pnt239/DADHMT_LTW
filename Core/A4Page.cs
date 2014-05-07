@@ -36,6 +36,11 @@ namespace TabletC.Core
             set { _layers = value; }
         }
 
+        public PageType GetPageType()
+        {
+            return PageType.A4;
+        }
+
         public IPage Clone()
         {
             return new A4Page();

@@ -9,8 +9,6 @@ namespace TabletC.DrawPad
 {
     public class ShapeDrawer
     {
-        Point[] _polygonPoints;
-
         private Graphics _graphic;
 
         public ShapeDrawer()

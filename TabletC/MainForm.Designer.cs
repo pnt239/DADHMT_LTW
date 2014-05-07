@@ -113,7 +113,7 @@ namespace TabletC
             this.buttonItem12 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem13 = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonTabItem1 = new DevComponents.DotNetBar.RibbonTabItem();
-            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
+            this.btnSave = new DevComponents.DotNetBar.ButtonItem();
             this.qatCustomizeItem1 = new DevComponents.DotNetBar.QatCustomizeItem();
             this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
             this.switchButtonItem1 = new DevComponents.DotNetBar.SwitchButtonItem();
@@ -135,6 +135,7 @@ namespace TabletC
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuMergeShapes = new System.Windows.Forms.ToolStripMenuItem();
             this.btnLayerAdd = new System.Windows.Forms.Button();
+            this.cbxHit = new System.Windows.Forms.CheckBox();
             this.panelDockContainer2 = new DevComponents.DotNetBar.PanelDockContainer();
             this.pgdOptions = new System.Windows.Forms.PropertyGrid();
             this.dockContainerItem2 = new DevComponents.DotNetBar.DockContainerItem();
@@ -145,7 +146,6 @@ namespace TabletC
             this.dockSite7 = new DevComponents.DotNetBar.DockSite();
             this.dockSite3 = new DevComponents.DotNetBar.DockSite();
             this.dockContainerItem1 = new DevComponents.DotNetBar.DockContainerItem();
-            this.cbxHit = new System.Windows.Forms.CheckBox();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
@@ -182,7 +182,7 @@ namespace TabletC
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.ribbonControl1.QuickToolbarItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItem1,
+            this.btnSave,
             this.qatCustomizeItem1});
             this.ribbonControl1.Size = new System.Drawing.Size(758, 154);
             this.ribbonControl1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -890,8 +890,8 @@ namespace TabletC
             this.superTabControl1.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControl1.ControlBox.MenuBox,
             this.superTabControl1.ControlBox.CloseBox});
-            this.superTabControl1.Controls.Add(this.superTabControlPanel1);
             this.superTabControl1.Controls.Add(this.superTabControlPanel4);
+            this.superTabControl1.Controls.Add(this.superTabControlPanel1);
             this.superTabControl1.Controls.Add(this.superTabControlPanel2);
             this.superTabControl1.Controls.Add(this.superTabControlPanel3);
             this.superTabControl1.ForeColor = System.Drawing.Color.Black;
@@ -916,9 +916,9 @@ namespace TabletC
             // superTabControlPanel1
             // 
             this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel1.Location = new System.Drawing.Point(236, 0);
+            this.superTabControlPanel1.Location = new System.Drawing.Point(87, 28);
             this.superTabControlPanel1.Name = "superTabControlPanel1";
-            this.superTabControlPanel1.Size = new System.Drawing.Size(530, 523);
+            this.superTabControlPanel1.Size = new System.Drawing.Size(679, 495);
             this.superTabControlPanel1.TabIndex = 0;
             this.superTabControlPanel1.TabItem = this.superTabItem1;
             // 
@@ -933,9 +933,9 @@ namespace TabletC
             // superTabControlPanel4
             // 
             this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel4.Location = new System.Drawing.Point(236, 0);
+            this.superTabControlPanel4.Location = new System.Drawing.Point(87, 28);
             this.superTabControlPanel4.Name = "superTabControlPanel4";
-            this.superTabControlPanel4.Size = new System.Drawing.Size(530, 523);
+            this.superTabControlPanel4.Size = new System.Drawing.Size(679, 495);
             this.superTabControlPanel4.TabIndex = 0;
             this.superTabControlPanel4.TabItem = this.superTabItem4;
             // 
@@ -949,9 +949,9 @@ namespace TabletC
             // superTabControlPanel2
             // 
             this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel2.Location = new System.Drawing.Point(236, 0);
+            this.superTabControlPanel2.Location = new System.Drawing.Point(87, 0);
             this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(530, 523);
+            this.superTabControlPanel2.Size = new System.Drawing.Size(679, 523);
             this.superTabControlPanel2.TabIndex = 0;
             this.superTabControlPanel2.TabItem = this.superTabItem2;
             // 
@@ -965,9 +965,9 @@ namespace TabletC
             // superTabControlPanel3
             // 
             this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel3.Location = new System.Drawing.Point(236, 0);
+            this.superTabControlPanel3.Location = new System.Drawing.Point(87, 0);
             this.superTabControlPanel3.Name = "superTabControlPanel3";
-            this.superTabControlPanel3.Size = new System.Drawing.Size(530, 523);
+            this.superTabControlPanel3.Size = new System.Drawing.Size(679, 523);
             this.superTabControlPanel3.TabIndex = 0;
             this.superTabControlPanel3.TabItem = this.superTabItem3;
             // 
@@ -1182,11 +1182,12 @@ namespace TabletC
             this.ribbonTabItem1.Panel = this.ribbonPanel1;
             this.ribbonTabItem1.Text = "&HOME";
             // 
-            // buttonItem1
+            // btnSave
             // 
-            this.buttonItem1.Image = global::TabletC.Properties.Resources.save;
-            this.buttonItem1.Name = "buttonItem1";
-            this.buttonItem1.Text = "buttonItem1";
+            this.btnSave.Image = global::TabletC.Properties.Resources.save;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Text = "buttonItem1";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // qatCustomizeItem1
             // 
@@ -1431,6 +1432,18 @@ namespace TabletC
             this.btnLayerAdd.Text = "Add";
             this.btnLayerAdd.UseVisualStyleBackColor = true;
             // 
+            // cbxHit
+            // 
+            this.cbxHit.AutoSize = true;
+            this.cbxHit.Checked = true;
+            this.cbxHit.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxHit.Location = new System.Drawing.Point(3, 238);
+            this.cbxHit.Name = "cbxHit";
+            this.cbxHit.Size = new System.Drawing.Size(105, 21);
+            this.cbxHit.TabIndex = 3;
+            this.cbxHit.Text = "Select by Hits";
+            this.cbxHit.UseVisualStyleBackColor = true;
+            // 
             // panelDockContainer2
             // 
             this.panelDockContainer2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -1520,28 +1533,16 @@ namespace TabletC
             this.dockContainerItem1.Name = "dockContainerItem1";
             this.dockContainerItem1.Text = "dockContainerItem1";
             // 
-            // cbxHit
-            // 
-            this.cbxHit.AutoSize = true;
-            this.cbxHit.Checked = true;
-            this.cbxHit.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxHit.Location = new System.Drawing.Point(3, 238);
-            this.cbxHit.Name = "cbxHit";
-            this.cbxHit.Size = new System.Drawing.Size(105, 21);
-            this.cbxHit.TabIndex = 3;
-            this.cbxHit.Text = "Select by Hits";
-            this.cbxHit.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(768, 525);
+            this.Controls.Add(this.superTabControl1);
             this.Controls.Add(this.dockSite9);
             this.Controls.Add(this.dockSite2);
             this.Controls.Add(this.dockSite1);
             this.Controls.Add(this.bar1);
-            this.Controls.Add(this.superTabControl1);
             this.Controls.Add(this.ribbonControl1);
             this.Controls.Add(this.dockSite3);
             this.Controls.Add(this.dockSite4);
@@ -1598,7 +1599,7 @@ namespace TabletC
         private DevComponents.DotNetBar.ButtonItem buttonItem12;
         private DevComponents.DotNetBar.ButtonItem buttonItem13;
         private DevComponents.DotNetBar.RibbonTabItem ribbonTabItem1;
-        private DevComponents.DotNetBar.ButtonItem buttonItem1;
+        private DevComponents.DotNetBar.ButtonItem btnSave;
         private DevComponents.DotNetBar.QatCustomizeItem qatCustomizeItem1;
         private DevComponents.DotNetBar.StyleManager styleManager1;
         private DevComponents.DotNetBar.ButtonItem buttonItem14;

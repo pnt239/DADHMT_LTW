@@ -79,7 +79,7 @@ namespace TabletC.DrawPad
 
     class ShapeFiller
     {
-        public void FloodFill(Layer layer, IShape shape, Point? pstart)
+        public void FillByFlood(Layer layer, IShape shape, Point? pstart)
         {
             var st = shape.GetShapeType();
             if ((st == ShapeType.Line) ||
@@ -93,18 +93,20 @@ namespace TabletC.DrawPad
 
             var colorFill = new CColor(((SolidBrush)shape.ShapeBrush).Color);
             var colorBound = new CColor(shape.ShapePen.Color);
+            var shapeBorder = Util.CreateBorder(shape);
 
-            BitmapData pixelData = layer.ImageBuffer.LockBits(new Rectangle(0, 0, layer.ImageBuffer.Width, layer.ImageBuffer.Height), ImageLockMode.ReadOnly, layer.ImageBuffer.PixelFormat);
+            int w = layer.ImageBuffer.Width;
+            int h = layer.ImageBuffer.Height;
+
+            BitmapData pixelData = layer.ImageBuffer.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.ReadOnly, layer.ImageBuffer.PixelFormat);
 
             IntPtr ptr = pixelData.Scan0;
-            int bytes = pixelData.Stride * layer.ImageBuffer.Height;
+            int bytes = pixelData.Stride * pixelData.Height; //.ImageBuffer.Height;
             var rgbValues = new byte[bytes];
 
             System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
-
+            
             // Fill at here
-            int w = layer.ImageBuffer.Width;
-            int h = layer.ImageBuffer.Height;
             int stride = 4 * w; // linesize
 
 
@@ -130,7 +132,7 @@ namespace TabletC.DrawPad
                 ShapeDrawer.CreateShapeArea(shape.StartVertex, shape.EndVertex));
         }
 
-        public void QueueFloodFill4(ref byte[] arr, ref Queue<Point> queue, int x, int y, int w, int h, int stride, CColor cfill, CColor cbound)
+        private void QueueFloodFill4(ref byte[] arr, ref Queue<Point> queue, int x, int y, int w, int h, int stride, CColor cfill, CColor cbound)
         {
             //don't go over the edge
             if (x < 0 || y < 0 || x >= w || y >= h)
@@ -162,37 +164,6 @@ namespace TabletC.DrawPad
         private CColor GetColorFromArray(ref byte[] arr, int x, int y, int linesize)
         {
             return new CColor(arr[y * linesize + x * 4 + 3], arr[y * linesize + x * 4 + 2], arr[y * linesize + x * 4 + 1], arr[y * linesize + x * 4]);
-        }
-
-        private bool CheckInnerPoint(IList<Point> points, Point point)
-        {
-            PointF currentPoint = point;
-            //Ray-cast algorithm is here onward
-            int k, j = points.Count - 1;
-            var oddNodes = false; //to check whether number of intersections is odd
-
-            for (k = 0; k < points.Count; k++)
-            {
-                //fetch adjucent points of the polygon
-                PointF polyK = points[k];
-                PointF polyJ = points[j];
-
-                //check the intersections
-                if (((polyK.Y > currentPoint.Y) != (polyJ.Y > currentPoint.Y)) &&
-                 (currentPoint.X < (polyJ.X - polyK.X) * (currentPoint.Y - polyK.Y) / (polyJ.Y - polyK.Y) + polyK.X))
-                    oddNodes = !oddNodes; //switch between odd and even
-                j = k;
-            }
-
-            //if odd number of intersections
-            if (oddNodes)
-            {
-                //mouse point is inside the polygon
-                return true;
-            }
-
-            //if even number of intersections
-            return false;
         }
 
         private Point GetInnerPoint(IShape shape)
@@ -228,7 +199,7 @@ namespace TabletC.DrawPad
                         {
                             ret.X = (shape.Vertices[i].X + shape.Vertices[j].X) / 2;
                             ret.Y = (shape.Vertices[i].Y + shape.Vertices[j].Y) / 2;
-                            finded = CheckInnerPoint(shape.Vertices, ret);
+                            finded = Util.CheckInnerPoint(shape.Vertices, ret);
                             if (finded)
                                 break;
                         }

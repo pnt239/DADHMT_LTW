@@ -250,7 +250,7 @@ namespace TabletC.DrawPad
                 {
                     _lastShape.Vertices.Add(e.Location);
                     CurrentLayer.IsRendered = false;
-                    return;
+                    //return;
                 }
                 
             }
