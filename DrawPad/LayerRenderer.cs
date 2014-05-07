@@ -27,12 +27,14 @@ namespace TabletC.DrawPad
 
             foreach (var shape in layer.Shapes)
             {
+                if (shape.Fill == FillType.ScanlineFill)
+                    _shapeFill.PaintByScanline(ref layer, shape);
                 //_shapeFill.GdiFill(layer, shape);
+
                 _shapeDraw.Draw(layer.GraphicsBuffer, shape);
+
                 if (shape.Fill == FillType.FloodFill)
                     _shapeFill.FillByFlood(layer, shape, null);
-                else if (shape.Fill == FillType.ScanlineFill)
-                    _shapeFill.PaintByScanline(ref layer, shape);
             }
             
             layer.IsRendered = true;

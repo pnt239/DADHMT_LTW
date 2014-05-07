@@ -175,26 +175,26 @@ namespace TabletC.DrawPad
         {
             
             var colorFill = new CColor(((SolidBrush)shape.ShapeBrush).Color);
-            Color FillColor = Color.FromArgb(colorFill.A, colorFill.R, colorFill.G, colorFill.B);
+            Color fillColor = Color.FromArgb(colorFill.A, colorFill.R, colorFill.G, colorFill.B);
 
             switch (shape.GetShapeType())
             {
                 case ShapeType.Rectangle:
                 case ShapeType.Polygon:
-                    ScanLineFillPolygon(ref layer, ref shape, FillColor);
+                    ScanLineFillPolygon(ref layer, ref shape, fillColor);
                     break;
                 case ShapeType.Circle:
-                    ScanLineFillCircle(ref layer, (Circle)shape, FillColor);
+                    ScanLineFillCircle(ref layer, (Circle)shape, fillColor);
                     break;
                 case ShapeType.Ellipse:
-                    ScanLineFillEllipse(ref layer, (Ellipse)shape, FillColor);
+                    ScanLineFillEllipse(ref layer, (Ellipse)shape, fillColor);
                     break;
             }
 
 
         }
 
-        private void ScanLineFillPolygon(ref Layer layer,ref IShape shape,Color FillColor)
+        private void ScanLineFillPolygon(ref Layer layer, ref IShape shape, Color fillColor)
         {
             if ((shape.StartVertex.X == shape.EndVertex.X && shape.StartVertex.Y == shape.EndVertex.Y) ||
                 (shape.GetShapeType() == ShapeType.Polygon && shape.EndVertex.X != -1))
@@ -215,7 +215,7 @@ namespace TabletC.DrawPad
                 buildActiveList(ref active, ref et[i]);
                 if (active.Count != 0)
                 {
-                    FillScan(i, ref active,layer,FillColor);
+                    FillScan(i, ref active,layer,fillColor);
                     updateEdgeList(i, ref active);
                     active.Sort();
                 }
