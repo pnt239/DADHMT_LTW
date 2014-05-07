@@ -183,9 +183,6 @@ namespace TabletC.DrawPad
                 case ShapeType.Polygon:
                     ScanLineFillPolygon(ref layer, ref shape, fillColor);
                     break;
-                case ShapeType.Circle:
-                    ScanLineFillCircle(ref layer, (Circle)shape, fillColor);
-                    break;
                 case ShapeType.Ellipse:
                     ScanLineFillEllipse(ref layer, (Ellipse)shape, fillColor);
                     break;
@@ -220,33 +217,6 @@ namespace TabletC.DrawPad
                     active.Sort();
                 }
             }
-        }
-
-        private void ScanLineFillCircle(ref Layer layer, Circle shape,Color FillColor)
-        {
-            var o = shape.Vertices[0];
-            var r = shape.Radius;
-
-            int x = 0, y = (int)r;
-            int c1 = x << 1, c2 = y << 1;
-            int p = 1 - y;
-
-            while (x < y)
-            {
-                Fill4Line(o.X, o.Y, x, y, layer, FillColor);
-
-                x++;
-                c1 += 2;
-                if (p < 0)
-                    p += c1 + 1;
-                else
-                {
-                    y--;
-                    c2 -= 2;
-                    p += c1 - c2 + 1;
-                }
-            }
-            Fill4Line(o.X, o.Y, x, y, layer, FillColor);
         }
 
         private void ScanLineFillEllipse(ref Layer layer, Ellipse shape, Color FillColor)
