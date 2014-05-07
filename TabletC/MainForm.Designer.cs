@@ -86,10 +86,10 @@ namespace TabletC
             this.buttonItem18 = new DevComponents.DotNetBar.ButtonItem();
             this.applicationButton1 = new DevComponents.DotNetBar.ApplicationButton();
             this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem4 = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem2 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
@@ -890,8 +890,8 @@ namespace TabletC
             this.superTabControl1.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControl1.ControlBox.MenuBox,
             this.superTabControl1.ControlBox.CloseBox});
-            this.superTabControl1.Controls.Add(this.superTabControlPanel4);
             this.superTabControl1.Controls.Add(this.superTabControlPanel1);
+            this.superTabControl1.Controls.Add(this.superTabControlPanel4);
             this.superTabControl1.Controls.Add(this.superTabControlPanel2);
             this.superTabControl1.Controls.Add(this.superTabControlPanel3);
             this.superTabControl1.ForeColor = System.Drawing.Color.Black;
@@ -913,12 +913,28 @@ namespace TabletC
             this.superTabControl1.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue;
             this.superTabControl1.Text = "superTabControl1";
             // 
+            // superTabControlPanel4
+            // 
+            this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel4.Location = new System.Drawing.Point(236, 0);
+            this.superTabControlPanel4.Name = "superTabControlPanel4";
+            this.superTabControlPanel4.Size = new System.Drawing.Size(530, 523);
+            this.superTabControlPanel4.TabIndex = 0;
+            this.superTabControlPanel4.TabItem = this.superTabItem4;
+            // 
+            // superTabItem4
+            // 
+            this.superTabItem4.AttachedControl = this.superTabControlPanel4;
+            this.superTabItem4.GlobalItem = false;
+            this.superTabItem4.Name = "superTabItem4";
+            this.superTabItem4.Text = "Save";
+            // 
             // superTabControlPanel1
             // 
             this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel1.Location = new System.Drawing.Point(87, 28);
+            this.superTabControlPanel1.Location = new System.Drawing.Point(236, 0);
             this.superTabControlPanel1.Name = "superTabControlPanel1";
-            this.superTabControlPanel1.Size = new System.Drawing.Size(679, 495);
+            this.superTabControlPanel1.Size = new System.Drawing.Size(530, 523);
             this.superTabControlPanel1.TabIndex = 0;
             this.superTabControlPanel1.TabItem = this.superTabItem1;
             // 
@@ -930,28 +946,12 @@ namespace TabletC
             this.superTabItem1.Text = "New";
             this.superTabItem1.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near;
             // 
-            // superTabControlPanel4
-            // 
-            this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel4.Location = new System.Drawing.Point(87, 28);
-            this.superTabControlPanel4.Name = "superTabControlPanel4";
-            this.superTabControlPanel4.Size = new System.Drawing.Size(679, 495);
-            this.superTabControlPanel4.TabIndex = 0;
-            this.superTabControlPanel4.TabItem = this.superTabItem4;
-            // 
-            // superTabItem4
-            // 
-            this.superTabItem4.AttachedControl = this.superTabControlPanel4;
-            this.superTabItem4.GlobalItem = false;
-            this.superTabItem4.Name = "superTabItem4";
-            this.superTabItem4.Text = "Save";
-            // 
             // superTabControlPanel2
             // 
             this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel2.Location = new System.Drawing.Point(87, 0);
+            this.superTabControlPanel2.Location = new System.Drawing.Point(236, 0);
             this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(679, 523);
+            this.superTabControlPanel2.Size = new System.Drawing.Size(530, 523);
             this.superTabControlPanel2.TabIndex = 0;
             this.superTabControlPanel2.TabItem = this.superTabItem2;
             // 
@@ -965,9 +965,9 @@ namespace TabletC
             // superTabControlPanel3
             // 
             this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel3.Location = new System.Drawing.Point(87, 0);
+            this.superTabControlPanel3.Location = new System.Drawing.Point(236, 0);
             this.superTabControlPanel3.Name = "superTabControlPanel3";
-            this.superTabControlPanel3.Size = new System.Drawing.Size(679, 523);
+            this.superTabControlPanel3.Size = new System.Drawing.Size(530, 523);
             this.superTabControlPanel3.TabIndex = 0;
             this.superTabControlPanel3.TabItem = this.superTabItem3;
             // 

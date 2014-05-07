@@ -108,8 +108,17 @@ namespace TabletC
         private void btnShape_Click(object sender, EventArgs e)
         {
             // Get shape type
+            btnShapeEllipse.Checked = false;
+            btnShapeLine.Checked = false;
+            btnShapePolygon.Checked = false;
+            btnShapeRectangle.Checked = false;
+            btnShapeRegPolygon.Checked = false;
+            btnShapeTriangle.Checked = false;
             var bi = (ButtonItem) sender;
             _currentDrawPad.CurrentShape = (IShape)bi.Tag;
+            bi.Checked = true;
+
+
             _currentDrawPad.DrawMode = DrawPad.DrawMode.Draw;
 
             _currentDrawPad.Cursor = Cursors.Cross;
