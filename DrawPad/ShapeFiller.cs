@@ -408,16 +408,16 @@ namespace TabletC.DrawPad
 
         private void FillLine(int x1, int x2, int y,Layer layer,Color FillColor)
         {
-            int w = layer.ImageBuffer.Width;
-            int h = layer.ImageBuffer.Height;
-            for (var j = x1; j < x2; j++)
-            {
-                if (j < 0 || y < 0 || j >= w || y >= h)
-                    return;
-                else layer.ImageBuffer.SetPixel(j, y, FillColor);
-            }
-
-                //_graphic.Vertex(j, y);
+            //int w = layer.ImageBuffer.Width;
+            //int h = layer.ImageBuffer.Height;
+            //for (var j = x1; j < x2; j++)
+            //{
+            //    if (j < 0 || y < 0 || j >= w || y >= h)
+            //        return;
+            //    else layer.ImageBuffer.SetPixel(j, y, FillColor);
+            //}
+            layer.GraphicsBuffer.DrawLine(new Pen(FillColor), x1, y, x2, y);
+            //_graphic.Vertex(j, y);
         }
 
         private void updateEdgeList(int line, ref SortedDoublyLinkedList<CActiveEdge> ae)
