@@ -31,6 +31,8 @@ namespace TabletC.DrawPad
                 _shapeDraw.Draw(layer.GraphicsBuffer, shape);
                 if (shape.Fill == FillType.FloodFill)
                     _shapeFill.FillByFlood(layer, shape, null);
+                else if (shape.Fill == FillType.ScanlineFill)
+                    _shapeFill.PaintByScanline(ref layer, shape);
             }
             
             layer.IsRendered = true;
