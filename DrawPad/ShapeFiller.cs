@@ -196,7 +196,8 @@ namespace TabletC.DrawPad
                 return;
 
             var rec = Util.CreateBorder(shape);
-            var h = rec.Y + 1;
+            //var h = rec.Y + 1;
+            var h = rec.Y + rec.Height;
             var et = new SortedDoublyLinkedList<CActiveEdge>[h];
             var active = new SortedDoublyLinkedList<CActiveEdge>();
 
@@ -205,7 +206,8 @@ namespace TabletC.DrawPad
 
             BuildEdgeList(shape.Vertices, ref et);
 
-            for (int i = rec.Y - rec.Height; i < rec.Y; i++)
+            //for (int i = rec.Y - rec.Height; i < rec.Y; i++)
+            for (int i = rec.Y; i < rec.Y + rec.Height; i++)
             {
                 buildActiveList(ref active, ref et[i]);
                 if (active.Count != 0)
@@ -374,20 +376,6 @@ namespace TabletC.DrawPad
             }
         }
 
-        private void FillLine(int x1, int x2, int y,Layer layer,Color fillColor)
-        {
-            //int w = layer.ImageBuffer.Width;
-            //int h = layer.ImageBuffer.Height;
-            //for (var j = x1; j < x2; j++)
-            //{
-            //    if (j < 0 || y < 0 || j >= w || y >= h)
-            //        return;
-            //    else layer.ImageBuffer.SetPixel(j, y, FillColor);
-            //}
-            layer.GraphicsBuffer.DrawLine(new Pen(fillColor), x1, y, x2, y);
-            //_graphic.Vertex(j, y);
-        }
-
         private void updateEdgeList(int line, ref SortedDoublyLinkedList<CActiveEdge> ae)
         {
             var p = ae.First;
@@ -436,6 +424,11 @@ namespace TabletC.DrawPad
                     j++;
 
             return points[j].Y;
+        }
+
+        private void FillLine(int x1, int x2, int y, Layer layer, Color fillColor)
+        {
+            layer.GraphicsBuffer.DrawLine(new Pen(fillColor), x1, y, x2, y);
         }
 
         private void Fill2Line(int xc, int yc, int x, int y, Layer layer, Color fillColor)

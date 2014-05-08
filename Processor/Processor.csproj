@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppProcessing.cs" />
+    <Compile Include="CommonArea.cs" />
     <Compile Include="IntegralArea.cs" />
     <Compile Include="Polynomial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

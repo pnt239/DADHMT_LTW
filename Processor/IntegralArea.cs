@@ -27,8 +27,9 @@ namespace TabletC.Processor
     {
         public double CalculatePolygonArea(IShape shape)
         {
+            double area = 0, a = 0, b = 0;
             var rec = Util.CreateBorder(shape);
-            var h = rec.Y + 1;
+            var h = rec.Y + rec.Height+1;
             var et = new SortedDoublyLinkedList<CActiveEdge>[h];
             var active = new SortedDoublyLinkedList<CActiveEdge>();
 
@@ -37,17 +38,49 @@ namespace TabletC.Processor
 
             BuildEdgeList(shape.Vertices, ref et);
 
-            for (int i = rec.Y - rec.Height; i < rec.Y; i++)
+            a = rec.Y;
+
+            for (int i = rec.Y; i < rec.Y + rec.Height+1; i++)
             {
                 buildActiveList(ref active, ref et[i]);
                 if (active.Count != 0)
                 {
+
                     //FillScan(i, ref active, layer, fillColor);
+                    if (isIntersection(i, ref active))
+                    {
+                        b = i;
+                        area += CalculatePartArea(ref active, a, b+1);
+                        a = i + 1;
+                    }
+
                     updateEdgeList(i, ref active);
                     active.Sort();
                 }
             }
-            return 0;
+            return area;
+        }
+
+        private double CalculatePartArea(ref SortedDoublyLinkedList<CActiveEdge> ae, double a, double b)
+        {
+            double area = 0;
+
+            var points = new CActiveEdge[2];
+            int i = 0;
+
+            foreach (var edge in ae)
+            {
+                points[i] = edge;
+
+                if (i == 1)
+                {
+                    area += points[1].Equation.Integral(a, b) - points[0].Equation.Integral(a, b);
+                }
+
+                i = (i + 1) % 2;
+            }
+
+            return area;
         }
 
         private void BuildEdgeList(IList<Point> points, ref SortedDoublyLinkedList<CActiveEdge>[] et)
@@ -76,6 +109,20 @@ namespace TabletC.Processor
         {
             foreach (var edge in source)
                 dest.Add(edge);
+        }
+
+        private bool isIntersection(int line, ref SortedDoublyLinkedList<CActiveEdge> ae)
+        {
+            var p = ae.First;
+
+            while (p != null)
+            {
+                if (line >= p.Value.YUper)
+                    return true;
+                p = p.Next;
+            }
+
+            return false;
         }
 
         private void updateEdgeList(int line, ref SortedDoublyLinkedList<CActiveEdge> ae)

@@ -43,6 +43,14 @@ namespace TabletC.DrawPad
             };
         }
 
+        public event EventHandler ShapeCreated;
+
+        protected virtual void OnShapeCreated()
+        {
+            EventHandler handler = ShapeCreated;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+
         public IPage CurrentPage
         {
             get { return _currentPage; }
@@ -121,6 +129,7 @@ namespace TabletC.DrawPad
                 return;
 
             // Prototype method
+            _currentShape = _currentShape.Clone();
             _currentShape.ShapePen = (Pen)_currentPen.Clone();
             _currentShape.ShapeBrush = (Brush) _currentBrush.Clone();
 
@@ -255,6 +264,7 @@ namespace TabletC.DrawPad
             }
 
             // Update point
+            OnShapeCreated();
             _currentShape.FinishEdition();
         }
 

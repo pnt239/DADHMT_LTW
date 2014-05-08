@@ -87,6 +87,7 @@ namespace TabletC
             _currentDrawPad.Name = String.Format("dpUntiled{0}", _currentTabId);
             _currentDrawPad.TabIndex = 0;
             _currentDrawPad.CurrentPage = new CustomPage(new Size(720, 480));
+            _currentDrawPad.ShapeCreated += DrawPad_ShapeCreated;
             _listDrawPad.Add(_currentDrawPad);
 
             // Connect to bindinglist
@@ -97,10 +98,15 @@ namespace TabletC
             _currentTabId++;
         }
 
-        void Layers_ListChanged(object sender, ListChangedEventArgs e)
+        private void Layers_ListChanged(object sender, ListChangedEventArgs e)
         {
             lbxLayers.SelectedIndex = -1;
             lbxLayers.SelectedIndex = e.NewIndex;
+        }
+
+        private void DrawPad_ShapeCreated(object sender, EventArgs e)
+        {
+            pgdOptions.SelectedObject = _currentDrawPad.CurrentShape;
         }
 
         private void barCenter_DockTabChange(object sender, DockTabChangeEventArgs e)
@@ -121,7 +127,7 @@ namespace TabletC
             btnShapeRegPolygon.Checked = false;
             btnShapeTriangle.Checked = false;
             var bi = (ButtonItem) sender;
-            _currentDrawPad.CurrentShape = ((IShape)bi.Tag).Clone();
+            _currentDrawPad.CurrentShape = (IShape)bi.Tag;
             bi.Checked = true;
 
 
@@ -203,7 +209,7 @@ namespace TabletC
 
         private void btnAreaCommon_Click(object sender, EventArgs e)
         {
-            //
+            MessageBox.Show(_myapp.CalculateArea(AreaMethod.Common, _currentDrawPad.CurrentShape).ToString(CultureInfo.InvariantCulture));
         }
 
         private void btnAreaIntegral_Click(object sender, EventArgs e)
@@ -213,6 +219,7 @@ namespace TabletC
 
         private void btnAreaTriangulator_Click(object sender, EventArgs e)
         {
+            var rec = Util.CreateBorder(_currentDrawPad.CurrentShape);
             MessageBox.Show(_myapp.CalculateArea(AreaMethod.Triangulator, _currentDrawPad.CurrentShape).ToString(CultureInfo.InvariantCulture));
         }
     }

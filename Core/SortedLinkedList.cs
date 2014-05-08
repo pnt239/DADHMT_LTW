@@ -117,8 +117,8 @@ namespace TabletC.Core
             if (node == _head)
             {
                 // Remove head
+                node.Pre = null;
                 _head = node.Next;
-                _head.Pre = null;
             }
             else if (node == _tail)
             {

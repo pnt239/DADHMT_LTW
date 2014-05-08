@@ -50,7 +50,7 @@ namespace TabletC.Core
                 if (p.Y > ymax) ymax = p.Y;
                 if (p.Y < ymin) ymin = p.Y;
             }
-            return new Rectangle(xmin, ymax, xmax - xmin, ymax - ymin);
+            return new Rectangle(xmin, ymin, xmax - xmin, ymax - ymin);
         }
 
         // Kiem tra 1 diem co nam trong da giac khong

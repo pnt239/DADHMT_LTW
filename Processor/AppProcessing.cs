@@ -15,17 +15,19 @@ namespace TabletC.Processor
     {
         public double CalculateArea(AreaMethod method, IShape shape)
         {
-            IntegralArea ia = new IntegralArea();
-
             switch (method)
             {
+                case AreaMethod.Common:
+                    return CommonArea.Area(shape.Vertices);
                 case AreaMethod.Triangulator:
                 {
                     Triangulator tri = new Triangulator(shape.Vertices);
                     return tri.Area();
                 }
             }
-            return 0; //ia.CalculatePolygonArea(ref shape);
+
+            IntegralArea ia = new IntegralArea();
+            return ia.CalculatePolygonArea(shape); //ia.CalculatePolygonArea(ref shape);
         }
     }
 }
