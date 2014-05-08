@@ -146,6 +146,7 @@ namespace TabletC
             this.dockSite7 = new DevComponents.DotNetBar.DockSite();
             this.dockSite3 = new DevComponents.DotNetBar.DockSite();
             this.dockContainerItem1 = new DevComponents.DotNetBar.DockContainerItem();
+            this.btnAreaTriangulator = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
@@ -271,7 +272,8 @@ namespace TabletC
             this.buttonItem20.Name = "buttonItem20";
             this.buttonItem20.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnAreaIntegral,
-            this.btnAreaCommon});
+            this.btnAreaCommon,
+            this.btnAreaTriangulator});
             this.buttonItem20.SubItemsExpandWidth = 14;
             // 
             // btnAreaIntegral
@@ -1533,6 +1535,12 @@ namespace TabletC
             this.dockContainerItem1.Name = "dockContainerItem1";
             this.dockContainerItem1.Text = "dockContainerItem1";
             // 
+            // btnAreaTriangulator
+            // 
+            this.btnAreaTriangulator.Name = "btnAreaTriangulator";
+            this.btnAreaTriangulator.Text = "Area by Triangulator";
+            this.btnAreaTriangulator.Click += new System.EventHandler(this.btnAreaTriangulator_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1692,5 +1700,6 @@ namespace TabletC
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem mnuMergeShapes;
         private System.Windows.Forms.CheckBox cbxHit;
+        private DevComponents.DotNetBar.ButtonItem btnAreaTriangulator;
     }
 }

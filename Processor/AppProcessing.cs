@@ -8,7 +8,7 @@ namespace TabletC.Processor
 {
     public enum AreaMethod
     {
-        Integral, Common
+        Integral, Common, Triangulator
     }
 
     public class AppProcessing
@@ -19,11 +19,11 @@ namespace TabletC.Processor
 
             switch (method)
             {
-                case AreaMethod.Common:
+                case AreaMethod.Triangulator:
                 {
-                    //
+                    Triangulator tri = new Triangulator(shape.Vertices);
+                    return tri.Area();
                 }
-                    break;
             }
             return 0; //ia.CalculatePolygonArea(ref shape);
         }

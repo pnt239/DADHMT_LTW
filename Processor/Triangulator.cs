@@ -76,7 +76,7 @@ namespace TabletC.Processor
             return indices.ToArray();
         }
 
-        private float Area()
+        public float Area()
         {
             int n = m_points.Count;
             float A = 0.0f;

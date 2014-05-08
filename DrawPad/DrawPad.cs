@@ -121,31 +121,30 @@ namespace TabletC.DrawPad
                 return;
 
             // Prototype method
-            _lastShape = _currentShape.Clone();
-            _lastShape.ShapePen = (Pen)_currentPen.Clone();
-            _lastShape.ShapeBrush = (Brush) _currentBrush.Clone();
+            _currentShape.ShapePen = (Pen)_currentPen.Clone();
+            _currentShape.ShapeBrush = (Brush) _currentBrush.Clone();
 
-            if (_lastShape.GetShapeType() == ShapeType.Polygon)
+            if (_currentShape.GetShapeType() == ShapeType.Polygon)
             {
                 // Draw by click
                 _drawingbyclick = true;
             }
             // Assign start and end point
-            _lastShape.StartVertex = _lastShape.EndVertex = e.Location;
+            _currentShape.StartVertex = _currentShape.EndVertex = e.Location;
             
 
             // Create new layer
             CurrentLayer = new Layer(_currentPage.PageSize)
             {
                 Name =
-                    _lastShape.Name + " " + _nameCount[_lastShape.GetShapeType()].ToString(CultureInfo.InvariantCulture)
+                    _currentShape.Name + " " + _nameCount[_currentShape.GetShapeType()].ToString(CultureInfo.InvariantCulture)
             };
             // Assign NO. for new layer, uing for display on Bindlist
-            _nameCount[_lastShape.GetShapeType()] += 1;
+            _nameCount[_currentShape.GetShapeType()] += 1;
             // Add new layer into current page
             _currentPage.Layers.Add(CurrentLayer);
             // Add new shape into new layer
-            CurrentLayer.Shapes.Add(_lastShape);
+            CurrentLayer.Shapes.Add(_currentShape);
             // Push layer into cache
             _cache.PushLayer(ref _currentLayer);
         }
@@ -166,20 +165,20 @@ namespace TabletC.DrawPad
                     return;
                 }
                 var p = new Point(e.Location.X, e.Location.Y);
-                if (IsShift && _lastShape.GetShapeType() != ShapeType.RegPolygon)
+                if (IsShift && _currentShape.GetShapeType() != ShapeType.RegPolygon)
                 {
                     // Snap point
-                    var deltaX = _lastShape.StartVertex.X - p.X;
-                    var deltaY = _lastShape.StartVertex.Y - p.Y;
+                    var deltaX = _currentShape.StartVertex.X - p.X;
+                    var deltaY = _currentShape.StartVertex.Y - p.Y;
                     var asbX = Math.Abs(deltaX);
                     var asbY = Math.Abs(deltaY);
 
                     if (Math.Abs(deltaX) > Math.Abs(deltaY))
                     {
                         // Tinh y theo x
-                        p.Y = _lastShape.StartVertex.Y; // Default is horital
+                        p.Y = _currentShape.StartVertex.Y; // Default is horital
                         if (
-                            !((_lastShape.GetShapeType() == ShapeType.Line) &&
+                            !((_currentShape.GetShapeType() == ShapeType.Line) &&
                               ((double) asbY/asbX < Math.Tan(Math.PI/8))))
                         {
                             // if deltaY = 0 then line is horital
@@ -191,35 +190,35 @@ namespace TabletC.DrawPad
                             p.Y -= (deltaY == 0
                                 ? 0
                                 : (int)
-                                    (asbX*(_lastShape.GetShapeType() == ShapeType.Triangle ? Math.Sin(Math.PI/3) : 1))*
+                                    (asbX*(_currentShape.GetShapeType() == ShapeType.Triangle ? Math.Sin(Math.PI/3) : 1))*
                                   deltaY/asbY);
                         }
                     }
                     else
                     {
                         // Tinh x theo y
-                        p.X = _lastShape.StartVertex.X; // Default is vertical
+                        p.X = _currentShape.StartVertex.X; // Default is vertical
                         if (
-                            !((_lastShape.GetShapeType() == ShapeType.Line) &&
+                            !((_currentShape.GetShapeType() == ShapeType.Line) &&
                               ((double) asbX/asbY < Math.Tan(Math.PI/8))))
                         {
                             p.X -= (deltaX == 0
                                 ? 0
                                 : (int)
-                                    (asbY/(_lastShape.GetShapeType() == ShapeType.Triangle ? Math.Sin(Math.PI/3) : 1))*
+                                    (asbY/(_currentShape.GetShapeType() == ShapeType.Triangle ? Math.Sin(Math.PI/3) : 1))*
                                   deltaX/asbX);
                         }
                     }
 
                 }
 
-                _lastShape.EndVertex = p;
+                _currentShape.EndVertex = p;
                 CurrentLayer.IsRendered = false;
                 ctrDrawArea.Invalidate();
             }
             else if (_drawingbyclick)
             {
-                _lastShape.EndVertex = e.Location;
+                _currentShape.EndVertex = e.Location;
                 CurrentLayer.IsRendered = false;
                 ctrDrawArea.Invalidate();
             }
@@ -238,17 +237,17 @@ namespace TabletC.DrawPad
             {
                 // Draw by click
                 // Add new point
-                if (_lastShape.Vertices.Count > 0 && Math.Abs(_lastShape.Vertices[0].X - e.Location.X) < 5 &&
-                        Math.Abs(_lastShape.Vertices[0].Y - e.Location.Y) < 5)
+                if (_currentShape.Vertices.Count > 0 && Math.Abs(_currentShape.Vertices[0].X - e.Location.X) < 5 &&
+                        Math.Abs(_currentShape.Vertices[0].Y - e.Location.Y) < 5)
                 {
-                    _lastShape.EndVertex = new Point(-1, -1);
+                    _currentShape.EndVertex = new Point(-1, -1);
                     _drawingbyclick = false;
                     CurrentLayer.IsRendered = false;
                     ctrDrawArea.Invalidate();
                 }
                 else
                 {
-                    _lastShape.Vertices.Add(e.Location);
+                    _currentShape.Vertices.Add(e.Location);
                     CurrentLayer.IsRendered = false;
                     //return;
                 }
@@ -256,7 +255,7 @@ namespace TabletC.DrawPad
             }
 
             // Update point
-            _lastShape.FinishEdition();
+            _currentShape.FinishEdition();
         }
 
         private void ctrDrawArea_Click(object sender, EventArgs e)
@@ -274,7 +273,6 @@ namespace TabletC.DrawPad
         private IShape _currentShape;
         private Pen _currentPen;
         private Brush _currentBrush;
-        private IShape _lastShape;
         private DrawMode _drawMode;
         private bool _isShift;
         private ImageCache _cache;

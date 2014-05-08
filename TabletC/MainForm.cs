@@ -121,7 +121,7 @@ namespace TabletC
             btnShapeRegPolygon.Checked = false;
             btnShapeTriangle.Checked = false;
             var bi = (ButtonItem) sender;
-            _currentDrawPad.CurrentShape = (IShape)bi.Tag;
+            _currentDrawPad.CurrentShape = ((IShape)bi.Tag).Clone();
             bi.Checked = true;
 
 
@@ -209,6 +209,11 @@ namespace TabletC
         private void btnAreaIntegral_Click(object sender, EventArgs e)
         {
             MessageBox.Show(_myapp.CalculateArea(AreaMethod.Integral, _currentDrawPad.CurrentShape).ToString(CultureInfo.InvariantCulture));
+        }
+
+        private void btnAreaTriangulator_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(_myapp.CalculateArea(AreaMethod.Triangulator, _currentDrawPad.CurrentShape).ToString(CultureInfo.InvariantCulture));
         }
     }
 }
