@@ -7,8 +7,8 @@
     <ProjectGuid>{975BA371-B84F-4A69-B5CA-A7D8743E3075}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TabletC.Application</RootNamespace>
-    <AssemblyName>TabletC.Application</AssemblyName>
+    <RootNamespace>TabletC.Processor</RootNamespace>
+    <AssemblyName>TabletC.Processor</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,8 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppProcessing.cs" />
     <Compile Include="IntegralArea.cs" />
+    <Compile Include="Polynomial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Adapters\Adapters.csproj">
+      <Project>{359834ab-6f1f-4023-9a82-ee9b07c414bc}</Project>
+      <Name>Adapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{d1cab7e3-5c20-491c-8476-61ec695f881a}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

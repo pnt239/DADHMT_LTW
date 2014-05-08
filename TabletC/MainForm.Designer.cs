@@ -34,8 +34,8 @@ namespace TabletC
             this.ribbonPanel1 = new DevComponents.DotNetBar.RibbonPanel();
             this.ribbonBar7 = new DevComponents.DotNetBar.RibbonBar();
             this.buttonItem20 = new DevComponents.DotNetBar.ButtonItem();
-            this.btnItemUseAlg = new DevComponents.DotNetBar.ButtonItem();
-            this.btnItemUseLibrary = new DevComponents.DotNetBar.ButtonItem();
+            this.btnAreaIntegral = new DevComponents.DotNetBar.ButtonItem();
+            this.btnAreaCommon = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar6 = new DevComponents.DotNetBar.RibbonBar();
             this.itemContainer9 = new DevComponents.DotNetBar.ItemContainer();
             this.btnItemSize = new DevComponents.DotNetBar.ButtonItem();
@@ -86,10 +86,10 @@ namespace TabletC
             this.buttonItem18 = new DevComponents.DotNetBar.ButtonItem();
             this.applicationButton1 = new DevComponents.DotNetBar.ApplicationButton();
             this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem4 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItem4 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem2 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
@@ -270,21 +270,21 @@ namespace TabletC
             this.buttonItem20.ImagePosition = DevComponents.DotNetBar.eImagePosition.Bottom;
             this.buttonItem20.Name = "buttonItem20";
             this.buttonItem20.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnItemUseAlg,
-            this.btnItemUseLibrary});
+            this.btnAreaIntegral,
+            this.btnAreaCommon});
             this.buttonItem20.SubItemsExpandWidth = 14;
             // 
-            // btnItemUseAlg
+            // btnAreaIntegral
             // 
-            this.btnItemUseAlg.Name = "btnItemUseAlg";
-            this.btnItemUseAlg.Text = "Use algorithm";
-            this.btnItemUseAlg.Click += new System.EventHandler(this.btnItemUseAlg_Click);
+            this.btnAreaIntegral.Name = "btnAreaIntegral";
+            this.btnAreaIntegral.Text = "Area by Integral";
+            this.btnAreaIntegral.Click += new System.EventHandler(this.btnAreaIntegral_Click);
             // 
-            // btnItemUseLibrary
+            // btnAreaCommon
             // 
-            this.btnItemUseLibrary.Name = "btnItemUseLibrary";
-            this.btnItemUseLibrary.Text = "Use Library";
-            this.btnItemUseLibrary.Click += new System.EventHandler(this.btnItemUseLibrary_Click);
+            this.btnAreaCommon.Name = "btnAreaCommon";
+            this.btnAreaCommon.Text = "Area by Common";
+            this.btnAreaCommon.Click += new System.EventHandler(this.btnAreaCommon_Click);
             // 
             // ribbonBar6
             // 
@@ -913,22 +913,6 @@ namespace TabletC
             this.superTabControl1.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue;
             this.superTabControl1.Text = "superTabControl1";
             // 
-            // superTabControlPanel4
-            // 
-            this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel4.Location = new System.Drawing.Point(236, 0);
-            this.superTabControlPanel4.Name = "superTabControlPanel4";
-            this.superTabControlPanel4.Size = new System.Drawing.Size(530, 523);
-            this.superTabControlPanel4.TabIndex = 0;
-            this.superTabControlPanel4.TabItem = this.superTabItem4;
-            // 
-            // superTabItem4
-            // 
-            this.superTabItem4.AttachedControl = this.superTabControlPanel4;
-            this.superTabItem4.GlobalItem = false;
-            this.superTabItem4.Name = "superTabItem4";
-            this.superTabItem4.Text = "Save";
-            // 
             // superTabControlPanel1
             // 
             this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -945,6 +929,22 @@ namespace TabletC
             this.superTabItem1.Name = "superTabItem1";
             this.superTabItem1.Text = "New";
             this.superTabItem1.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near;
+            // 
+            // superTabControlPanel4
+            // 
+            this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel4.Location = new System.Drawing.Point(236, 0);
+            this.superTabControlPanel4.Name = "superTabControlPanel4";
+            this.superTabControlPanel4.Size = new System.Drawing.Size(530, 523);
+            this.superTabControlPanel4.TabIndex = 0;
+            this.superTabControlPanel4.TabItem = this.superTabItem4;
+            // 
+            // superTabItem4
+            // 
+            this.superTabItem4.AttachedControl = this.superTabControlPanel4;
+            this.superTabItem4.GlobalItem = false;
+            this.superTabItem4.Name = "superTabItem4";
+            this.superTabItem4.Text = "Save";
             // 
             // superTabControlPanel2
             // 
@@ -1646,8 +1646,8 @@ namespace TabletC
         private DevComponents.DotNetBar.SuperTabItem superTabItem3;
         private DevComponents.DotNetBar.RibbonBar ribbonBar7;
         private DevComponents.DotNetBar.ButtonItem buttonItem20;
-        private DevComponents.DotNetBar.ButtonItem btnItemUseAlg;
-        private DevComponents.DotNetBar.ButtonItem btnItemUseLibrary;
+        private DevComponents.DotNetBar.ButtonItem btnAreaIntegral;
+        private DevComponents.DotNetBar.ButtonItem btnAreaCommon;
         private DevComponents.DotNetBar.ButtonItem btnShapeTriangle;
         private DevComponents.DotNetBar.ButtonItem btnShapePolygon;
         private DevComponents.DotNetBar.ItemContainer itemContainer9;

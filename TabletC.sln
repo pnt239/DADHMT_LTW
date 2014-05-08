@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawPad", "DrawPad\DrawPad.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adapters", "Adapters\Adapters.csproj", "{359834AB-6F1F-4023-9A82-EE9B07C414BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{975BA371-B84F-4A69-B5CA-A7D8743E3075}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Processor", "Processor\Processor.csproj", "{975BA371-B84F-4A69-B5CA-A7D8743E3075}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

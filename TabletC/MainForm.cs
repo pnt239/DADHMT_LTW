@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using TabletC.Core;
 using TabletC.Adapters;
+using TabletC.Processor;
 
 namespace TabletC
 {
@@ -16,10 +18,14 @@ namespace TabletC
         private readonly List<DrawPad.DrawPad> _listDrawPad;
         private int _currentTabId;
         private DrawPad.DrawPad _currentDrawPad;
+        private AppProcessing _myapp;
 
         public MainForm()
         {
             InitializeComponent();
+
+            // Init main processing
+            _myapp = new AppProcessing();
 
             // Init color
             cpkBackgroundColor.SelectedColor = Color.White;
@@ -152,20 +158,6 @@ namespace TabletC
             _currentDrawPad.CurrentPen.Width = int.Parse(bti.Tag.ToString());
         }
 
-        private void btnItemUseAlg_Click(object sender, EventArgs e)
-        {
-            // Choose Algorithm to draw shape
-            //lblDrawBy.Text = "Algorithm";
-            //dpMain.UseLibrary = false;
-        }
-
-        private void btnItemUseLibrary_Click(object sender, EventArgs e)
-        {
-            // Choose openGL Library to draw shape
-            //lblDrawBy.Text = "Library";
-            //dpMain.UseLibrary = true;
-        }
-
         private void btnDash_Click(object sender, EventArgs e)
         {
             var bti = (ButtonItem) sender;
@@ -207,6 +199,16 @@ namespace TabletC
         {
             var t = new SimpleAdapter();
             t.SaveTablet(_currentDrawPad.CurrentPage);
+        }
+
+        private void btnAreaCommon_Click(object sender, EventArgs e)
+        {
+            //
+        }
+
+        private void btnAreaIntegral_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(_myapp.CalculateArea(AreaMethod.Integral, _currentDrawPad.CurrentShape).ToString(CultureInfo.InvariantCulture));
         }
     }
 }

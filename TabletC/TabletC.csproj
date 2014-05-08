@@ -118,6 +118,10 @@
       <Project>{e91c8095-4399-4a38-80bb-b24d6744d819}</Project>
       <Name>DrawPad</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Processor\Processor.csproj">
+      <Project>{975ba371-b84f-4a69-b5ca-a7d8743e3075}</Project>
+      <Name>Processor</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\select.png" />
