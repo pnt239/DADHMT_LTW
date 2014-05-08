@@ -20,7 +20,7 @@ namespace TabletC.DrawPad
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((CColor) obj);
         }
 
@@ -109,7 +109,7 @@ namespace TabletC.DrawPad
 
             var colorFill = new CColor(((SolidBrush)shape.ShapeBrush).Color);
             var colorBound = new CColor(shape.ShapePen.Color);
-            var shapeBorder = Util.CreateBorder(shape);
+            //var shapeBorder = Util.CreateBorder(shape);
 
             int w = layer.ImageBuffer.Width;
             int h = layer.ImageBuffer.Height;
@@ -148,7 +148,25 @@ namespace TabletC.DrawPad
                 ShapeDrawer.CreateShapeArea(shape.StartVertex, shape.EndVertex));
         }
 
+        public void FillByScanline(ref Layer layer, IShape shape)
+        {
 
+            var colorFill = new CColor(((SolidBrush)shape.ShapeBrush).Color);
+            Color fillColor = Color.FromArgb(colorFill.A, colorFill.R, colorFill.G, colorFill.B);
+
+            switch (shape.GetShapeType())
+            {
+                case ShapeType.Rectangle:
+                case ShapeType.Polygon:
+                    ScanLineFillPolygon(ref layer, ref shape, fillColor);
+                    break;
+                case ShapeType.Ellipse:
+                    ScanLineFillEllipse(ref layer, (Ellipse)shape, fillColor);
+                    break;
+            }
+
+
+        }
 
         private void QueueFloodFill4(ref byte[] arr, ref Queue<Point> queue, int x, int y, int w, int h, int stride, CColor cfill, CColor cbound)
         {
@@ -169,26 +187,6 @@ namespace TabletC.DrawPad
                 queue.Enqueue(new Point(x - 1, y));
                 queue.Enqueue(new Point(x, y - 1));
             }
-        }
-
-        public void PaintByScanline(ref Layer layer, IShape shape)
-        {
-            
-            var colorFill = new CColor(((SolidBrush)shape.ShapeBrush).Color);
-            Color fillColor = Color.FromArgb(colorFill.A, colorFill.R, colorFill.G, colorFill.B);
-
-            switch (shape.GetShapeType())
-            {
-                case ShapeType.Rectangle:
-                case ShapeType.Polygon:
-                    ScanLineFillPolygon(ref layer, ref shape, fillColor);
-                    break;
-                case ShapeType.Ellipse:
-                    ScanLineFillEllipse(ref layer, (Ellipse)shape, fillColor);
-                    break;
-            }
-
-
         }
 
         private void ScanLineFillPolygon(ref Layer layer, ref IShape shape, Color fillColor)
@@ -219,7 +217,7 @@ namespace TabletC.DrawPad
             }
         }
 
-        private void ScanLineFillEllipse(ref Layer layer, Ellipse shape, Color FillColor)
+        private void ScanLineFillEllipse(ref Layer layer, Ellipse shape, Color fillColor)
         {
             int rx = shape.MajorAxis, ry = shape.MinorAxis;
             var o = new Point((shape.EndVertex.X + shape.StartVertex.X) / 2,
@@ -231,7 +229,7 @@ namespace TabletC.DrawPad
 
             while (c1 < c2)
             {
-                Fill2Line(o.X, o.Y, x, y,layer,FillColor);
+                Fill2Line(o.X, o.Y, x, y,layer,fillColor);
 
                 x++;
                 if (p < 0)
@@ -254,7 +252,7 @@ namespace TabletC.DrawPad
 
             while (y != 0)
             {
-                Fill2Line(o.X, o.Y, x, y, layer, FillColor);
+                Fill2Line(o.X, o.Y, x, y, layer, fillColor);
 
                 y--;
                 if (p > 0)
@@ -270,7 +268,7 @@ namespace TabletC.DrawPad
                     p += c2 - c1 + rx * rx;
                 }
             }
-            Fill2Line(o.X, o.Y, x, y, layer, FillColor);
+            Fill2Line(o.X, o.Y, x, y, layer, fillColor);
         }
 
         private void SetColorToArray(ref byte[] arr, int x, int y, int stride, CColor c)
@@ -360,7 +358,7 @@ namespace TabletC.DrawPad
                 dest.Add(edge);
         }
 
-        private void FillScan(int line, ref SortedDoublyLinkedList<CActiveEdge> ae,Layer layer,Color FillColor)
+        private void FillScan(int line, ref SortedDoublyLinkedList<CActiveEdge> ae,Layer layer,Color fillColor)
         {
             var points = new CActiveEdge[2];
             int i = 0;
@@ -370,13 +368,13 @@ namespace TabletC.DrawPad
                 points[i] = edge;
 
                 if (i == 1)
-                    FillLine((int)Math.Round(points[0].XIntersection, 0), (int)Math.Round(points[1].XIntersection, 0), line,layer,FillColor);
+                    FillLine((int)Math.Round(points[0].XIntersection, 0), (int)Math.Round(points[1].XIntersection, 0), line,layer,fillColor);
 
                 i = (i + 1) % 2;
             }
         }
 
-        private void FillLine(int x1, int x2, int y,Layer layer,Color FillColor)
+        private void FillLine(int x1, int x2, int y,Layer layer,Color fillColor)
         {
             //int w = layer.ImageBuffer.Width;
             //int h = layer.ImageBuffer.Height;
@@ -386,7 +384,7 @@ namespace TabletC.DrawPad
             //        return;
             //    else layer.ImageBuffer.SetPixel(j, y, FillColor);
             //}
-            layer.GraphicsBuffer.DrawLine(new Pen(FillColor), x1, y, x2, y);
+            layer.GraphicsBuffer.DrawLine(new Pen(fillColor), x1, y, x2, y);
             //_graphic.Vertex(j, y);
         }
 
@@ -440,18 +438,10 @@ namespace TabletC.DrawPad
             return points[j].Y;
         }
 
-        private void Fill4Line(int xc, int yc, int x, int y,Layer layer,Color FillColor)
+        private void Fill2Line(int xc, int yc, int x, int y, Layer layer, Color fillColor)
         {
-            FillLine(-x + xc, x + xc, y + yc, layer, FillColor);
-            FillLine(-y + xc, y + xc, x + yc, layer, FillColor);
-            FillLine(-y + xc, y + xc, -x + yc, layer, FillColor);
-            FillLine(-x + xc, x + xc, -y + yc, layer, FillColor);
-        }
-
-        private void Fill2Line(int xc, int yc, int x, int y, Layer layer, Color FillColor)
-        {
-            FillLine(-x + xc, x + xc, y + yc, layer, FillColor);
-            FillLine(-x + xc, x + xc, -y + yc, layer, FillColor);
+            FillLine(-x + xc, x + xc, y + yc, layer, fillColor);
+            FillLine(-x + xc, x + xc, -y + yc, layer, fillColor);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace TabletC.DrawPad
             foreach (var shape in layer.Shapes)
             {
                 if (shape.Fill == FillType.ScanlineFill)
-                    _shapeFill.PaintByScanline(ref layer, shape);
+                    _shapeFill.FillByScanline(ref layer, shape);
                 //_shapeFill.GdiFill(layer, shape);
 
                 _shapeDraw.Draw(layer.GraphicsBuffer, shape);
