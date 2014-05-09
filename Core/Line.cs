@@ -62,6 +62,20 @@ namespace TabletC.Core
             get { return "Line"; }
         }
 
+        public bool HitTest(Point point)
+        {
+            var vtpt = new Point(_vertices[0].Y - _vertices[1].Y, _vertices[1].X - _vertices[0].X);
+            var xmin = _vertices[0].X < _vertices[1].X ? _vertices[0].X : _vertices[1].X;
+            var xmax = _vertices[0].X < _vertices[1].X ? _vertices[1].X : _vertices[0].X;
+
+            var d = Math.Abs(vtpt.X * (point.X - _vertices[0].X) + vtpt.Y * (point.Y - _vertices[0].Y)) /
+                      Math.Sqrt(vtpt.X * vtpt.X + vtpt.Y * vtpt.Y);
+            if (d < 10 && point.X >= xmin && point.X <= xmax)
+                return true;
+
+            return false;
+        }
+
         public void FinishEdition()
         {
         }

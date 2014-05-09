@@ -83,6 +83,12 @@ namespace TabletC.Core
             get { return "Rectangle"; }
         }
 
+        public bool HitTest(Point point)
+        {
+            return point.X >= _vertices[0].X && point.X <= _vertices[2].X && point.Y >= _vertices[0].Y &&
+                   point.Y <= _vertices[2].Y;
+        }
+
         public void FinishEdition()
         {
             _vertices[1] = new Point(_vertices[2].X, _vertices[0].Y);

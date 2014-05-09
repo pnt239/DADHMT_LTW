@@ -33,6 +33,8 @@ namespace TabletC.Core
 
         string Name { get; }
 
+        bool HitTest(Point point);
+
         void FinishEdition();
 
         /* Get type of shape (line, rectable, circle, ellipse */

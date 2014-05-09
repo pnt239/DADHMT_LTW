@@ -32,32 +32,42 @@ namespace TabletC.Processor
             var h = rec.Y + rec.Height+1;
             var et = new SortedDoublyLinkedList<CActiveEdge>[h];
             var active = new SortedDoublyLinkedList<CActiveEdge>();
+            var lastActive = new SortedDoublyLinkedList<CActiveEdge>();
+            bool changed = false;
+            int i;
 
-            for (int i = 0; i < h; i++)
+            for (i = 0; i < h; i++)
                 et[i] = new SortedDoublyLinkedList<CActiveEdge>();
 
             BuildEdgeList(shape.Vertices, ref et);
 
             a = rec.Y;
 
-            for (int i = rec.Y; i < rec.Y + rec.Height+1; i++)
+            for (i = rec.Y; i < rec.Y + rec.Height+1; i++)
             {
+                changed |= et[i].Count > 0;
                 buildActiveList(ref active, ref et[i]);
                 if (active.Count != 0)
                 {
-
                     //FillScan(i, ref active, layer, fillColor);
-                    if (isIntersection(i, ref active))
+                    if (changed && lastActive.Count > 0)
                     {
                         b = i;
-                        area += CalculatePartArea(ref active, a, b+1);
-                        a = i + 1;
+                        area += CalculatePartArea(ref lastActive, a, b);
+                        a = b;
                     }
 
-                    updateEdgeList(i, ref active);
+                    lastActive.Clear();
+                    buildActiveList(ref lastActive, ref active);
+
+                    changed = updateEdgeList(i, ref active);
                     active.Sort();
                 }
             }
+
+            if (changed)
+                area += CalculatePartArea(ref lastActive, a, i-1);
+
             return area;
         }
 
@@ -125,8 +135,9 @@ namespace TabletC.Processor
             return false;
         }
 
-        private void updateEdgeList(int line, ref SortedDoublyLinkedList<CActiveEdge> ae)
+        private bool updateEdgeList(int line, ref SortedDoublyLinkedList<CActiveEdge> ae)
         {
+            bool flag = false;
             var p = ae.First;
 
             while (p != null)
@@ -134,11 +145,14 @@ namespace TabletC.Processor
                 if (line >= p.Value.YUper)
                 {
                     ae.Remove(p);
+                    flag = true;
                 }
                 else
-                    p.Value.XIntersection += p.Value.Equation.Solve(line);
+                    p.Value.XIntersection = p.Value.Equation.Solve(line);
                 p = p.Next;
             }
+
+            return flag;
         }
 
         private void MakeEdgeRec(ref Point lower, ref Point upper, int yComp, ref SortedDoublyLinkedList<CActiveEdge>[] et)

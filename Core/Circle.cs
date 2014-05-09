@@ -67,6 +67,12 @@ namespace TabletC.Core
             get { return "Circle"; }
         }
 
+        public bool HitTest(Point point)
+        {
+            var d = Math.Pow(point.X - _vertices[0].X, 2) + Math.Pow(point.Y - _vertices[0].Y, 2);
+            return d <= Math.Pow(Radius, 2);
+        }
+
         public void FinishEdition()
         {
             //

@@ -15,6 +15,13 @@ namespace TabletC.Processor
     {
         public double CalculateArea(AreaMethod method, IShape shape)
         {
+            switch (shape.GetShapeType())
+            {
+                case ShapeType.Ellipse:
+                    var elip = (Ellipse) shape;
+                    return Math.PI*elip.MajorAxis*elip.MinorAxis;
+            }
+
             switch (method)
             {
                 case AreaMethod.Common:

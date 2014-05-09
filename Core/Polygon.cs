@@ -63,6 +63,11 @@ namespace TabletC.Core
             get { return "Polygon"; }
         }
 
+        public bool HitTest(Point point)
+        {
+            return Util.CheckInnerPoint(_vertices, point);
+        }
+
         public void FinishEdition()
         {
             //

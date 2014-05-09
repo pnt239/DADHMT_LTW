@@ -70,6 +70,11 @@ namespace TabletC.Core
             get { return "Triangle"; }
         }
 
+        public bool HitTest(Point point)
+        {
+            return Util.CheckInnerPoint(_vertices, point);
+        }
+
         public void FinishEdition()
         {
             int x = _startVertex.X < _endVertex.X ? _startVertex.X : _endVertex.X;

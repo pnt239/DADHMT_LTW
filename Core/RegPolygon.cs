@@ -79,6 +79,11 @@ namespace TabletC.Core
             get { return "Regular Polygon"; }
         }
 
+        public bool HitTest(Point point)
+        {
+            return Util.CheckInnerPoint(_vertices, point);
+        }
+
         public void FinishEdition()
         {
             float step = 360.0f / _sides;

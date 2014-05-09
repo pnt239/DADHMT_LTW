@@ -43,6 +43,16 @@ namespace TabletC.Core
         }
 
         [Browsable(false)]
+        public Point Orginal
+        {
+            get
+            {
+                return new Point((StartVertex.X + EndVertex.X) / 2,
+                                 (StartVertex.Y + EndVertex.Y) / 2);
+            }
+        }
+
+        [Browsable(false)]
         public int MajorAxis
         {
             get { return Math.Abs(EndVertex.X - StartVertex.X) / 2; }
@@ -72,6 +82,13 @@ namespace TabletC.Core
         public string Name
         {
             get { return "Ellipse"; }
+        }
+
+        public bool HitTest(Point point)
+        {
+            double d = Math.Pow(point.X - Orginal.X, 2) / Math.Pow(MajorAxis, 2) +
+                       Math.Pow(point.Y - Orginal.Y, 2) / Math.Pow(MinorAxis, 2);
+            return d <= 1;
         }
 
         public void FinishEdition()
