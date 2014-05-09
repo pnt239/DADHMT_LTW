@@ -20,12 +20,15 @@ namespace TabletC.Processor
         }
         public int[] Triangulate()
         {
+            /* allocate and initialize list of Vertices in polygon */
             List<int> indices = new List<int>();
 
             int n = m_points.Count;
             if (n < 3)
                 return indices.ToArray();
 
+
+            /* we want a counter-clockwise polygon in V */
             int[] V = new int[n];
             if (Area() > 0)
             {
@@ -38,13 +41,18 @@ namespace TabletC.Processor
                     V[v] = (n - 1) - v;
             }
 
+
+            /*  remove nv-2 Vertices, creating 1 triangle every time */
             int nv = n;
-            int count = 2 * nv;
+            int count = 2 * nv;  /* error detection */
             for (int m = 0, v = nv - 1; nv > 2; )
             {
-                if ((count--) <= 0)
-                    return indices.ToArray();
+                /* if we loop, it is probably a non-simple polygon */
+                if ((count--) <= 0) //Check 
+                    return indices.ToArray();   //Return if loop
 
+
+                /* three consecutive vertices in current polygon, <u,v,w> */
                 int u = v;
                 if (nv <= u)
                     u = 0;
