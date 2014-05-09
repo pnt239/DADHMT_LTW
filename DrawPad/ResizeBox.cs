@@ -50,6 +50,7 @@ namespace TabletC.DrawPad
             _dPoint.Clear();
             switch (_shape.GetShapeType())
             {
+                case ShapeType.Triangle:
                 case ShapeType.Rectangle:
                 case ShapeType.Ellipse:
                 {

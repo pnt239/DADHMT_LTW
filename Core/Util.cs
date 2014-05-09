@@ -26,7 +26,9 @@ namespace TabletC.Core
         {
             switch (shape.GetShapeType())
             {
+                case ShapeType.Triangle:
                 case ShapeType.Rectangle:
+                case ShapeType.RegPolygon:
                 case ShapeType.Polygon:
                     return CreatePolygonBorder(shape.Vertices);
                 case ShapeType.Circle:
