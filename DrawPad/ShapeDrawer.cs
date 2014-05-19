@@ -10,7 +10,7 @@ namespace TabletC.DrawPad
 {
     public class ShapeDrawer
     {
-        private GraphDrawingContext _graphContext;
+        private Graphics _graphs;
 
         public ShapeDrawer()
         {
@@ -20,12 +20,12 @@ namespace TabletC.DrawPad
         /* true - use sharpGL to draw */
         public bool UseLibrary { get; set; }
 
-        public void Draw(IShape shape, GraphDrawingContext graphicContext)
+        public void Draw(IShape shape, Graphics graphic)
         {
             if (shape.EndVertex.Equals(shape.StartVertex))
                 return;
 
-            _graphContext = graphicContext;
+            _graphs = graphic;
 
             /* Draw shape*/
             switch (shape.GetShapeType())
@@ -49,10 +49,10 @@ namespace TabletC.DrawPad
         {
             GraphicsPath path = new GraphicsPath();
             if (closed) path.StartFigure();
-            path.AddLines(_graphContext.ViewPort.WinToView(shape.Vertices).ToArray());
+            path.AddLines(shape.Vertices.ToPoints());
             if (closed) path.CloseFigure();
 
-            _graphContext.Graphs.DrawPath(shape.ShapePen, path);
+            _graphs.DrawPath(shape.ShapePen, path);
         }
 
         /*
@@ -81,12 +81,13 @@ namespace TabletC.DrawPad
             if (polygon.Vertices == null || polygon.Vertices.Count < 1)
                 return;
 
-            bool endpol = polygon.EndVertex.X == -1;
+            // polygon.EndVertex.X != -1
+            bool endpol = (int)polygon.EndVertex.X == -1;
 
             if (!endpol)
-                _graphContext.Graphs.DrawLine(polygon.ShapePen,
-                    _graphContext.ViewPort.WinToView(polygon.Vertices[polygon.Vertices.Count - 1]), 
-                    _graphContext.ViewPort.WinToView(polygon.EndVertex));
+                _graphs.DrawLine(polygon.ShapePen,
+                    polygon.Vertices[polygon.Vertices.Count - 1].ToPoint(), 
+                    polygon.EndVertex.ToPoint());
 
             if (polygon.Vertices.Count < 2)
                 return;
@@ -100,10 +101,10 @@ namespace TabletC.DrawPad
         private void DrawEllipse(Ellipse ellipse)
         {
             GraphicsPath path = new GraphicsPath();
-            path.AddEllipse(Util.CreateShapeBound(_graphContext.ViewPort.WinToView(ellipse.StartVertex),
-                _graphContext.ViewPort.WinToView(ellipse.EndVertex)));
+            path.AddEllipse(Util.CreateShapeBound(ellipse.StartVertex.ToPoint(),
+                ellipse.EndVertex.ToPoint()));
 
-            _graphContext.Graphs.DrawPath(ellipse.ShapePen, path);
+            _graphs.DrawPath(ellipse.ShapePen, path);
         }
         /*
         private void DrawTriangle(Triangle triangle)

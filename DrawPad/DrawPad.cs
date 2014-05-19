@@ -11,10 +11,6 @@ using TabletC.Core;
 
 namespace TabletC.DrawPad
 {
-    public enum DrawMode
-    {
-        Select = 1, Draw, Paint
-    }
 
     public partial class DrawPad: UserControl
     {
@@ -23,7 +19,7 @@ namespace TabletC.DrawPad
             InitializeComponent();
 
             _viewPort = new ViewPort();
-            _resizeBox = new ResizeBox();
+            _transformBox = new TransformBox();
             _currentPen = new Pen(Color.Black, 1.0F);
             _currentBrush = new SolidBrush(Color.White);
             _currentPage = null;
@@ -31,7 +27,6 @@ namespace TabletC.DrawPad
             _cache = null;
             _drawingbyclick = false;
 
-            DrawMode = DrawMode.Select;
             IsShift = false;
             _isSelected = false;
             _canMove = false;
@@ -68,6 +63,7 @@ namespace TabletC.DrawPad
 
                 _viewPort = new ViewPort(_currentPage.Units, _currentPage.PageSize);
 
+                _transformBox.ViewPort = _viewPort;
                 _cache = new ImageCache(ref _viewPort);
 
                 ChangeLayout();
@@ -92,10 +88,10 @@ namespace TabletC.DrawPad
             set { _currentShape = value; }
         }
 
-        public DrawMode DrawMode
+        public SelectMode SelectMode
         {
-            get { return _drawMode; }
-            set { _drawMode = value; }
+            get { return _transformBox.SelectMode; }
+            set { _transformBox.SelectMode = value; }
         }
 
         public bool IsShift
@@ -134,13 +130,14 @@ namespace TabletC.DrawPad
             ViewPort.Graphic = e.Graphics;
             _cache.Render();
 
+            _transformBox.Draw(e.Graphics);
             //if (_isSelected)
             //    _resizeBox.Draw(e.Graphics);
         }
 
         private void ctrDrawArea_MouseDown(object sender, MouseEventArgs e)
         {
-            if (DrawMode == DrawMode.Select)
+            if (SelectMode == SelectMode.Selection)
             {
                 //// There isn't any selected shape
                 //if (!_isSelected) return;
@@ -165,7 +162,7 @@ namespace TabletC.DrawPad
                 return;
 
             // Prototype method
-            _currentShape = _currentShape.Clone();
+            _transformBox.CurentShape = _currentShape = _currentShape.Clone();
             _currentShape.ShapePen = (Pen)_currentPen.Clone();
             _currentShape.ShapeBrush = (Brush) _currentBrush.Clone();
 
@@ -175,23 +172,11 @@ namespace TabletC.DrawPad
                 _drawingbyclick = true;
             }
             // Assign start and end point
-            _currentShape.StartVertex = _currentShape.EndVertex = ViewPort.ViewToWin(e.Location);
-            
+            _currentShape.StartVertex = _currentShape.EndVertex = new Vertex(e.Location);
 
-            // Create new layer
-            CurrentLayer = new Layer(_currentPage.PageSize)
-            {
-                Name =
-                    _currentShape.Name + " " + _nameCount[_currentShape.GetShapeType()].ToString(CultureInfo.InvariantCulture)
-            };
-            // Assign NO. for new layer, uing for display on Bindlist
-            _nameCount[_currentShape.GetShapeType()] += 1;
-            // Add new layer into current page
-            _currentPage.Layers.Add(CurrentLayer);
-            // Add new shape into new layer
-            CurrentLayer.Shapes.Add(_currentShape);
-            // Push layer into cache
-            _cache.PushLayer(ref _currentLayer);
+            _transformBox.Recalculate();
+            _transformBox.ShowControlPoint = false;
+            
         }
 
         private void ctrDrawArea_MouseMove(object sender, MouseEventArgs e)
@@ -201,7 +186,7 @@ namespace TabletC.DrawPad
             if (oMouseChanged != null)
                 oMouseChanged(this, new MouseEventArgs(e.Button, e.Clicks, e.X, e.Y, e.Delta));
 
-            if (DrawMode == DrawMode.Select)
+            if (SelectMode == SelectMode.Selection)
             {
                 //if (_isSelected && _isResized)
                 //{
@@ -250,7 +235,7 @@ namespace TabletC.DrawPad
 
             if (e.Button == MouseButtons.Left)
             {
-                if (_drawMode == DrawMode.Select)
+                if (SelectMode == SelectMode.Selection)
                 {
                     //// In select mode
                     //if (_isResized)
@@ -278,7 +263,7 @@ namespace TabletC.DrawPad
                     return;
                 }
                 //var p = new Point(e.Location.X, e.Location.Y);
-                var p = ViewPort.ViewToWin(e.Location);
+                var p = new Vertex(e.Location);
                 if (IsShift && _currentShape.GetShapeType() != ShapeType.RegPolygon)
                 {
                     // Snap point
@@ -328,12 +313,16 @@ namespace TabletC.DrawPad
 
                 _currentShape.EndVertex = p;
                 CurrentLayer.IsRendered = false;
+
+                _transformBox.Recalculate();
                 ctrDrawArea.Invalidate();
             }
             else if (_drawingbyclick)
             {
-                _currentShape.EndVertex = ViewPort.ViewToWin(e.Location);
+                _currentShape.EndVertex = new Vertex(e.Location);
                 CurrentLayer.IsRendered = false;
+
+                _transformBox.Recalculate();
                 ctrDrawArea.Invalidate();
             }
             
@@ -341,7 +330,7 @@ namespace TabletC.DrawPad
 
         private void ctrDrawArea_MouseUp(object sender, MouseEventArgs e)
         {
-            if (DrawMode == DrawMode.Select)
+            if (SelectMode == SelectMode.Selection)
             {
                 //// In select mode
                 //if (_isResized)
@@ -383,8 +372,8 @@ namespace TabletC.DrawPad
             {
                 // Draw by click
                 // Add new point
-                if (_currentShape.Vertices.Count > 0 && Math.Abs(ViewPort.WinToView(_currentShape.Vertices[0].X) - e.Location.X) < 5 &&
-                        Math.Abs(ViewPort.WinToView(_currentShape.Vertices[0].Y) - e.Location.Y) < 5)
+                if (_currentShape.Vertices.Count > 0 && Math.Abs((int)_currentShape.Vertices[0].X - e.Location.X) < 5 &&
+                        Math.Abs((int)_currentShape.Vertices[0].Y - e.Location.Y) < 5)
                 {
                     _currentShape.EndVertex = new Vertex(-1, -1);
                     _drawingbyclick = false;
@@ -393,16 +382,34 @@ namespace TabletC.DrawPad
                 }
                 else
                 {
-                    _currentShape.Vertices.Add(ViewPort.ViewToWin(e.Location));
+                    _currentShape.Vertices.Add(new Vertex(e.Location));
                     CurrentLayer.IsRendered = false;
                     //return;
                 }
                 
             }
 
+            // Create new layer
+            CurrentLayer = new Layer(_currentPage.PageSize)
+            {
+                Name =
+                    _currentShape.Name + " " + _nameCount[_currentShape.GetShapeType()].ToString(CultureInfo.InvariantCulture)
+            };
+            // Assign NO. for new layer, uing for display on Bindlist
+            _nameCount[_currentShape.GetShapeType()] += 1;
+            // Add new layer into current page
+            _currentPage.Layers.Add(CurrentLayer);
+            // Add new shape into new layer
+            CurrentLayer.Shapes.Add(_currentShape);
+            // Push layer into cache
+            _cache.PushLayer(ref _currentLayer);
+
             // Update point
             OnShapeCreated();
             _currentShape.ReCalculateVertices();
+
+            _transformBox.ShowControlPoint = true;
+            ctrDrawArea.Invalidate();
         }
 
         private void ctrDrawArea_Click(object sender, EventArgs e)
@@ -416,13 +423,12 @@ namespace TabletC.DrawPad
         }
 
         private ViewPort _viewPort;
-        private readonly ResizeBox _resizeBox;
+        private readonly TransformBox _transformBox;
         private IPage _currentPage;
         private Layer _currentLayer;
         private IShape _currentShape;
         private Pen _currentPen;
         private Brush _currentBrush;
-        private DrawMode _drawMode;
         private bool _isShift;
         private ImageCache _cache;
 

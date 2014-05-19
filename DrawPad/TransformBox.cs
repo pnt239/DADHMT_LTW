@@ -1,11 +1,131 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using TabletC.Core;
 
 namespace TabletC.DrawPad
 {
-    public class ResizeBox
+    public enum SelectMode
     {
+        None, Draw, Selection, DirectSelection
+    }
+    public class TransformBox
+    {
+        public TransformBox()
+        {
+            _shapeDraw = new ShapeDrawer();
+
+            // 9 is center point
+            _transformPoint = new Point[CountTransPoint];
+            _controlPoint = new List<Point>();
+
+            _selectMode = SelectMode.None;
+            ShowControlPoint = false;
+            _penBorder = new Pen(Color.FromArgb(0xff, 0x4f, 0x80, 0xff));
+            _penTransPoint = new Pen(Color.FromArgb(0xff, 0x4f, 0x80, 0xff));
+            _penCtrlPoint = new Pen(Color.FromArgb(0xff, 0x4f, 0x80, 0xff));
+            _brushControlPoint = new SolidBrush(Color.FromArgb(0xff, 0x4f, 0x80, 0xff));
+        }
+
+        public ViewPort ViewPort
+        {
+            get { return _viewPort; }
+            set { _viewPort = value; }
+        }
+
+        public IShape CurentShape
+        {
+            get { return _curentShape; }
+            set { _curentShape = value; }
+        }
+
+        public SelectMode SelectMode
+        {
+            get { return _selectMode; }
+            set { _selectMode = value; }
+        }
+
+        public bool ShowControlPoint
+        {
+            get { return _showControlPoint; }
+            set { _showControlPoint = value; }
+        }
+
+        public void Draw(Graphics graphs)
+        {
+            if (SelectMode == SelectMode.None || _curentShape == null)
+                return;
+
+            _curentShape.ShapePen = _penBorder;
+            _shapeDraw.Draw(_curentShape, graphs);
+
+            if (SelectMode == SelectMode.Selection)
+            {
+                graphs.DrawRectangle(_penBorder, _recTransBorder);
+                // Draw 8 transform point
+                for (int i = 0; i < CountTransPoint; i++)
+                    DrawPoint(_transformPoint[i], false, graphs);
+            }
+            else if (SelectMode == SelectMode.DirectSelection || ShowControlPoint)
+            {
+                foreach (IVertex vertex in _curentShape.Vertices)
+                    DrawPoint(vertex.ToPoint(), true, graphs);
+            }
+        }
+
+        public void DrawPoint(Point point, bool fill, Graphics graphs)
+        {
+            Rectangle rec = new Rectangle(point.X - _pointWith/2, point.Y - _pointHeight/2, _pointWith, _pointHeight);
+            graphs.DrawRectangle(_penTransPoint, rec);
+
+            if (fill)
+                graphs.FillRectangle(_brushControlPoint, rec);
+        }
+
+        public void Recalculate()
+        {
+            if (CurentShape.Vertices.Count == 0)
+                return;
+            RectangleF rec = Util.CreateShapeBound(_curentShape);
+            _recTransBorder = new Rectangle((int) Math.Round(rec.X), (int) Math.Round(rec.Y),
+                (int) Math.Round(rec.Width), (int) Math.Round(rec.Height));
+
+            RecalculateTransPoint();
+        }
+
+        public void RecalculateTransPoint()
+        {
+            float segmentX = (float) _recTransBorder.Width/2;
+            float segmentY = (float) _recTransBorder.Height/2;
+            int[] dx = {0, 1, 2, 2, 2, 1, 0, 0, 1};
+            int[] dy = {0, 0, 0, 1, 2, 2, 2, 1, 1};
+            for (int i = 0; i < CountTransPoint; i++)
+            {
+                _transformPoint[i] = new Point(_recTransBorder.X + (int) (dx[i]*segmentX),
+                    _recTransBorder.Y + (int) (dy[i]*segmentY));
+            }
+        }
+
+        private readonly ShapeDrawer _shapeDraw;
+        private ViewPort _viewPort;
+
+        private Point[] _transformPoint;
+        private List<Point> _controlPoint;
+
+        private SelectMode _selectMode;
+        private bool _showControlPoint;
+        private Pen _penBorder;
+        private Pen _penTransPoint;
+        private Pen _penCtrlPoint;
+        private Brush _brushControlPoint;
+
+        private Rectangle _recTransBorder;
+
+        private int _pointWith = 4;
+        private int _pointHeight = 4;
+        private const int CountTransPoint = 9;
+
+        private IShape _curentShape;
         /*
         public ResizeBox()
         {

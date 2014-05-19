@@ -50,7 +50,7 @@ namespace TabletC
             CreateNewPage();
 
             // Select mode
-            _currentDrawPad.DrawMode = DrawPad.DrawMode.Select;
+            _currentDrawPad.SelectMode = DrawPad.SelectMode.Selection;
             // Pen and brush
             _currentDrawPad.CurrentPen.Color = cpkOutlineColor.SelectedColor;
             _currentDrawPad.CurrentBrush = (Brush) btnBrushSolidColor.Tag;
@@ -145,7 +145,7 @@ namespace TabletC
             bi.Checked = true;
 
 
-            _currentDrawPad.DrawMode = DrawPad.DrawMode.Draw;
+            _currentDrawPad.SelectMode = DrawPad.SelectMode.Draw;
 
             _currentDrawPad.Cursor = Cursors.Cross;
 
@@ -154,7 +154,7 @@ namespace TabletC
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            _currentDrawPad.DrawMode = DrawPad.DrawMode.Select;
+            _currentDrawPad.SelectMode = DrawPad.SelectMode.Selection;
             _currentDrawPad.Cursor = Cursors.Cross;
         }
 
@@ -187,7 +187,13 @@ namespace TabletC
 
         private void btnItemCursor_Click(object sender, EventArgs e)
         {
-            _currentDrawPad.DrawMode = DrawPad.DrawMode.Select;
+            _currentDrawPad.SelectMode = DrawPad.SelectMode.Selection;
+            _currentDrawPad.Cursor = Cursors.Default;
+        }
+
+        private void btnItemDirectSel_Click(object sender, EventArgs e)
+        {
+            _currentDrawPad.SelectMode = DrawPad.SelectMode.DirectSelection;
             _currentDrawPad.Cursor = Cursors.Default;
         }
 

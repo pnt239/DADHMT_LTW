@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -10,6 +11,8 @@ namespace TabletC.Core
         // Method: Add()
         // Creates a vertex and adds it to the collection.
         IVertex Add();
+
+        Point[] ToPoints();
 
         // Event: VertexAdded
         // Occurs when a vertex is added to the collection.

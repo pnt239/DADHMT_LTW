@@ -107,7 +107,7 @@ namespace TabletC.DrawPad
                 return;
 
             if (pstart == null)
-                pstart = graphicContext.ViewPort.WinToView(GetInnerPoint(shape));
+                pstart = graphicContext.ViewPort.WinToView(GetInnerPoint(shape)).ToPoint();
 
             var colorFill = ((SolidBrush)shape.ShapeBrush).Color;
             var colorBound = shape.ShapePen.Color;

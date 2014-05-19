@@ -16,7 +16,7 @@ namespace TabletC.Core
     public interface IShape
     {
         /* List of vertices */
-        IVertexCollection Vertices { get; }
+        IVertexCollection Vertices { get; set; }
 
         /* Pen to draw shape. Having width, color */
         Pen ShapePen { get; set; }

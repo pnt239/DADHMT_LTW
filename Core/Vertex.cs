@@ -23,6 +23,12 @@ namespace TabletC.Core
             _y = y;
         }
 
+        public Vertex(Point point)
+        {
+            _x = point.X;
+            _y = point.Y;
+        }
+
         public bool IsEmpty
         {
             get { return (Math.Abs(X) < EPSILON) && (Math.Abs(Y) < EPSILON); }
@@ -38,6 +44,11 @@ namespace TabletC.Core
         {
             get { return _y; }
             set { _y = value; }
+        }
+
+        public Point ToPoint()
+        {
+            return new Point((int) Math.Round(_x), (int) Math.Round(_y));
         }
     }
 }

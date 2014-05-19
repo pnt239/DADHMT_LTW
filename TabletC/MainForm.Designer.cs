@@ -68,7 +68,7 @@ namespace TabletC
             this.ribbonBar3 = new DevComponents.DotNetBar.RibbonBar();
             this.itemContainer7 = new DevComponents.DotNetBar.ItemContainer();
             this.btnItemCursor = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
+            this.btnItemDirectSel = new DevComponents.DotNetBar.ButtonItem();
             this.btnItemPaint = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar2 = new DevComponents.DotNetBar.RibbonBar();
             this.btnSelect = new DevComponents.DotNetBar.ButtonItem();
@@ -120,6 +120,15 @@ namespace TabletC
             this.switchButtonItem1 = new DevComponents.DotNetBar.SwitchButtonItem();
             this.switchButtonItem2 = new DevComponents.DotNetBar.SwitchButtonItem();
             this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.itemContainer10 = new DevComponents.DotNetBar.ItemContainer();
+            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
+            this.sttLocation = new DevComponents.DotNetBar.LabelItem();
+            this.itemContainer11 = new DevComponents.DotNetBar.ItemContainer();
+            this.labelItem3 = new DevComponents.DotNetBar.LabelItem();
+            this.sttSize = new DevComponents.DotNetBar.LabelItem();
+            this.itemContainer12 = new DevComponents.DotNetBar.ItemContainer();
+            this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
+            this.sttPageSize = new DevComponents.DotNetBar.LabelItem();
             this.dotNetBarManager = new DevComponents.DotNetBar.DotNetBarManager(this.components);
             this.dockSite4 = new DevComponents.DotNetBar.DockSite();
             this.dockSite9 = new DevComponents.DotNetBar.DockSite();
@@ -147,15 +156,6 @@ namespace TabletC
             this.dockSite7 = new DevComponents.DotNetBar.DockSite();
             this.dockSite3 = new DevComponents.DotNetBar.DockSite();
             this.dockContainerItem1 = new DevComponents.DotNetBar.DockContainerItem();
-            this.itemContainer10 = new DevComponents.DotNetBar.ItemContainer();
-            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
-            this.sttLocation = new DevComponents.DotNetBar.LabelItem();
-            this.itemContainer11 = new DevComponents.DotNetBar.ItemContainer();
-            this.labelItem3 = new DevComponents.DotNetBar.LabelItem();
-            this.sttSize = new DevComponents.DotNetBar.LabelItem();
-            this.itemContainer12 = new DevComponents.DotNetBar.ItemContainer();
-            this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
-            this.sttPageSize = new DevComponents.DotNetBar.LabelItem();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
@@ -652,7 +652,7 @@ namespace TabletC
             this.itemContainer7.Name = "itemContainer7";
             this.itemContainer7.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnItemCursor,
-            this.buttonItem1,
+            this.btnItemDirectSel,
             this.btnItemPaint});
             // 
             // 
@@ -667,11 +667,12 @@ namespace TabletC
             this.btnItemCursor.Text = "Cursor";
             this.btnItemCursor.Click += new System.EventHandler(this.btnItemCursor_Click);
             // 
-            // buttonItem1
+            // btnItemDirectSel
             // 
-            this.buttonItem1.Image = global::TabletC.Properties.Resources.cursor_direct;
-            this.buttonItem1.Name = "buttonItem1";
-            this.buttonItem1.Text = "buttonItem1";
+            this.btnItemDirectSel.Image = global::TabletC.Properties.Resources.cursor_direct;
+            this.btnItemDirectSel.Name = "btnItemDirectSel";
+            this.btnItemDirectSel.Text = "buttonItem1";
+            this.btnItemDirectSel.Click += new System.EventHandler(this.btnItemDirectSel_Click);
             // 
             // btnItemPaint
             // 
@@ -1224,6 +1225,83 @@ namespace TabletC
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
             // 
+            // itemContainer10
+            // 
+            // 
+            // 
+            // 
+            this.itemContainer10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.itemContainer10.FixedSize = new System.Drawing.Size(170, 0);
+            this.itemContainer10.Name = "itemContainer10";
+            this.itemContainer10.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.labelItem1,
+            this.sttLocation});
+            // 
+            // 
+            // 
+            this.itemContainer10.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // labelItem1
+            // 
+            this.labelItem1.Name = "labelItem1";
+            this.labelItem1.Text = "Location: ";
+            // 
+            // sttLocation
+            // 
+            this.sttLocation.Name = "sttLocation";
+            this.sttLocation.Text = "0 , 0";
+            // 
+            // itemContainer11
+            // 
+            // 
+            // 
+            // 
+            this.itemContainer11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.itemContainer11.FixedSize = new System.Drawing.Size(170, 0);
+            this.itemContainer11.Name = "itemContainer11";
+            this.itemContainer11.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.labelItem3,
+            this.sttSize});
+            // 
+            // 
+            // 
+            this.itemContainer11.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // labelItem3
+            // 
+            this.labelItem3.Name = "labelItem3";
+            this.labelItem3.Text = "Size: ";
+            // 
+            // sttSize
+            // 
+            this.sttSize.Name = "sttSize";
+            this.sttSize.Text = "0 x 0";
+            // 
+            // itemContainer12
+            // 
+            // 
+            // 
+            // 
+            this.itemContainer12.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.itemContainer12.Name = "itemContainer12";
+            this.itemContainer12.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.labelItem2,
+            this.sttPageSize});
+            // 
+            // 
+            // 
+            this.itemContainer12.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // labelItem2
+            // 
+            this.labelItem2.Name = "labelItem2";
+            this.labelItem2.Text = "Page Size: ";
+            // 
+            // sttPageSize
+            // 
+            this.sttPageSize.Name = "sttPageSize";
+            this.sttPageSize.Text = "0 x 0";
+            // 
             // dotNetBarManager
             // 
             this.dotNetBarManager.AutoDispatchShortcuts.Add(DevComponents.DotNetBar.eShortcut.F1);
@@ -1534,83 +1612,6 @@ namespace TabletC
             this.dockContainerItem1.Name = "dockContainerItem1";
             this.dockContainerItem1.Text = "dockContainerItem1";
             // 
-            // itemContainer10
-            // 
-            // 
-            // 
-            // 
-            this.itemContainer10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.itemContainer10.FixedSize = new System.Drawing.Size(170, 0);
-            this.itemContainer10.Name = "itemContainer10";
-            this.itemContainer10.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.labelItem1,
-            this.sttLocation});
-            // 
-            // 
-            // 
-            this.itemContainer10.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // labelItem1
-            // 
-            this.labelItem1.Name = "labelItem1";
-            this.labelItem1.Text = "Location: ";
-            // 
-            // sttLocation
-            // 
-            this.sttLocation.Name = "sttLocation";
-            this.sttLocation.Text = "0 , 0";
-            // 
-            // itemContainer11
-            // 
-            // 
-            // 
-            // 
-            this.itemContainer11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.itemContainer11.FixedSize = new System.Drawing.Size(170, 0);
-            this.itemContainer11.Name = "itemContainer11";
-            this.itemContainer11.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.labelItem3,
-            this.sttSize});
-            // 
-            // 
-            // 
-            this.itemContainer11.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // labelItem3
-            // 
-            this.labelItem3.Name = "labelItem3";
-            this.labelItem3.Text = "Size: ";
-            // 
-            // sttSize
-            // 
-            this.sttSize.Name = "sttSize";
-            this.sttSize.Text = "0 x 0";
-            // 
-            // itemContainer12
-            // 
-            // 
-            // 
-            // 
-            this.itemContainer12.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.itemContainer12.Name = "itemContainer12";
-            this.itemContainer12.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.labelItem2,
-            this.sttPageSize});
-            // 
-            // 
-            // 
-            this.itemContainer12.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // labelItem2
-            // 
-            this.labelItem2.Name = "labelItem2";
-            this.labelItem2.Text = "Page Size: ";
-            // 
-            // sttPageSize
-            // 
-            this.sttPageSize.Name = "sttPageSize";
-            this.sttPageSize.Text = "0 x 0";
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1770,7 +1771,7 @@ namespace TabletC
         private System.Windows.Forms.ToolStripMenuItem mnuMergeShapes;
         private System.Windows.Forms.CheckBox cbxHit;
         private DevComponents.DotNetBar.ButtonItem btnAreaTriangulator;
-        private DevComponents.DotNetBar.ButtonItem buttonItem1;
+        private DevComponents.DotNetBar.ButtonItem btnItemDirectSel;
         private DevComponents.DotNetBar.ItemContainer itemContainer10;
         private DevComponents.DotNetBar.LabelItem labelItem1;
         private DevComponents.DotNetBar.LabelItem sttLocation;

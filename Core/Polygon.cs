@@ -9,7 +9,7 @@ namespace TabletC.Core
 {
     public class Polygon : IShape
     {
-        private readonly IVertexCollection _vertices;
+        private IVertexCollection _vertices;
         private IVertex _start;
         private IVertex _end;
         private FillType _fill;
@@ -29,6 +29,7 @@ namespace TabletC.Core
         public IVertexCollection Vertices
         {
             get { return _vertices; }
+            set { _vertices = value; }
         }
 
         [Browsable(false)]

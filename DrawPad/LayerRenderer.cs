@@ -30,11 +30,12 @@ namespace TabletC.DrawPad
                 //if (shape.Fill == FillType.ScanlineFill)
                 //    _shapeFill.FillByScanline(g, shape);
                 //_shapeFill.GdiFill(layer, shape);
+                IShape viewShape = graphContext.ViewPort.WinToView(shape);
 
-                _shapeDraw.Draw(shape, graphContext);
+                _shapeDraw.Draw(viewShape, graphContext.Graphs);
 
                 if (shape.Fill == FillType.FloodFill)
-                    _shapeFill.FillByFlood(graphContext, shape, null);
+                    _shapeFill.FillByFlood(graphContext, viewShape, null);
             }
             
             layer.IsRendered = true;

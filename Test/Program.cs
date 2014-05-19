@@ -14,10 +14,7 @@ namespace Test
     {
         static void Main(string[] args)
         {
-
-            ViewPort vp = new ViewPort(MessureUnit.Milimeters, 210, 297);
-            Console.WriteLine(vp.Width.ToString());
-            Console.WriteLine(vp.Height.ToString());
+            Console.WriteLine(Math.Round(1/Math.Tan(Math.PI), 0));
         }
     }
 }

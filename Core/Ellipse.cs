@@ -6,7 +6,7 @@ namespace TabletC.Core
 {
     public class Ellipse : IShape
     {
-        private readonly IVertexCollection _vertices;
+        private IVertexCollection _vertices;
         private FillType _fill;
         private IVertex _start;
         private IVertex _end;
@@ -17,7 +17,11 @@ namespace TabletC.Core
         public Ellipse()
         {
             _vertices = new VertexCollection();
-
+            _vertices.Add();
+            _vertices.Add();
+            _vertices.Add();
+            _vertices.Add();
+            
             ShapePen = new Pen(Color.Black);
             ShapeBrush = Brushes.Transparent;
             _fill = FillType.NoFill;
@@ -32,6 +36,7 @@ namespace TabletC.Core
         public IVertexCollection Vertices
         {
             get { return _vertices; }
+            set { _vertices = value; }
         }
 
         [Browsable(false)]
@@ -109,6 +114,10 @@ namespace TabletC.Core
 
             _major = Math.Abs(_start.X - _end.X) / 2;
             _minor = Math.Abs(EndVertex.Y - StartVertex.Y)/2;
+
+            for (int i = 0; i < 4; i++)
+                _vertices[i] = new Vertex(_orginal.X + _major*Math.Cos(i*Math.PI/2),
+                    _orginal.Y + _minor*Math.Sin(i*Math.PI/2));
         }
 
         public ShapeType GetShapeType()

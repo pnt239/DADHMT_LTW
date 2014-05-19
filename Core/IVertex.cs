@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -18,5 +19,9 @@ namespace TabletC.Core
         // Property: Y 
         // Gets or sets the vertex's Y position.
         Double Y { get; set; }
+
+        // Method: ToPoint
+        // Convert Vertex to Point
+        Point ToPoint();
     }
 }

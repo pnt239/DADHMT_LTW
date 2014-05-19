@@ -70,20 +70,24 @@ namespace TabletC.Core
 
         public int WinToView(double value)
         {
+            if (value < 0)
+                return (int) value;
             return Util.WinToView(value*Zoom, Unit);
         }
 
-        public Point WinToView(IVertex vertex)
+        public IVertex WinToView(IVertex vertex)
         {
-            return new Point(
-                    Util.WinToView(vertex.X * Zoom, Unit),
-                    Util.WinToView(vertex.Y * Zoom, Unit)
-                );
+            return new Vertex(WinToView(vertex.X), WinToView(vertex.Y));
         }
 
-        public IList<Point> WinToView(IVertexCollection vertices)
+        public IVertexCollection WinToView(IVertexCollection vertices)
         {
-            return vertices.Select(WinToView).ToList();
+            IVertexCollection ret = new VertexCollection();
+            foreach (Vertex vertex in vertices)
+            {
+                ret.Add(WinToView(vertex));
+            }
+            return ret;
         }
 
         public Rectangle WinToView(RectangleF rec)
@@ -94,6 +98,15 @@ namespace TabletC.Core
                 Util.WinToView(rec.Width*Zoom, Unit),
                 Util.WinToView(rec.Height*Zoom, Unit)
                 );
+        }
+
+        public IShape WinToView(IShape shape)
+        {
+            IShape newShape = shape.Clone();
+            newShape.StartVertex = WinToView(shape.StartVertex);
+            newShape.EndVertex = WinToView(shape.EndVertex);
+            newShape.Vertices = WinToView(shape.Vertices);
+            return newShape;
         }
 
         public Double ViewToWin(int value)

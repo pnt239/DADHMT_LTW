@@ -6,7 +6,7 @@ namespace TabletC.Core
 {
     public class Line : IShape
     {
-        private readonly IVertexCollection _vertices;
+        private IVertexCollection _vertices;
         private FillType _fill;
 
         public Line()
@@ -24,6 +24,7 @@ namespace TabletC.Core
         public IVertexCollection Vertices
         {
             get { return _vertices; }
+            set { _vertices = value; }
         }
 
         [Browsable(false)]
