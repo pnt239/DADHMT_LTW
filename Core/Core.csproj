@@ -41,12 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="A4Page.cs" />
-    <Compile Include="Circle.cs" />
     <Compile Include="CustomPage.cs" />
-    <Compile Include="Edge.cs" />
     <Compile Include="Ellipse.cs" />
     <Compile Include="IPage.cs" />
     <Compile Include="IShape.cs" />
+    <Compile Include="IVertex.cs" />
+    <Compile Include="IVertexCollection.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Polygon.cs" />
@@ -56,7 +56,10 @@
     <Compile Include="SortedLinkedList.cs" />
     <Compile Include="Triangle.cs" />
     <Compile Include="Util.cs" />
-    <Compile Include="Vector.cs" />
+    <Compile Include="Vertex.cs" />
+    <Compile Include="VertexCollection.cs" />
+    <Compile Include="VertexEventArgs.cs" />
+    <Compile Include="ViewPort.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

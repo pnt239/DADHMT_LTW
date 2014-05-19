@@ -18,23 +18,23 @@ namespace TabletC.DrawPad
             _shapeFill = new ShapeFiller();
         }
 
-        public void Render(Layer layer)
+        public void Render(Layer layer, GraphDrawingContext graphContext)
         {
             if (layer == null || layer.IsRendered)
                 return;
 
-            layer.GraphicsBuffer.Clear(Color.FromArgb(0));
+            graphContext.Graphs.Clear(Color.Transparent);
 
             foreach (var shape in layer.Shapes)
             {
-                if (shape.Fill == FillType.ScanlineFill)
-                    _shapeFill.FillByScanline(ref layer, shape);
+                //if (shape.Fill == FillType.ScanlineFill)
+                //    _shapeFill.FillByScanline(g, shape);
                 //_shapeFill.GdiFill(layer, shape);
 
-                _shapeDraw.Draw(layer.GraphicsBuffer, shape);
+                _shapeDraw.Draw(shape, graphContext);
 
                 if (shape.Fill == FillType.FloodFill)
-                    _shapeFill.FillByFlood(layer, shape, null);
+                    _shapeFill.FillByFlood(graphContext, shape, null);
             }
             
             layer.IsRendered = true;

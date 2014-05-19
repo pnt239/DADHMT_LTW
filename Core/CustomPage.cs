@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 
 namespace TabletC.Core
 {
@@ -12,25 +9,38 @@ namespace TabletC.Core
     {
         public CustomPage()
         {
+            Units = MessureUnit.Milimeters;
             _orientation = PageOrientation.Horizontal;
         }
 
-        public CustomPage(Size size)
+        public CustomPage(SizeF size)
         {
+            Units = MessureUnit.Milimeters;
             _pageSize = size;
             _orientation = PageOrientation.Horizontal;
 
-            _layers = new BindingList<Layer>();
-
-            var newPlayer = new Layer(_pageSize) {Name = "Background Layer"};
-
-            _layers.Add(newPlayer);
+            _layers = new BindingList<Layer>
+            {
+                new Layer(_pageSize) {Name = "Background"}
+            };
         }
 
-        public Size PageSize
+        public SizeF PageSize
         {
             get { return _pageSize; }
             set { _pageSize = value; }
+        }
+
+        public double Scale
+        {
+            get { return _scale; }
+            set { _scale = value; }
+        }
+
+        public MessureUnit Units
+        {
+            get { return _units; }
+            set { _units = value; }
         }
 
         public PageOrientation Orientation
@@ -55,8 +65,10 @@ namespace TabletC.Core
             return new CustomPage();
         }
 
-        private Size _pageSize;
+        private SizeF _pageSize;
         private PageOrientation _orientation;
         private BindingList<Layer> _layers;
+        private MessureUnit _units;
+        private double _scale;
     }
 }

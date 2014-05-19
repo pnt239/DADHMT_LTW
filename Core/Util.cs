@@ -6,6 +6,8 @@ namespace TabletC.Core
 {
     public class Util
     {
+        public const float Epsilon = 1.0e-15f;
+
         // Tao ra 1 diem moi de co duoc vung bao quanh la 1 hinh vuong
         public static Point CreateSnapPoint(int x, int y, Point anchor)
         {
@@ -22,7 +24,7 @@ namespace TabletC.Core
         }
 
         // Tao vung chu nhat bao boc xung quanh
-        public static Rectangle CreateBorder(IShape shape)
+        public static RectangleF CreateShapeBound(IShape shape)
         {
             switch (shape.GetShapeType())
             {
@@ -33,18 +35,31 @@ namespace TabletC.Core
                     return CreatePolygonBorder(shape.Vertices);
                 case ShapeType.Circle:
                 case ShapeType.Ellipse:
-                    return new Rectangle(shape.StartVertex.X, shape.StartVertex.Y,
-                        Math.Abs(shape.EndVertex.X - shape.StartVertex.X),
-                        Math.Abs(shape.EndVertex.Y - shape.StartVertex.Y));
+                    return new RectangleF((float) shape.StartVertex.X, (float) shape.StartVertex.Y,
+                        (float) Math.Abs(shape.EndVertex.X - shape.StartVertex.X),
+                        (float) Math.Abs(shape.EndVertex.Y - shape.StartVertex.Y));
                 default:
                     return new Rectangle();
             }
         }
 
-        // Tao vung bao boc xung quanh da giac
-        private static Rectangle CreatePolygonBorder(IList<Point> points)
+        public static Rectangle CreateShapeBound(Point start, Point end)
         {
-            int xmin = points[0].X, ymin = points[0].Y, xmax = xmin, ymax = ymin;
+            var rec = new Rectangle
+            {
+                X = Math.Min(start.X, end.X),
+                Y = Math.Min(start.Y, end.Y),
+                Width = Math.Abs(start.X - end.X),
+                Height = Math.Abs(start.Y - end.Y)
+            };
+
+            return rec;
+        }
+
+        // Tao vung bao boc xung quanh da giac
+        private static RectangleF CreatePolygonBorder(IVertexCollection points)
+        {
+            Double xmin = points[0].X, ymin = points[0].Y, xmax = xmin, ymax = ymin;
             foreach (var p in points)
             {
                 if (p.X > xmax) xmax = p.X;
@@ -52,13 +67,13 @@ namespace TabletC.Core
                 if (p.Y > ymax) ymax = p.Y;
                 if (p.Y < ymin) ymin = p.Y;
             }
-            return new Rectangle(xmin, ymin, xmax - xmin, ymax - ymin);
+            return new RectangleF((float) xmin, (float) ymin, (float) (xmax - xmin), (float) (ymax - ymin));
         }
 
         // Kiem tra 1 diem co nam trong da giac khong
-        public static bool CheckInnerPoint(IList<Point> points, Point point)
+        public static bool CheckInnerPoint(IVertexCollection points, IVertex point)
         {
-            PointF currentPoint = point;
+            IVertex currentPoint = point;
             //Ray-cast algorithm is here onward
             int k, j = points.Count - 1;
             var oddNodes = false; //to check whether number of intersections is odd
@@ -66,8 +81,8 @@ namespace TabletC.Core
             for (k = 0; k < points.Count; k++)
             {
                 //fetch adjucent points of the polygon
-                PointF polyK = points[k];
-                PointF polyJ = points[j];
+                IVertex polyK = points[k];
+                IVertex polyJ = points[j];
 
                 //check the intersections
                 if (((polyK.Y > currentPoint.Y) != (polyJ.Y > currentPoint.Y)) &&
@@ -85,6 +100,51 @@ namespace TabletC.Core
 
             //if even number of intersections
             return false;
+        }
+
+        public static string GetUnitSign(MessureUnit unit)
+        {
+            switch (unit)
+            {
+                case MessureUnit.Milimeters:
+                    return "mm";
+                default:
+                    return "";
+            }
+        }
+
+        public static Double ConvertFromMilimeter(MessureUnit unit, double value)
+        {
+            Double ret = 0;
+            switch (unit)
+            {
+                case MessureUnit.Milimeters:
+                    ret = value;
+                    break;
+                case MessureUnit.Centimeters:
+                    ret = value/10.0;
+                    break;
+                case MessureUnit.Inches:
+                    ret = value/254;
+                    break;
+            }
+            return ret;
+        }
+
+        public static Double GetDefaultScale(MessureUnit unit)
+        {
+            // 790 is width default in pixel
+            return 790.0/ConvertFromMilimeter(unit, 210.0);
+        }
+
+        public static int WinToView(double value, MessureUnit unit)
+        {
+            return (int)Math.Round(GetDefaultScale(unit)*value);
+        }
+
+        public static Double ViewToWin(int value, MessureUnit unit)
+        {
+            return value/GetDefaultScale(unit);
         }
     }
 }

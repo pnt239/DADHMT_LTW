@@ -1,33 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using TabletC.Core;
 
 namespace TabletC.Core
 {
     public class Ellipse : IShape
     {
-        private List<Point> _vertices;
+        private readonly IVertexCollection _vertices;
         private FillType _fill;
+        private IVertex _start;
+        private IVertex _end;
+        private IVertex _orginal;
+        private Double _major;
+        private Double _minor;
 
         public Ellipse()
         {
-            _vertices = new List<Point>();
+            _vertices = new VertexCollection();
+
             ShapePen = new Pen(Color.Black);
+            ShapeBrush = Brushes.Transparent;
             _fill = FillType.NoFill;
 
-            _vertices.Add(new Point());
-            _vertices.Add(new Point());
+            _start = new Vertex();
+            _end = new Vertex();
+            _orginal = new Vertex();
+            _major = _minor = 0;
         }
 
         [Browsable(false)]
-        public List<Point> Vertices
+        public IVertexCollection Vertices
         {
             get { return _vertices; }
-            set { _vertices = value; }
         }
 
         [Browsable(false)]
@@ -43,39 +47,46 @@ namespace TabletC.Core
         }
 
         [Browsable(false)]
-        public Point Orginal
+        public IVertex Orginal
         {
             get
             {
-                return new Point((StartVertex.X + EndVertex.X) / 2,
-                                 (StartVertex.Y + EndVertex.Y) / 2);
+                return _orginal;
             }
         }
 
         [Browsable(false)]
-        public int MajorAxis
+        public Double MajorAxis
         {
-            get { return Math.Abs(EndVertex.X - StartVertex.X) / 2; }
+            get { return _major; }
         }
 
         [Browsable(false)]
-        public int MinorAxis
+        public Double MinorAxis
         {
-            get { return Math.Abs(EndVertex.Y - StartVertex.Y) / 2; }
+            get { return _minor; }
         }
 
         [Browsable(false)]
-        public Point StartVertex
+        public IVertex StartVertex
         {
-            get { return _vertices[0]; }
-            set { _vertices[0] = value; }
+            get { return _start; }
+            set
+            {
+                _start = value;
+                ReCalculateVertices();
+            }
         }
 
         [Browsable(false)]
-        public Point EndVertex
+        public IVertex EndVertex
         {
-            get { return _vertices[1]; }
-            set { _vertices[1] = value; }
+            get { return _end; }
+            set
+            {
+                _end = value;
+                ReCalculateVertices();
+            }
         }
 
         [Browsable(false)]
@@ -84,16 +95,20 @@ namespace TabletC.Core
             get { return "Ellipse"; }
         }
 
-        public bool HitTest(Point point)
+        public bool HitTest(IVertex point)
         {
             double d = Math.Pow(point.X - Orginal.X, 2) / Math.Pow(MajorAxis, 2) +
                        Math.Pow(point.Y - Orginal.Y, 2) / Math.Pow(MinorAxis, 2);
             return d <= 1;
         }
 
-        public void FinishEdition()
+        public void ReCalculateVertices()
         {
-            //
+            _orginal.X = (_start.X + _end.X) / 2;
+            _orginal.Y = (_start.Y + _end.Y) / 2;
+
+            _major = Math.Abs(_start.X - _end.X) / 2;
+            _minor = Math.Abs(EndVertex.Y - StartVertex.Y)/2;
         }
 
         public ShapeType GetShapeType()
@@ -105,9 +120,9 @@ namespace TabletC.Core
         {
             var obj = new Ellipse
             {
-                Fill = _fill,
-                ShapePen = ShapePen,
-                ShapeBrush = ShapeBrush
+                ShapePen = (Pen)ShapePen.Clone(),
+                ShapeBrush = (Brush)ShapeBrush.Clone(),
+                Fill = _fill
             };
             return obj;
         }

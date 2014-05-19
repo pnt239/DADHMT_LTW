@@ -6,41 +6,27 @@ using System.Text;
 
 namespace TabletC.Core
 {
-    [Serializable]
     public class Layer
     {
-        [NonSerialized]
-        private Bitmap _imageBuffer;
-        [NonSerialized]
-        private readonly Graphics _graphicsBuffer;
-        private List<IShape> _shapes;
-        private Size _layerSize;
+        private readonly List<IShape> _shapes;
+        private SizeF _layerSize;
         private bool _isRendered;
         private string _name;
-        [NonSerialized]
         private Bitmap _thumb;
 
-        public Layer(Size size)
+        public Layer(SizeF size)
         {
             _layerSize = size;
+            _shapes = new List<IShape>();
+
             _isRendered = false;
             _name = "";
-
-            _imageBuffer = new Bitmap(size.Width, size.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            _graphicsBuffer = Graphics.FromImage(_imageBuffer);
-            Shapes = new List<IShape>();
         }
 
-        public Size LayerSize
+        public SizeF LayerSize
         {
             get { return _layerSize; }
             set { _layerSize = value; }
-        }
-
-        public Bitmap ImageBuffer
-        {
-            get { return _imageBuffer; }
-            set { _imageBuffer = value; }
         }
 
         public bool IsRendered
@@ -52,7 +38,6 @@ namespace TabletC.Core
         public List<IShape> Shapes
         {
             get { return _shapes; }
-            set { _shapes = value; }
         }
 
         public string Name
@@ -65,11 +50,6 @@ namespace TabletC.Core
         {
             get { return _thumb; }
             set { _thumb = value; }
-        }
-
-        public Graphics GraphicsBuffer
-        {
-            get { return _graphicsBuffer; }
         }
     }
 }

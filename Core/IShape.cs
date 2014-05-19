@@ -16,7 +16,7 @@ namespace TabletC.Core
     public interface IShape
     {
         /* List of vertices */
-        List<Point> Vertices { get; set; }
+        IVertexCollection Vertices { get; }
 
         /* Pen to draw shape. Having width, color */
         Pen ShapePen { get; set; }
@@ -26,16 +26,16 @@ namespace TabletC.Core
         FillType Fill { get; set; }
         
         /* Mouse start point */
-        Point StartVertex { get; set; }
+        IVertex StartVertex { get; set; }
 
         /* Mouse end point */
-        Point EndVertex { get; set; }
+        IVertex EndVertex { get; set; }
 
         string Name { get; }
 
-        bool HitTest(Point point);
+        bool HitTest(IVertex point);
 
-        void FinishEdition();
+        void ReCalculateVertices();
 
         /* Get type of shape (line, rectable, circle, ellipse */
         ShapeType GetShapeType();

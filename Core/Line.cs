@@ -1,32 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 
 namespace TabletC.Core
 {
     public class Line : IShape
     {
-        private List<Point> _vertices;
+        private readonly IVertexCollection _vertices;
         private FillType _fill;
 
         public Line()
         {
-            _vertices = new List<Point> { new Point(), new Point()};
+            _vertices = new VertexCollection();
+            _vertices.Add();
+            _vertices.Add();
+
             ShapePen = new Pen(Color.Black);
+            ShapeBrush = Brushes.Transparent;
             _fill = FillType.NoFill;
         }
 
         [Browsable(false)]
-        public List<Point> Vertices
+        public IVertexCollection Vertices
         {
             get { return _vertices; }
-            set
-            {
-                _vertices = value;
-            }
         }
 
         [Browsable(false)]
@@ -43,14 +40,14 @@ namespace TabletC.Core
         }
 
         [Browsable(false)]
-        public Point StartVertex
+        public IVertex StartVertex
         {
             get { return _vertices[0]; }
             set { _vertices[0] = value; }
         }
 
         [Browsable(false)]
-        public Point EndVertex
+        public IVertex EndVertex
         {
             get { return _vertices[1]; }
             set { _vertices[1] = value; }
@@ -62,9 +59,9 @@ namespace TabletC.Core
             get { return "Line"; }
         }
 
-        public bool HitTest(Point point)
+        public bool HitTest(IVertex point)
         {
-            var vtpt = new Point(_vertices[0].Y - _vertices[1].Y, _vertices[1].X - _vertices[0].X);
+            var vtpt = new Point((int) (_vertices[0].Y - _vertices[1].Y), (int) (_vertices[1].X - _vertices[0].X));
             var xmin = _vertices[0].X < _vertices[1].X ? _vertices[0].X : _vertices[1].X;
             var xmax = _vertices[0].X < _vertices[1].X ? _vertices[1].X : _vertices[0].X;
 
@@ -76,7 +73,7 @@ namespace TabletC.Core
             return false;
         }
 
-        public void FinishEdition()
+        public void ReCalculateVertices()
         {
         }
 
@@ -89,6 +86,8 @@ namespace TabletC.Core
         {
             var obj = new Line
             {
+                ShapePen = (Pen)ShapePen.Clone(),
+                ShapeBrush = (Brush)ShapeBrush.Clone(),
                 Fill = _fill
             };
             return obj;

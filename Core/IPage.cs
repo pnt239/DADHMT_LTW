@@ -18,9 +18,18 @@ namespace TabletC.Core
         A4
     }
 
+    public enum MessureUnit
+    {
+        Pixel, Centimeters, Milimeters, Inches
+    }
+
     public interface IPage
     {
-        Size PageSize { get; set; }
+        MessureUnit Units { get; set; }
+
+        SizeF PageSize { get; set; }
+
+        Double Scale { get; set; }
 
         PageOrientation Orientation { get; set; }
 

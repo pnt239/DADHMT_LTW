@@ -82,28 +82,28 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\buttonPaste.Image.png" />
+    <None Include="Resources\paste1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\buttonCut.Image.png" />
+    <None Include="Resources\cut.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\buttonCopy.Image.png" />
+    <None Include="Resources\copy.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\buttonItem53.Image.png" />
+    <None Include="Resources\paste.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\buttonItem7.Image.png" />
+    <None Include="Resources\fill.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\buttonBrush.Image.png" />
+    <None Include="Resources\brush.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\buttonPencil.Image.png" />
+    <None Include="Resources\penciil.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\buttonBucket.Image.png" />
+    <None Include="Resources\bucket.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Adapters\Adapters.csproj">
@@ -182,6 +182,7 @@
     <None Include="Resources\dashdotdot.png" />
     <None Include="Resources\cursor.png" />
     <None Include="Resources\polygon1.png" />
+    <None Include="Resources\cursor.direct.png" />
     <Content Include="TabletC.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

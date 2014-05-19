@@ -22,6 +22,7 @@ namespace TabletC.DrawPad
         {
             InitializeComponent();
 
+            _viewPort = new ViewPort();
             _resizeBox = new ResizeBox();
             _currentPen = new Pen(Color.Black, 1.0F);
             _currentBrush = new SolidBrush(Color.White);
@@ -62,8 +63,13 @@ namespace TabletC.DrawPad
             set
             {
                 _currentPage = value;
+
                 CurrentLayer = _currentPage.Layers[0];
-                _cache = new ImageCache(_currentPage.PageSize);
+
+                _viewPort = new ViewPort(_currentPage.Units, _currentPage.PageSize);
+
+                _cache = new ImageCache(ref _viewPort);
+
                 ChangeLayout();
             }
         }
@@ -104,13 +110,20 @@ namespace TabletC.DrawPad
             set { _currentBrush = value; }
         }
 
+        public ViewPort ViewPort
+        {
+            get { return _viewPort; }
+        }
+
+        public event MouseEventHandler MouseChanged;
+
         private void ChangeLayout()
         {
             if (_currentPage == null) return;
 
-            tlyMain.RowStyles[1].Height = _currentPage.PageSize.Height;
-            tlyMain.ColumnStyles[1].Width = _currentPage.PageSize.Width;
-            AutoScrollMinSize = new Size(_currentPage.PageSize.Width + 30, _currentPage.PageSize.Height + 30);
+            tlyMain.RowStyles[1].Height = ViewPort.Height;
+            tlyMain.ColumnStyles[1].Width = ViewPort.Width;
+            AutoScrollMinSize = new Size(ViewPort.Width + 30, ViewPort.Height + 30);
         }
 
         private void ctrDrawArea_Paint(object sender, PaintEventArgs e)
@@ -118,32 +131,33 @@ namespace TabletC.DrawPad
             if (_currentPage == null)
                 return;
 
-            _cache.Render(e.Graphics);
+            ViewPort.Graphic = e.Graphics;
+            _cache.Render();
 
-            if (_isSelected)
-                _resizeBox.Draw(e.Graphics);
+            //if (_isSelected)
+            //    _resizeBox.Draw(e.Graphics);
         }
 
         private void ctrDrawArea_MouseDown(object sender, MouseEventArgs e)
         {
             if (DrawMode == DrawMode.Select)
             {
-                // There isn't any selected shape
-                if (!_isSelected) return;
+                //// There isn't any selected shape
+                //if (!_isSelected) return;
 
-                if (_canResize)
-                {
-                    // Calculate some default distance before resize
-                    _resizeBox.SetDistanceSquare(e.X, e.Y);
-                    _isResized = true;
-                }
-                else
-                {
-                    // Calculate some default distance before move
-                    _resizeBox.SetOrginalPoint(new Point(e.X, e.Y));
-                    _canMove = true;
-                }
-                return;
+                //if (_canResize)
+                //{
+                //    // Calculate some default distance before resize
+                //    _resizeBox.SetDistanceSquare(e.X, e.Y);
+                //    _isResized = true;
+                //}
+                //else
+                //{
+                //    // Calculate some default distance before move
+                //    _resizeBox.SetOrginalPoint(new Point(e.X, e.Y));
+                //    _canMove = true;
+                //}
+                //return;
             }
 
             // Continue drawing shape
@@ -161,7 +175,7 @@ namespace TabletC.DrawPad
                 _drawingbyclick = true;
             }
             // Assign start and end point
-            _currentShape.StartVertex = _currentShape.EndVertex = e.Location;
+            _currentShape.StartVertex = _currentShape.EndVertex = ViewPort.ViewToWin(e.Location);
             
 
             // Create new layer
@@ -182,50 +196,55 @@ namespace TabletC.DrawPad
 
         private void ctrDrawArea_MouseMove(object sender, MouseEventArgs e)
         {
+            // Fire Event
+            MouseEventHandler oMouseChanged = this.MouseChanged;
+            if (oMouseChanged != null)
+                oMouseChanged(this, new MouseEventArgs(e.Button, e.Clicks, e.X, e.Y, e.Delta));
+
             if (DrawMode == DrawMode.Select)
             {
-                if (_isSelected && _isResized)
-                {
-                    _resizeBox.MoveSquare(e.X, e.Y); // Resize object
-                    _currentLayer.IsRendered = false;
-                    ctrDrawArea.Invalidate();
-                }
-                else if (_isSelected && _canMove)
-                {
-                    _resizeBox.MoveShape(new Point(e.X, e.Y)); // Move object
-                    _currentLayer.IsRendered = false;
-                    ctrDrawArea.Invalidate();
-                }
-                else if (_isSelected)
-                {
-                    // Select object
-                    int cur;
-                    if ((cur = _resizeBox.HitTest(e.X, e.Y)) != 0)
-                    {
-                        // One of the control points is hovered
-                        // Set cursor
-                        switch (cur)
-                        {
-                            case 1:
-                                ctrDrawArea.Cursor = Cursors.SizeNWSE;
-                                break;
-                            case 2:
-                                ctrDrawArea.Cursor = Cursors.SizeNESW;
-                                break;
-                            default:
-                                ctrDrawArea.Cursor = Cursors.SizeAll;
-                                break;
-                        }
-                        // Set flag can resize
-                        _canResize = true;
-                    }
-                    else
-                    {
-                        // No control point is hovered
-                        ctrDrawArea.Cursor = Cursors.Default;
-                        _canResize = false;
-                    }
-                }
+                //if (_isSelected && _isResized)
+                //{
+                //    _resizeBox.MoveSquare(e.X, e.Y); // Resize object
+                //    _currentLayer.IsRendered = false;
+                //    ctrDrawArea.Invalidate();
+                //}
+                //else if (_isSelected && _canMove)
+                //{
+                //    _resizeBox.MoveShape(new Point(e.X, e.Y)); // Move object
+                //    _currentLayer.IsRendered = false;
+                //    ctrDrawArea.Invalidate();
+                //}
+                //else if (_isSelected)
+                //{
+                //    // Select object
+                //    int cur;
+                //    if ((cur = _resizeBox.HitTest(e.X, e.Y)) != 0)
+                //    {
+                //        // One of the control points is hovered
+                //        // Set cursor
+                //        switch (cur)
+                //        {
+                //            case 1:
+                //                ctrDrawArea.Cursor = Cursors.SizeNWSE;
+                //                break;
+                //            case 2:
+                //                ctrDrawArea.Cursor = Cursors.SizeNESW;
+                //                break;
+                //            default:
+                //                ctrDrawArea.Cursor = Cursors.SizeAll;
+                //                break;
+                //        }
+                //        // Set flag can resize
+                //        _canResize = true;
+                //    }
+                //    else
+                //    {
+                //        // No control point is hovered
+                //        ctrDrawArea.Cursor = Cursors.Default;
+                //        _canResize = false;
+                //    }
+                //}
                 return;
             }
 
@@ -233,32 +252,33 @@ namespace TabletC.DrawPad
             {
                 if (_drawMode == DrawMode.Select)
                 {
-                    // In select mode
-                    if (_isResized)
-                    {
-                        // Leave resize mode
-                        _isResized = false;
-                    }
-                    else
-                    {
-                        // Leave move mode or deselect object
-                        _canMove = _isSelected = false;
-                        foreach (var shape in _currentLayer.Shapes.Where(shape => shape.HitTest(new Point(e.X, e.Y))))
-                        {
-                            _currentShape = shape;
-                            // Shape is behind mouse
-                            _isSelected = true;
-                            // Load shape into resizebox
-                            _resizeBox.LoadShape(shape);
-                            break;
-                        }
-                        // No object is selected
-                        if (!_isSelected)
-                            _resizeBox.LoadShape(null);
-                    }
+                    //// In select mode
+                    //if (_isResized)
+                    //{
+                    //    // Leave resize mode
+                    //    _isResized = false;
+                    //}
+                    //else
+                    //{
+                    //    // Leave move mode or deselect object
+                    //    _canMove = _isSelected = false;
+                    //    foreach (var shape in _currentLayer.Shapes.Where(shape => shape.HitTest(new Point(e.X, e.Y))))
+                    //    {
+                    //        _currentShape = shape;
+                    //        // Shape is behind mouse
+                    //        _isSelected = true;
+                    //        // Load shape into resizebox
+                    //        _resizeBox.LoadShape(shape);
+                    //        break;
+                    //    }
+                    //    // No object is selected
+                    //    if (!_isSelected)
+                    //        _resizeBox.LoadShape(null);
+                    //}
                     return;
                 }
-                var p = new Point(e.Location.X, e.Location.Y);
+                //var p = new Point(e.Location.X, e.Location.Y);
+                var p = ViewPort.ViewToWin(e.Location);
                 if (IsShift && _currentShape.GetShapeType() != ShapeType.RegPolygon)
                 {
                     // Snap point
@@ -312,7 +332,7 @@ namespace TabletC.DrawPad
             }
             else if (_drawingbyclick)
             {
-                _currentShape.EndVertex = e.Location;
+                _currentShape.EndVertex = ViewPort.ViewToWin(e.Location);
                 CurrentLayer.IsRendered = false;
                 ctrDrawArea.Invalidate();
             }
@@ -323,39 +343,39 @@ namespace TabletC.DrawPad
         {
             if (DrawMode == DrawMode.Select)
             {
-                // In select mode
-                if (_isResized)
-                {
-                    // Leave resize mode
-                    _isResized = false;
-                }
-                else
-                {
-                    // Leave move mode or deselect object
-                    _canMove = _isSelected = false;
-                    foreach (var layer in _currentPage.Layers)
-                        foreach (var shape in layer.Shapes.Where(shape => shape.HitTest(new Point(e.X, e.Y))))
-                        {
-                            _currentShape = shape;
-                            // Shape is behind mouse
-                            _isSelected = true;
-                            // Load shape into resizebox
-                            _resizeBox.LoadShape(shape);
+                //// In select mode
+                //if (_isResized)
+                //{
+                //    // Leave resize mode
+                //    _isResized = false;
+                //}
+                //else
+                //{
+                //    // Leave move mode or deselect object
+                //    _canMove = _isSelected = false;
+                //    foreach (var layer in _currentPage.Layers)
+                //        foreach (var shape in layer.Shapes.Where(shape => shape.HitTest(new Point(e.X, e.Y))))
+                //        {
+                //            _currentShape = shape;
+                //            // Shape is behind mouse
+                //            _isSelected = true;
+                //            // Load shape into resizebox
+                //            _resizeBox.LoadShape(shape);
 
-                            // Select Layer In listbox
+                //            // Select Layer In listbox
                             
 
-                            ctrDrawArea.Invalidate();
-                            break;
-                        }
-                    // No object is selected
-                    if (!_isSelected)
-                    {
-                        _resizeBox.LoadShape(null);
-                        _currentLayer.IsRendered = false;
-                        ctrDrawArea.Invalidate();
-                    }
-                }
+                //            ctrDrawArea.Invalidate();
+                //            break;
+                //        }
+                //    // No object is selected
+                //    if (!_isSelected)
+                //    {
+                //        _resizeBox.LoadShape(null);
+                //        _currentLayer.IsRendered = false;
+                //        ctrDrawArea.Invalidate();
+                //    }
+                //}
                 return;
             }
 
@@ -363,17 +383,17 @@ namespace TabletC.DrawPad
             {
                 // Draw by click
                 // Add new point
-                if (_currentShape.Vertices.Count > 0 && Math.Abs(_currentShape.Vertices[0].X - e.Location.X) < 5 &&
-                        Math.Abs(_currentShape.Vertices[0].Y - e.Location.Y) < 5)
+                if (_currentShape.Vertices.Count > 0 && Math.Abs(ViewPort.WinToView(_currentShape.Vertices[0].X) - e.Location.X) < 5 &&
+                        Math.Abs(ViewPort.WinToView(_currentShape.Vertices[0].Y) - e.Location.Y) < 5)
                 {
-                    _currentShape.EndVertex = new Point(-1, -1);
+                    _currentShape.EndVertex = new Vertex(-1, -1);
                     _drawingbyclick = false;
                     CurrentLayer.IsRendered = false;
                     ctrDrawArea.Invalidate();
                 }
                 else
                 {
-                    _currentShape.Vertices.Add(e.Location);
+                    _currentShape.Vertices.Add(ViewPort.ViewToWin(e.Location));
                     CurrentLayer.IsRendered = false;
                     //return;
                 }
@@ -382,7 +402,7 @@ namespace TabletC.DrawPad
 
             // Update point
             OnShapeCreated();
-            _currentShape.FinishEdition();
+            _currentShape.ReCalculateVertices();
         }
 
         private void ctrDrawArea_Click(object sender, EventArgs e)
@@ -395,6 +415,7 @@ namespace TabletC.DrawPad
             _isShift = e.Shift;
         }
 
+        private ViewPort _viewPort;
         private readonly ResizeBox _resizeBox;
         private IPage _currentPage;
         private Layer _currentLayer;

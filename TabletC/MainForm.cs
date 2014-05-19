@@ -86,8 +86,16 @@ namespace TabletC
             _currentDrawPad.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             _currentDrawPad.Name = String.Format("dpUntiled{0}", _currentTabId);
             _currentDrawPad.TabIndex = 0;
-            _currentDrawPad.CurrentPage = new CustomPage(new Size(720, 480));
+
+            _currentDrawPad.CurrentPage = new CustomPage(new Size(210, 297));
+            _currentDrawPad.CurrentPage.Units = MessureUnit.Milimeters;
+
+            sttPageSize.Text = string.Format("{0:F03} , {1:F03} {2}", _currentDrawPad.CurrentPage.PageSize.Width,
+                _currentDrawPad.CurrentPage.PageSize.Height, Util.GetUnitSign(_currentDrawPad.ViewPort.Unit));
+
             _currentDrawPad.ShapeCreated += DrawPad_ShapeCreated;
+            _currentDrawPad.MouseChanged += DrawPad_MouseChanged;
+
             _listDrawPad.Add(_currentDrawPad);
 
             // Connect to bindinglist
@@ -107,6 +115,12 @@ namespace TabletC
         private void DrawPad_ShapeCreated(object sender, EventArgs e)
         {
             pgdOptions.SelectedObject = _currentDrawPad.CurrentShape;
+        }
+
+        private void DrawPad_MouseChanged(object sender, MouseEventArgs e)
+        {
+            sttLocation.Text = string.Format("{0:F03} , {1:F03} {2}", _currentDrawPad.ViewPort.ViewToWin(e.X),
+                _currentDrawPad.ViewPort.ViewToWin(e.Y), Util.GetUnitSign(_currentDrawPad.ViewPort.Unit));
         }
 
         private void barCenter_DockTabChange(object sender, DockTabChangeEventArgs e)
@@ -209,18 +223,18 @@ namespace TabletC
 
         private void btnAreaCommon_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(_myapp.CalculateArea(AreaMethod.Common, _currentDrawPad.CurrentShape).ToString(CultureInfo.InvariantCulture));
+            //MessageBox.Show(_myapp.CalculateArea(AreaMethod.Common, _currentDrawPad.CurrentShape).ToString(CultureInfo.InvariantCulture));
         }
 
         private void btnAreaIntegral_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(_myapp.CalculateArea(AreaMethod.Integral, _currentDrawPad.CurrentShape).ToString(CultureInfo.InvariantCulture));
+            //MessageBox.Show(_myapp.CalculateArea(AreaMethod.Integral, _currentDrawPad.CurrentShape).ToString(CultureInfo.InvariantCulture));
         }
 
         private void btnAreaTriangulator_Click(object sender, EventArgs e)
         {
-            var rec = Util.CreateBorder(_currentDrawPad.CurrentShape);
-            MessageBox.Show(_myapp.CalculateArea(AreaMethod.Triangulator, _currentDrawPad.CurrentShape).ToString(CultureInfo.InvariantCulture));
+            //var rec = Util.CreateBorder(_currentDrawPad.CurrentShape);
+            //MessageBox.Show(_myapp.CalculateArea(AreaMethod.Triangulator, _currentDrawPad.CurrentShape).ToString(CultureInfo.InvariantCulture));
         }
     }
 }

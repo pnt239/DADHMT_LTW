@@ -6,23 +6,38 @@ namespace TabletC.Core
 {
     public class A4Page : IPage
     {
-        private Size _pageSize;
+        private readonly SizeF _pageSize;
         private PageOrientation _orientation;
         private BindingList<Layer> _layers;
+        private double _scale;
 
         public A4Page()
         {
             _layers = new BindingList<Layer>();
 
-            _pageSize = new Size(21, 29);
+            Units = MessureUnit.Milimeters;
+            _pageSize = new SizeF(210, 297);
             _orientation = PageOrientation.Horizontal;
+
+            _layers = new BindingList<Layer>
+            {
+                //new Layer(_pageSize) {Name = "Background"}
+            };
         }
 
-        public Size PageSize
+        public SizeF PageSize
         {
             get { return _pageSize; }
             set {}
         }
+
+        public double Scale
+        {
+            get { return _scale; }
+            set { _scale = value; }
+        }
+
+        public MessureUnit Units { get; set; }
 
         public PageOrientation Orientation
         {

@@ -8,28 +8,27 @@ namespace TabletC.Core
     [Serializable]
     public class Quad : IShape
     {
-        private List<Point> _vertices;
-        private FillType _fill;
-        [NonSerialized]
+        private IVertexCollection _vertices;
         private Pen _pen;
-        [NonSerialized]
         private Brush _brush;
+        private FillType _fill;
 
         public Quad()
         {
-            _vertices = new List<Point>();
+            _vertices = new VertexCollection();
+
             ShapePen = new Pen(Color.Black);
-            ShapeBrush = new SolidBrush(Color.White);
+            ShapeBrush = Brushes.Transparent;
             _fill = FillType.NoFill;
 
-            _vertices.Add(new Point());
-            _vertices.Add(new Point());
-            _vertices.Add(new Point());
-            _vertices.Add(new Point());
+            _vertices.Add();
+            _vertices.Add();
+            _vertices.Add();
+            _vertices.Add();
         }
 
         [Browsable(false)]
-        public List<Point> Vertices
+        public IVertexCollection Vertices
         {
             get { return _vertices; }
             set { _vertices = value; }
@@ -56,24 +55,24 @@ namespace TabletC.Core
         }
 
         [Browsable(false)]
-        public Point StartVertex
+        public IVertex StartVertex
         {
             get { return _vertices[0]; }
             set
             {
                 _vertices[0] = value;
-                FinishEdition();
+                ReCalculateVertices();
             }
         }
 
         [Browsable(false)]
-        public Point EndVertex
+        public IVertex EndVertex
         {
             get { return _vertices[2]; }
             set
             {
                 _vertices[2] = value;
-                FinishEdition();
+                ReCalculateVertices();
             }
         }
 
@@ -83,16 +82,15 @@ namespace TabletC.Core
             get { return "Rectangle"; }
         }
 
-        public bool HitTest(Point point)
+        public bool HitTest(IVertex point)
         {
-            return point.X >= _vertices[0].X && point.X <= _vertices[2].X && point.Y >= _vertices[0].Y &&
-                   point.Y <= _vertices[2].Y;
+            return Util.CheckInnerPoint(_vertices, point);
         }
 
-        public void FinishEdition()
+        public void ReCalculateVertices()
         {
-            _vertices[1] = new Point(_vertices[2].X, _vertices[0].Y);
-            _vertices[3] = new Point(_vertices[0].X, _vertices[2].Y);
+            _vertices[1] = new Vertex(_vertices[2].X, _vertices[0].Y);
+            _vertices[3] = new Vertex(_vertices[0].X, _vertices[2].Y);
         }
 
         public ShapeType GetShapeType()
@@ -104,7 +102,9 @@ namespace TabletC.Core
         {
             var obj = new Quad
             {
-                Fill = _fill,
+                ShapePen = (Pen)ShapePen.Clone(),
+                ShapeBrush = (Brush)ShapeBrush.Clone(),
+                Fill = _fill
             };
             return obj;
         }

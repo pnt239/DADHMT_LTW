@@ -7,6 +7,7 @@ using TabletC.Core;
 
 namespace TabletC.Processor
 {
+    /*
     internal class CActiveEdge : IComparable<CActiveEdge>
     {
         public int YUper { get; set; }
@@ -197,4 +198,5 @@ namespace TabletC.Processor
             return new Polynomial(b, m);
         }
     }
+     */
 }

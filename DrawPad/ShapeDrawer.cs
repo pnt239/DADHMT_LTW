@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Drawing;
@@ -9,7 +10,7 @@ namespace TabletC.DrawPad
 {
     public class ShapeDrawer
     {
-        private Graphics _graphic;
+        private GraphDrawingContext _graphContext;
 
         public ShapeDrawer()
         {
@@ -19,40 +20,42 @@ namespace TabletC.DrawPad
         /* true - use sharpGL to draw */
         public bool UseLibrary { get; set; }
 
-        public void Draw(object graphic, IShape shape)
+        public void Draw(IShape shape, GraphDrawingContext graphicContext)
         {
             if (shape.EndVertex.Equals(shape.StartVertex))
                 return;
 
-            _graphic = (Graphics)graphic;
+            _graphContext = graphicContext;
 
             /* Draw shape*/
             switch (shape.GetShapeType())
             {
                 case ShapeType.Line:
-                    DrawLine((Line)shape);
-                    break;
-                case ShapeType.Circle:
-                    DrawCircle((Circle)shape);
-                    break;
                 case ShapeType.Rectangle:
-                    DrawRectangle((Quad)shape);
-                    break;
-                case ShapeType.Ellipse:
-                    DrawEllipse((Ellipse)shape);
-                    break;
                 case ShapeType.Triangle:
-                    DrawTriangle((Triangle)shape);
-                    break;
                 case ShapeType.RegPolygon:
-                    DrawRegPolygon((RegPolygon)shape);
+                    DrawClosedShape(shape, true);
                     break;
                 case ShapeType.Polygon:
                     DrawPolygon((Polygon)shape);
                     break;
+                case ShapeType.Ellipse:
+                    DrawEllipse((Ellipse) shape);
+                    break;
             }
         }
 
+        public void DrawClosedShape(IShape shape, bool closed)
+        {
+            GraphicsPath path = new GraphicsPath();
+            if (closed) path.StartFigure();
+            path.AddLines(_graphContext.ViewPort.WinToView(shape.Vertices).ToArray());
+            if (closed) path.CloseFigure();
+
+            _graphContext.Graphs.DrawPath(shape.ShapePen, path);
+        }
+
+        /*
         private void DrawLine(Line line)
         {
             _graphic.DrawLine(line.ShapePen, line.StartVertex, line.EndVertex);
@@ -62,7 +65,7 @@ namespace TabletC.DrawPad
         {
             _graphic.DrawRectangle(rectangle.ShapePen, CreateShapeArea(rectangle.StartVertex, rectangle.EndVertex));
         }
-
+         
         private void DrawRegPolygon(RegPolygon polygon)
         {
             //var radius = (int)Math.Sqrt((polygon.StartVertex.X - polygon.EndVertex.X)*(polygon.StartVertex.X - polygon.EndVertex.X) + (polygon.StartVertex.Y - polygon.EndVertex.Y)*(polygon.StartVertex.Y - polygon.EndVertex.Y));
@@ -70,9 +73,9 @@ namespace TabletC.DrawPad
 
             //_polygonPoints = CalculateVertices(polygon.Sides, radius, startAngle, polygon.StartVertex);
 
-            _graphic.DrawPolygon(polygon.ShapePen, polygon.Vertices.ToArray());
+            _graphic.DrawPolygon(polygon.ShapePen, polygon.Verticess.ToArray());
         }
-
+        */
         private void DrawPolygon(Polygon polygon)
         {
             if (polygon.Vertices == null || polygon.Vertices.Count < 1)
@@ -81,34 +84,35 @@ namespace TabletC.DrawPad
             bool endpol = polygon.EndVertex.X == -1;
 
             if (!endpol)
-                _graphic.DrawLine(polygon.ShapePen, polygon.Vertices[polygon.Vertices.Count - 1], polygon.EndVertex);
+                _graphContext.Graphs.DrawLine(polygon.ShapePen,
+                    _graphContext.ViewPort.WinToView(polygon.Vertices[polygon.Vertices.Count - 1]), 
+                    _graphContext.ViewPort.WinToView(polygon.EndVertex));
 
             if (polygon.Vertices.Count < 2)
                 return;
 
             if (endpol)
-                _graphic.DrawPolygon(polygon.ShapePen, polygon.Vertices.ToArray());
+                DrawClosedShape(polygon, true);
             else
-                _graphic.DrawLines(polygon.ShapePen, polygon.Vertices.ToArray());
+                DrawClosedShape(polygon, false);
         }
-
-        private void DrawCircle(Circle circle)
-        {
-            _graphic.DrawEllipse(circle.ShapePen, CreateShapeArea(circle.StartVertex, circle.EndVertex));
-        }
-
+     
         private void DrawEllipse(Ellipse ellipse)
         {
-            _graphic.DrawEllipse(ellipse.ShapePen, CreateShapeArea(ellipse.StartVertex, ellipse.EndVertex));
-        }
+            GraphicsPath path = new GraphicsPath();
+            path.AddEllipse(Util.CreateShapeBound(_graphContext.ViewPort.WinToView(ellipse.StartVertex),
+                _graphContext.ViewPort.WinToView(ellipse.EndVertex)));
 
+            _graphContext.Graphs.DrawPath(ellipse.ShapePen, path);
+        }
+        /*
         private void DrawTriangle(Triangle triangle)
         {
             //Rectangle rec = CreateShapeArea(triangle.StartVertex, triangle.EndVertex);
             //_graphic.DrawLine(triangle.ShapePen, rec.X, rec.Y + rec.Height, rec.X + rec.Width, rec.Y + rec.Height);
             //_graphic.DrawLine(triangle.ShapePen, rec.X, rec.Y + rec.Height, rec.X + rec.Width/2, rec.Y);
             //_graphic.DrawLine(triangle.ShapePen, rec.X + rec.Width/2, rec.Y, rec.X + rec.Width, rec.Y + rec.Height);
-            _graphic.DrawLines(triangle.ShapePen, new Point[] { triangle.Vertices[0], triangle.Vertices[1], triangle.Vertices[2], triangle.Vertices[0] });
+            _graphic.DrawLines(triangle.ShapePen, new Point[] { triangle.Verticess[0], triangle.Verticess[1], triangle.Verticess[2], triangle.Verticess[0] });
         }
 
         public static Rectangle CreateShapeArea(Point p1, Point p2)
@@ -163,5 +167,6 @@ namespace TabletC.DrawPad
 
             return points.ToArray();
         }
+         */
     }
 }

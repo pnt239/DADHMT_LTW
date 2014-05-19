@@ -1,34 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 
 namespace TabletC.Core
 {
     public class Triangle : IShape
     {
-        private List<Point> _vertices;
-        private Point _startVertex;
-        private Point _endVertex;
+        private IVertexCollection _vertices;
+        private IVertex _start;
+        private IVertex _end;
         private FillType _fill;
 
         public Triangle()
         {
-            _vertices = new List<Point>();
+            _vertices = new VertexCollection();
+
             ShapePen = new Pen(Color.Black);
-            ShapeBrush = new SolidBrush(Color.White);
+            ShapeBrush = Brushes.Transparent;
             _fill = FillType.NoFill;
 
+            _start = new Vertex();
+            _end = new Vertex();
             // theo chieu kim dong ho
-            _vertices.Add(new Point());
-            _vertices.Add(new Point());
-            _vertices.Add(new Point());
+            _vertices.Add();
+            _vertices.Add();
+            _vertices.Add();
         }
 
         [Browsable(false)]
-        public List<Point> Vertices
+        public IVertexCollection Vertices
         {
             get { return _vertices; }
             set { _vertices = value; }
@@ -47,20 +47,20 @@ namespace TabletC.Core
         }
 
         [Browsable(false)]
-        public Point StartVertex
+        public IVertex StartVertex
         {
-            get { return _startVertex; }
-            set { _startVertex = value; }
+            get { return _start; }
+            set { _start = value; }
         }
 
         [Browsable(false)]
-        public Point EndVertex
+        public IVertex EndVertex
         {
-            get { return _endVertex; }
+            get { return _end; }
             set
             {
-                _endVertex = value;
-                FinishEdition();
+                _end = value;
+                ReCalculateVertices();
             }
         }
 
@@ -70,21 +70,21 @@ namespace TabletC.Core
             get { return "Triangle"; }
         }
 
-        public bool HitTest(Point point)
+        public bool HitTest(IVertex point)
         {
             return Util.CheckInnerPoint(_vertices, point);
         }
 
-        public void FinishEdition()
+        public void ReCalculateVertices()
         {
-            int x = _startVertex.X < _endVertex.X ? _startVertex.X : _endVertex.X;
-            int y = _startVertex.Y < _endVertex.Y ? _startVertex.Y : _endVertex.Y;
-            int width = Math.Abs(_startVertex.X - _endVertex.X);
-            int height = Math.Abs(_startVertex.Y - _endVertex.Y);
+            double x = Math.Min(_start.X, _end.X);
+            double y = Math.Min(_start.Y, _end.Y);
+            double width = Math.Abs(_start.X - _end.X);
+            double height = Math.Abs(_start.Y - _end.Y);
 
-            _vertices[0] = new Point(x + width/2, y);
-            _vertices[1] = new Point(x+width, y+height);
-            _vertices[2] = new Point(x, y+height);
+            _vertices[0] = new Vertex(x + width/2, y);
+            _vertices[1] = new Vertex(x + width, y + height);
+            _vertices[2] = new Vertex(x, y + height);
         }
 
         public ShapeType GetShapeType()
@@ -96,6 +96,8 @@ namespace TabletC.Core
         {
             var obj = new Triangle
             {
+                ShapePen = (Pen)ShapePen.Clone(),
+                ShapeBrush = (Brush)ShapeBrush.Clone(),
                 Fill = _fill
             };
             return obj;

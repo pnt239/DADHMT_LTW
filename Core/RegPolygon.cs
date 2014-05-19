@@ -1,36 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Drawing;
 
 namespace TabletC.Core
 {
     public class RegPolygon : IShape
     {
-        private List<Point> _vertices;
+        private IVertexCollection _vertices;
         private int _sides;
-        private Point _endVertex;
+        private IVertex _start;
+        private IVertex _end;
         private FillType _fill;
 
         public RegPolygon()
         {
-            _vertices = new List<Point>();
+            _vertices = new VertexCollection();
+
             ShapePen = new Pen(Color.Black);
+            ShapeBrush = Brushes.Transparent;
             _fill = FillType.NoFill;
 
             _sides = 5;
-            StartVertex = new Point();
-            _endVertex = new Point();
+            _start = new Vertex();
+            _end = new Vertex();
         }
 
         [Browsable(false)]
-        public List<Point> Vertices
+        public IVertexCollection Vertices
         {
             get { return _vertices; }
             set { _vertices = value; }
-            //test
         }
 
         [Browsable(false)]
@@ -46,15 +45,26 @@ namespace TabletC.Core
         }
 
         [Browsable(false)]
-        public Point StartVertex { get; set; }
-
-        [Browsable(false)]
-        public Point EndVertex {
-            get { return _endVertex; }
+        public IVertex StartVertex
+        {
+            get
+            {
+                return _start;
+            }
             set
             {
-                _endVertex = value;
-                FinishEdition();
+                _start = value;
+                ReCalculateVertices();
+            }
+        }
+
+        [Browsable(false)]
+        public IVertex EndVertex {
+            get { return _end; }
+            set
+            {
+                _end = value;
+                ReCalculateVertices();
             }
         }
 
@@ -69,7 +79,7 @@ namespace TabletC.Core
 
                 _vertices.Clear();
                 for (int i = 0; i < _sides; i++)
-                    _vertices.Add(new Point());
+                    _vertices.Add();
             }
         }
 
@@ -79,20 +89,18 @@ namespace TabletC.Core
             get { return "Regular Polygon"; }
         }
 
-        public bool HitTest(Point point)
+        public bool HitTest(IVertex point)
         {
             return Util.CheckInnerPoint(_vertices, point);
         }
 
-        public void FinishEdition()
+        public void ReCalculateVertices()
         {
             float step = 360.0f / _sides;
 
-            var radius =
-                (int)
-                    Math.Sqrt((StartVertex.X - EndVertex.X)*(StartVertex.X - EndVertex.X) +
-                              (StartVertex.Y - EndVertex.Y)*(StartVertex.Y - EndVertex.Y));
-            var startingAngle = XYToDegrees(EndVertex, StartVertex);
+            var radius = Math.Sqrt((StartVertex.X - EndVertex.X)*(StartVertex.X - EndVertex.X) +
+                                   (StartVertex.Y - EndVertex.Y)*(StartVertex.Y - EndVertex.Y));
+            var startingAngle = XYToDegrees(_end, _start);
 
             var angle = startingAngle; //starting angle
             double i;
@@ -100,7 +108,7 @@ namespace TabletC.Core
 
             for (i = startingAngle, k = 0; i < startingAngle + 360.0; i += step) //go in a full circle
             {
-                _vertices[k++] = DegreesToXY(angle, radius, StartVertex); //code snippet from above
+                _vertices[k++] = DegreesToXY(angle, radius, _start); //code snippet from above
                 angle += step;
             }
         }
@@ -115,31 +123,33 @@ namespace TabletC.Core
             var obj = new RegPolygon
             {
                 Sides = _sides,
+                ShapePen = (Pen)ShapePen.Clone(),
+                ShapeBrush = (Brush)ShapeBrush.Clone(),
                 Fill = _fill
             };
             return obj;
         }
 
-        private Point DegreesToXY(float degrees, float radius, Point origin)
+        private IVertex DegreesToXY(double degrees, double radius, IVertex origin)
         {
-            var xy = new Point();
+            var xy = new Vertex();
             double radians = degrees * Math.PI / 180.0;
 
-            xy.X = (int)(Math.Cos(radians) * radius + origin.X);
-            xy.Y = (int)(Math.Sin(-radians) * radius + origin.Y);
+            xy.X = Math.Cos(radians) * radius + origin.X;
+            xy.Y = Math.Sin(-radians) * radius + origin.Y;
 
             return xy;
         }
 
-        private float XYToDegrees(Point xy, Point origin)
+        private double XYToDegrees(IVertex xy, IVertex origin)
         {
-            int deltaX = origin.X - xy.X;
-            int deltaY = origin.Y - xy.Y;
+            double deltaX = origin.X - xy.X;
+            double deltaY = origin.Y - xy.Y;
 
             double radAngle = Math.Atan2(deltaY, deltaX);
             double degreeAngle = radAngle * 180.0 / Math.PI;
 
-            return (float)(180.0 - degreeAngle);
+            return (180.0 - degreeAngle);
         }
     }
 }

@@ -9,26 +9,26 @@ namespace TabletC.Core
 {
     public class Polygon : IShape
     {
-        private List<Point> _vertices;
-        private Point _startVertex;
-        private Point _endVertex;
+        private readonly IVertexCollection _vertices;
+        private IVertex _start;
+        private IVertex _end;
         private FillType _fill;
 
         public Polygon()
         {
-            _vertices = new List<Point>();
+            _vertices = new VertexCollection();
+
             ShapePen = new Pen(Color.Black);
+            ShapeBrush = Brushes.Transparent;
             _fill = FillType.NoFill;
 
-            _startVertex = new Point();
-            _endVertex = new Point();
+            _start = _end = new Vertex();
         }
 
         [Browsable(false)]
-        public List<Point> Vertices
+        public IVertexCollection Vertices
         {
             get { return _vertices; }
-            set { _vertices = value; }
         }
 
         [Browsable(false)]
@@ -44,17 +44,17 @@ namespace TabletC.Core
         }
 
         [Browsable(false)]
-        public Point StartVertex
+        public IVertex StartVertex
         {
-            get { return _startVertex; }
-            set { _startVertex = value; }
+            get { return _start; }
+            set { _start = value; }
         }
 
         [Browsable(false)]
-        public Point EndVertex
+        public IVertex EndVertex
         {
-            get { return _endVertex; }
-            set { _endVertex = value; }
+            get { return _end; }
+            set { _end = value; }
         }
 
         [Browsable(false)]
@@ -63,14 +63,13 @@ namespace TabletC.Core
             get { return "Polygon"; }
         }
 
-        public bool HitTest(Point point)
+        public bool HitTest(IVertex point)
         {
             return Util.CheckInnerPoint(_vertices, point);
         }
 
-        public void FinishEdition()
+        public void ReCalculateVertices()
         {
-            //
         }
 
         public ShapeType GetShapeType()
@@ -82,6 +81,8 @@ namespace TabletC.Core
         {
             var obj = new Polygon
             {
+                ShapePen = (Pen)ShapePen.Clone(),
+                ShapeBrush = (Brush)ShapeBrush.Clone(),
                 Fill = _fill
             };
             return obj;

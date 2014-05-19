@@ -6,6 +6,7 @@ namespace TabletC.DrawPad
 {
     public class ResizeBox
     {
+        /*
         public ResizeBox()
         {
             _borderPen = new Pen(Color.FromArgb(64, 64, 64));
@@ -69,7 +70,7 @@ namespace TabletC.DrawPad
                 case ShapeType.Line:
                 case ShapeType.Polygon:
                 {
-                    foreach (var point in _shape.Vertices)
+                    foreach (var point in _shape.Verticess)
                     {
                         _controlPoints.Add(point);
                         _dPoint.Add(new Size());
@@ -113,7 +114,7 @@ namespace TabletC.DrawPad
             {
                 for (int i = 0; i < _controlPoints.Count; i++)
                 {
-                    _shape.Vertices[i] = _controlPoints[i] = new Point(point.X - _dPoint[i].Width, point.Y - _dPoint[i].Height);
+                    _shape.Verticess[i] = _controlPoints[i] = new Point(point.X - _dPoint[i].Width, point.Y - _dPoint[i].Height);
                 }
             }
             else
@@ -127,7 +128,7 @@ namespace TabletC.DrawPad
             _controlPoints[_hitPosition] = new Point(x - _hitSize.Width, y - _hitSize.Height);
 
             if (_isLine)
-                _shape.Vertices[_hitPosition] = _controlPoints[_hitPosition];
+                _shape.Verticess[_hitPosition] = _controlPoints[_hitPosition];
             else
             {
                 if (_shape.GetShapeType() == ShapeType.Circle)
@@ -244,5 +245,6 @@ namespace TabletC.DrawPad
         private Size _hitSize;
         private int _hitPosition;
         private bool _havingBorder;
+        */
     }
 }
