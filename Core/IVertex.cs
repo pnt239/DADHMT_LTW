@@ -23,5 +23,9 @@ namespace TabletC.Core
         // Method: ToPoint
         // Convert Vertex to Point
         Point ToPoint();
+
+        // Method: Clone
+        // Create a clone of this vertex
+        IVertex Clone();
     }
 }

@@ -21,5 +21,9 @@ namespace TabletC.Core
         // Event: VertexRemoved
         // Occurs when a vertex is removed from the collection.
         event VertexEventHandler VertexRemoved;
+
+        // Method: Clone
+        // Create a clone of this vertexs
+        IVertexCollection Clone();
     }
 }

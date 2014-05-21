@@ -18,10 +18,10 @@ namespace TabletC.DrawPad
             _layers = new List<Layer>();
             _layer = null;
 
-            _imageBuffer = new Bitmap(_viewPort.Width, _viewPort.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            _imageBuffer = new Bitmap(_viewPort.IWidth, _viewPort.IHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             _graphicsBuffer = Graphics.FromImage(_imageBuffer);
 
-            _imageTemp = new Bitmap(_viewPort.Width, _viewPort.Height);
+            _imageTemp = new Bitmap(_viewPort.IWidth, _viewPort.IHeight);
             _graphicsTemp = Graphics.FromImage(_imageTemp);
 
             _layerRender = new LayerRenderer();

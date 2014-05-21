@@ -21,7 +21,7 @@ namespace TabletC.Core
 
             _layers = new BindingList<Layer>
             {
-                new Layer(_pageSize) {Name = "Background"}
+                new Layer(_pageSize) {Name = "Layer 1"}
             };
         }
 

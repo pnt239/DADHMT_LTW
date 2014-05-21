@@ -10,6 +10,7 @@ namespace TabletC.Core
         public ViewPort()
         {
             _viewWidth = _viewHeight = 0;
+            _iViewWidth = _iViewHeight = 0;
             _zoom = 1;
             Graphic = null;
         }
@@ -32,14 +33,24 @@ namespace TabletC.Core
 
         public MessureUnit Unit { get; set; }
 
-        public int Width
+        public double Width
         {
             get { return _viewWidth; }
         }
 
-        public int Height
+        public double Height
         {
             get { return _viewHeight; }
+        }
+
+        public int IWidth
+        {
+            get { return _iViewWidth; }
+        }
+
+        public int IHeight
+        {
+            get { return _iViewHeight; }
         }
 
         public Double Zoom
@@ -68,10 +79,9 @@ namespace TabletC.Core
             ReCalculateSize();
         }
 
-        public int WinToView(double value)
+        /* Win To View */
+        public Double WinToView(double value)
         {
-            if (value < 0)
-                return (int) value;
             return Util.WinToView(value*Zoom, Unit);
         }
 
@@ -90,13 +100,13 @@ namespace TabletC.Core
             return ret;
         }
 
-        public Rectangle WinToView(RectangleF rec)
+        public RectangleF WinToView(RectangleF rec)
         {
-            return new Rectangle(
-                Util.WinToView(rec.X*Zoom, Unit),
-                Util.WinToView(rec.Y*Zoom, Unit),
-                Util.WinToView(rec.Width*Zoom, Unit),
-                Util.WinToView(rec.Height*Zoom, Unit)
+            return new RectangleF(
+                (float)WinToView(rec.X),
+                (float)WinToView(rec.Y),
+                (float)WinToView(rec.Width),
+                (float)WinToView(rec.Height)
                 );
         }
 
@@ -109,29 +119,49 @@ namespace TabletC.Core
             return newShape;
         }
 
-        public Double ViewToWin(int value)
+        /* View To Win */
+        public Double ViewToWin(double value)
         {
             return Util.ViewToWin(value, Unit)/Zoom;
         }
 
-        public IVertex ViewToWin(Point point)
+        public IVertex ViewToWin(IVertex vertex)
         {
-            IVertex vertex = new Vertex();
-            vertex.X = Util.ViewToWin(point.X, Unit)/Zoom;
-            vertex.Y = Util.ViewToWin(point.Y, Unit)/Zoom;
-            return vertex;
+            return new Vertex(ViewToWin(vertex.X), ViewToWin(vertex.Y));
         }
+
+        public IVertexCollection ViewToWin(IVertexCollection vertices)
+        {
+            IVertexCollection ret = new VertexCollection();
+            foreach (Vertex vertex in vertices)
+            {
+                ret.Add(ViewToWin(vertex));
+            }
+            return ret;
+        }
+
+        public IShape ViewToWin(IShape shape)
+        {
+            IShape newShape = shape.Clone();
+            newShape.StartVertex = ViewToWin(shape.StartVertex);
+            newShape.EndVertex = ViewToWin(shape.EndVertex);
+            newShape.Vertices = ViewToWin(shape.Vertices);
+            return newShape;
+        }
+
 
         private void ReCalculateSize()
         {
-            _viewWidth = Util.WinToView(_realWidth * Zoom, Unit);
-            _viewHeight = Util.WinToView(_realHeight * Zoom, Unit);
+            _iViewWidth = Util.DtoI(_viewWidth = WinToView(_realWidth));
+            _iViewHeight = Util.DtoI(_viewHeight = WinToView(_realHeight));
         }
 
         private double _realWidth;
         private double _realHeight;
-        private int _viewWidth;
-        private int _viewHeight;
+        private double _viewWidth;
+        private double _viewHeight;
+        private int _iViewWidth;
+        private int _iViewHeight;
         private double _zoom;
     }
 }

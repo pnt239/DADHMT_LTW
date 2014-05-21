@@ -126,6 +126,13 @@ namespace TabletC.Core
             return points;
         }
 
+        public IVertexCollection Clone()
+        {
+            var t = new VertexCollection();
+            t._list.AddRange(_list);
+            return t;
+        }
+
         public event VertexEventHandler VertexAdded;
         public event VertexEventHandler VertexRemoved;
     }

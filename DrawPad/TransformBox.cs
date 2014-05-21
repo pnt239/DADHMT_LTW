@@ -36,7 +36,18 @@ namespace TabletC.DrawPad
         public IShape CurentShape
         {
             get { return _curentShape; }
-            set { _curentShape = value; }
+            set
+            {
+                _curentShape = value;
+                _reviewShape = _curentShape.Clone();
+                _reviewShape.ShapePen = _penBorder;
+                Recalculate();
+            }
+        }
+
+        public IShape ReviewShape
+        {
+            get { return _reviewShape; }
         }
 
         public SelectMode SelectMode
@@ -56,8 +67,8 @@ namespace TabletC.DrawPad
             if (SelectMode == SelectMode.None || _curentShape == null)
                 return;
 
-            _curentShape.ShapePen = _penBorder;
-            _shapeDraw.Draw(_curentShape, graphs);
+            ReviewShape.ShapePen = _penBorder;
+            _shapeDraw.Draw(ReviewShape, graphs);
 
             if (SelectMode == SelectMode.Selection)
             {
@@ -84,11 +95,10 @@ namespace TabletC.DrawPad
 
         public void Recalculate()
         {
-            if (CurentShape.Vertices.Count == 0)
+            if (_reviewShape.Vertices.Count == 0)
                 return;
-            RectangleF rec = Util.CreateShapeBound(_curentShape);
-            _recTransBorder = new Rectangle((int) Math.Round(rec.X), (int) Math.Round(rec.Y),
-                (int) Math.Round(rec.Width), (int) Math.Round(rec.Height));
+            RectangleF rec = Util.CreateShapeBound(_reviewShape);
+            _recTransBorder = Util.RecFToRec(rec);
 
             RecalculateTransPoint();
         }
@@ -106,6 +116,13 @@ namespace TabletC.DrawPad
             }
         }
 
+        public void FinishCreating()
+        {
+            _curentShape.Vertices = _reviewShape.Vertices;
+            _curentShape.StartVertex = _reviewShape.StartVertex;
+            _curentShape.EndVertex = _reviewShape.EndVertex;
+        }
+
         private readonly ShapeDrawer _shapeDraw;
         private ViewPort _viewPort;
 
@@ -118,6 +135,7 @@ namespace TabletC.DrawPad
         private Pen _penTransPoint;
         private Pen _penCtrlPoint;
         private Brush _brushControlPoint;
+        private Pen _penOutLine;
 
         private Rectangle _recTransBorder;
 
@@ -126,6 +144,7 @@ namespace TabletC.DrawPad
         private const int CountTransPoint = 9;
 
         private IShape _curentShape;
+        private IShape _reviewShape;
         /*
         public ResizeBox()
         {

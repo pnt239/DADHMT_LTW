@@ -113,7 +113,7 @@ namespace TabletC.DrawPad
             var colorBound = shape.ShapePen.Color;
 
 
-            var recImage = graphicContext.ViewPort.WinToView(Util.CreateShapeBound(shape));
+            var recImage = Util.RecFToRec(graphicContext.ViewPort.WinToView(Util.CreateShapeBound(shape)));
 
             Bitmap bmp = new Bitmap(recImage.Width, recImage.Height, PixelFormat.Format32bppArgb);
             BitmapData pixelData = bmp.LockBits(new Rectangle(0, 0, recImage.Width, recImage.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);

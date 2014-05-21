@@ -137,14 +137,30 @@ namespace TabletC.Core
             return 790.0/ConvertFromMilimeter(unit, 210.0);
         }
 
-        public static int WinToView(double value, MessureUnit unit)
+        public static Double WinToView(double value, MessureUnit unit)
         {
-            return (int)Math.Round(GetDefaultScale(unit)*value);
+            return Math.Round(GetDefaultScale(unit)*value);
         }
 
-        public static Double ViewToWin(int value, MessureUnit unit)
+        public static Double ViewToWin(double value, MessureUnit unit)
         {
             return value/GetDefaultScale(unit);
+        }
+
+        public static int DtoI(double dec)
+        {
+            return (int) Math.Round(dec);
+        }
+
+        public static int FtoI(float dec)
+        {
+            return (int)Math.Round(dec);
+        }
+
+        public static Rectangle RecFToRec(RectangleF rec)
+        {
+            return new Rectangle(FtoI(rec.X), FtoI(rec.Y),
+                FtoI(rec.Width), FtoI(rec.Height));
         }
     }
 }

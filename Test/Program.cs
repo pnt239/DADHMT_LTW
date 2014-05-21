@@ -14,7 +14,8 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Math.Round(1/Math.Tan(Math.PI), 0));
+            RectangleF rec = new RectangleF(12.2F, 4.2F, 3.4F, 6F);
+            Rectangle rec_ = (Rectangle)rec;
         }
     }
 }

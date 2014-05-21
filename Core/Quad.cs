@@ -104,7 +104,10 @@ namespace TabletC.Core
             {
                 ShapePen = (Pen)ShapePen.Clone(),
                 ShapeBrush = (Brush)ShapeBrush.Clone(),
-                Fill = _fill
+                Fill = _fill,
+                StartVertex = StartVertex.Clone(),
+                EndVertex = EndVertex.Clone(),
+                Vertices = _vertices.Clone()
             };
             return obj;
         }

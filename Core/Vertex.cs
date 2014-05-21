@@ -50,5 +50,10 @@ namespace TabletC.Core
         {
             return new Point((int) Math.Round(_x), (int) Math.Round(_y));
         }
+
+        public IVertex Clone()
+        {
+            return new Vertex(_x, _y);
+        }
     }
 }

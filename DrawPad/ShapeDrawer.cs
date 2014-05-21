@@ -22,7 +22,7 @@ namespace TabletC.DrawPad
 
         public void Draw(IShape shape, Graphics graphic)
         {
-            if (shape.EndVertex.Equals(shape.StartVertex))
+            if (shape.EndVertex.Equals(shape.StartVertex) && shape.Vertices.Count == 2)
                 return;
 
             _graphs = graphic;
@@ -82,7 +82,7 @@ namespace TabletC.DrawPad
                 return;
 
             // polygon.EndVertex.X != -1
-            bool endpol = (int)polygon.EndVertex.X == -1;
+            bool endpol = polygon.EndVertex.Equals(polygon.StartVertex);
 
             if (!endpol)
                 _graphs.DrawLine(polygon.ShapePen,
