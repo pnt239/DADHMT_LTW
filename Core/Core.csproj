@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="A4Page.cs" />
+    <Compile Include="ControlPoint.cs" />
     <Compile Include="CustomPage.cs" />
     <Compile Include="Ellipse.cs" />
     <Compile Include="IPage.cs" />

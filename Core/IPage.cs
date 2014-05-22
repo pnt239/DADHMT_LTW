@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 using System.Drawing;
 
 namespace TabletC.Core
@@ -25,18 +21,56 @@ namespace TabletC.Core
 
     public interface IPage
     {
-        MessureUnit Units { get; set; }
+        /// <summary>
+        /// Gets or sets the unit.
+        /// </summary>
+        /// <value>
+        /// The messur unit is used in current page.
+        /// </value>
+        MessureUnit Unit { get; set; }
 
+        /// <summary>
+        /// Gets or sets the size of the page.
+        /// </summary>
+        /// <value>
+        /// The size of the page.
+        /// </value>
         SizeF PageSize { get; set; }
 
-        Double Scale { get; set; }
-
+        /// <summary>
+        /// Gets or sets the orientation.
+        /// </summary>
+        /// <value>
+        /// The orientation of the page.
+        /// </value>
         PageOrientation Orientation { get; set; }
 
+        /// <summary>
+        /// Gets the viewport.
+        /// </summary>
+        /// <value>
+        /// The viewport is tool which manage all conversion unit form window to viewport and contrariwise.
+        /// </value>
+        ViewPort View { get; }
+
+        /// <summary>
+        /// Gets or sets the layers.
+        /// </summary>
+        /// <value>
+        /// The list of layers in the page.
+        /// </value>
         BindingList<Layer> Layers { get; set; }
 
+        /// <summary>
+        /// Gets the type of the page.
+        /// </summary>
+        /// <returns></returns>
         PageType GetPageType();
 
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns></returns>
         IPage Clone();
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 
 namespace TabletC.Core
 {
@@ -9,10 +7,11 @@ namespace TabletC.Core
     {
         public ViewPort()
         {
+            Unit = MessureUnit.Milimeters;
             _viewWidth = _viewHeight = 0;
             _iViewWidth = _iViewHeight = 0;
+            _scale = 1;
             _zoom = 1;
-            Graphic = null;
         }
 
         public ViewPort(MessureUnit unit, Double winWidth, Double winHeight)
@@ -20,7 +19,6 @@ namespace TabletC.Core
             Unit = unit;
             _zoom = 1;
             SetWindow(winWidth, winHeight);
-            Graphic = null;
         }
 
         public ViewPort(MessureUnit unit, SizeF size)
@@ -28,7 +26,6 @@ namespace TabletC.Core
             Unit = unit;
             _zoom = 1;
             SetWindow(size);
-            Graphic = null;
         }
 
         public MessureUnit Unit { get; set; }
@@ -63,9 +60,11 @@ namespace TabletC.Core
             }
         }
 
-        public Graphics Graphic { get; set; }
-
-        public Image Image { get; set; }
+        public double Scale
+        {
+            get { return _scale; }
+            set { _scale = value; }
+        }
 
         public void SetWindow(SizeF size)
         {
@@ -162,6 +161,7 @@ namespace TabletC.Core
         private double _viewHeight;
         private int _iViewWidth;
         private int _iViewHeight;
+        private double _scale;
         private double _zoom;
     }
 }
