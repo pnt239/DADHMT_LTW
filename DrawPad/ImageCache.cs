@@ -27,9 +27,9 @@ namespace TabletC.DrawPad
             _layerRender = new LayerRenderer();
         }
 
-        public void Render()
+        public void Render(Graphics graphs)
         {
-            _viewPort.Graphic.DrawImageUnscaled(_imageBuffer, 0, 0);
+            graphs.DrawImageUnscaled(_imageBuffer, 0, 0);
 
             if (_layer == null)
                 return;
@@ -42,7 +42,7 @@ namespace TabletC.DrawPad
             _layerRender.Render(_layer, graphContext);
 
             // Draw selected layer on viewport
-            _viewPort.Graphic.DrawImageUnscaled(_imageTemp, 0, 0);
+            graphs.DrawImageUnscaled(_imageTemp, 0, 0);
         }
 
         public void PushLayer(ref Layer layer)

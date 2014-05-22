@@ -87,8 +87,7 @@ namespace TabletC
             _currentDrawPad.Name = String.Format("dpUntiled{0}", _currentTabId);
             _currentDrawPad.TabIndex = 0;
 
-            _currentDrawPad.CurrentPage = new CustomPage(new Size(210, 297));
-            _currentDrawPad.CurrentPage.Units = MessureUnit.Milimeters;
+            _currentDrawPad.CurrentPage = new CustomPage(MessureUnit.Milimeters, new Size(210, 297));
 
             sttPageSize.Text = string.Format("{0:F03} , {1:F03} {2}", _currentDrawPad.CurrentPage.PageSize.Width,
                 _currentDrawPad.CurrentPage.PageSize.Height, Util.GetUnitSign(_currentDrawPad.ViewPort.Unit));

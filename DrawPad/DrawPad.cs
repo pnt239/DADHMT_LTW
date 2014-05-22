@@ -61,9 +61,8 @@ namespace TabletC.DrawPad
 
                 CurrentLayer = _currentPage.Layers[0];
 
-                _viewPort = new ViewPort(_currentPage.Units, _currentPage.PageSize);
+                _viewPort = new ViewPort(_currentPage.Unit, _currentPage.PageSize);
 
-                _transformBox.ViewPort = _viewPort;
                 _cache = new ImageCache(ref _viewPort);
 
                 ChangeLayout();
@@ -159,8 +158,7 @@ namespace TabletC.DrawPad
             if (_currentPage == null)
                 return;
 
-            ViewPort.Graphic = e.Graphics;
-            _cache.Render();
+            _cache.Render(e.Graphics);
 
             _transformBox.Draw(e.Graphics);
             //if (_isSelected)

@@ -27,12 +27,6 @@ namespace TabletC.DrawPad
             _brushControlPoint = new SolidBrush(Color.FromArgb(0xff, 0x4f, 0x80, 0xff));
         }
 
-        public ViewPort ViewPort
-        {
-            get { return _viewPort; }
-            set { _viewPort = value; }
-        }
-
         public IShape CurentShape
         {
             get { return _curentShape; }
