@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Untipic", "Untipic\Untipic.csproj", "{D71A5308-A581-4C6B-BEC1-8871381426BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{359E8EDC-2FF6-49AC-8766-EC097D4B2FD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{D71A5308-A581-4C6B-BEC1-8871381426BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D71A5308-A581-4C6B-BEC1-8871381426BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D71A5308-A581-4C6B-BEC1-8871381426BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{359E8EDC-2FF6-49AC-8766-EC097D4B2FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{359E8EDC-2FF6-49AC-8766-EC097D4B2FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{359E8EDC-2FF6-49AC-8766-EC097D4B2FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{359E8EDC-2FF6-49AC-8766-EC097D4B2FD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,6 +11,21 @@
     <AssemblyName>Untipic</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,17 +59,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ShapeSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainGui.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainGui.Designer.cs">
       <DependentUpon>MainGui.cs</DependentUpon>
     </Compile>
+    <Compile Include="MetroUI\MetroBorderStyle.cs" />
+    <Compile Include="MetroUI\MetroButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MetroUI\MetroExtensions.cs" />
     <Compile Include="MetroUI\MetroForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Controls\NameBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NameBar.Designer.cs">
+      <DependentUpon>NameBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetroUI\MetroStatusStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MetroUI\MetroToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WinApi\HitTest.cs" />
+    <Compile Include="WinApi\Messages.cs" />
+    <Compile Include="WinApi\Structs.cs" />
+    <EmbeddedResource Include="Controls\ShapeSelectionForm.resx">
+      <DependentUpon>ShapeSelectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGui.resx">
+      <DependentUpon>MainGui.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NameBar.resx">
+      <DependentUpon>NameBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -63,6 +110,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -74,7 +122,58 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Selection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DirectSelection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Crop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Quad.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Triangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Polygon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bezier.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ellipse.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
