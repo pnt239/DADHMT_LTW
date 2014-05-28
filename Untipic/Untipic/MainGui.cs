@@ -6,12 +6,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Untipic.MetroUI;
 
 namespace Untipic
 {
-    public partial class Form1 : Form
+    public partial class MainGui : MetroForm
     {
-        public Form1()
+        public MainGui()
         {
             InitializeComponent();
         }

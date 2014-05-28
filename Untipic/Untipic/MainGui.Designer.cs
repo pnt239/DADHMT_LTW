@@ -1,6 +1,6 @@
 ﻿namespace Untipic
 {
-    partial class Form1
+    partial class MainGui
     {
         /// <summary>
         /// Required designer variable.
