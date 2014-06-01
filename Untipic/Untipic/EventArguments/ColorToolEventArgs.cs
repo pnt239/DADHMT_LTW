@@ -24,20 +24,41 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using Untipic.MetroUI;
-using Untipic.Util;
+using System.Linq;
+using System.Text;
 
-namespace Untipic
+namespace Untipic.EventArguments
 {
-    public partial class MainGui : MetroForm
+    public class ColorToolEventArgs : EventArgs
     {
-        public MainGui()
+        public ColorToolEventArgs(Color color, float width)
         {
-            InitializeComponent();
+            Color = color;
+            Width = width;
         }
 
-        
+        public Color Color
+        {
+            get { return _color; }
+            set { _color = value; }
+        }
+
+        public float Width
+        {
+            get { return _width; }
+            set { _width = value; }
+        }
+
+        /// <summary>
+        /// The color of outline/fill
+        /// </summary>
+        private Color _color;
+
+        /// <summary>
+        /// The width of outline
+        /// </summary>
+        private float _width;
     }
 }

@@ -23,21 +23,34 @@
  */
 #endregion
 
-using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using Untipic.MetroUI;
-using Untipic.Util;
 
-namespace Untipic
+namespace Untipic.Util
 {
-    public partial class MainGui : MetroForm
+    /// <summary>
+    /// Utility methods for draw or create shape.
+    /// </summary>
+    public class Drawer
     {
-        public MainGui()
+        /// <summary>
+        /// Creates the leaf shape path
+        /// </summary>
+        /// <param name="rec">The boundary of leaf shape</param>
+        /// <param name="round">The round edge of leaf</param>
+        /// <returns>Then GraphicsPath of leaf shape</returns>
+        public static GraphicsPath CreateLeaf(Rectangle rec, float round)
         {
-            InitializeComponent();
-        }
+            var path = new GraphicsPath();
+            path.StartFigure();
+            path.AddLine(rec.X, rec.Y + rec.Height, rec.X, rec.Y + round);
+            path.AddArc(rec.X, rec.Y, round, round, 180F, 90F);
+            path.AddLine(rec.X + round, rec.Y, rec.X + rec.Width, rec.Y);
+            path.AddLine(rec.X + rec.Width, rec.Y, rec.X + rec.Width, rec.Y + rec.Height - round);
+            path.AddArc(rec.X + rec.Width - round, rec.Y + rec.Height - round, round, round, 0F, 90F);
+            path.CloseFigure();
 
-        
+            return path;
+        }
     }
 }

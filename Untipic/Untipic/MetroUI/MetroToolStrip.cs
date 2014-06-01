@@ -23,21 +23,24 @@
  */
 #endregion
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
-namespace Untipic.Controls
+namespace Untipic.MetroUI
 {
     public class MetroToolStripRenderer : ToolStripProfessionalRenderer
     {
         public MetroToolStripRenderer()
         {
-            RoundedEdges = false;
+            Initialize();
         }
+
+        public float BorderWidth
+        {
+            get { return _borderWidth; }
+            set { _borderWidth = value; }
+        }
+
 
         protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
         {
@@ -53,28 +56,34 @@ namespace Untipic.Controls
         {
             //base.OnRenderToolStripBorder(e);
 
-            if (e.ToolStrip.Dock == DockStyle.None || e.ToolStrip.Dock == DockStyle.Fill)
+            if (e.ToolStrip.Dock == DockStyle.Fill)
                 return;
 
             using (var b = new SolidBrush(Color.FromArgb(0xcc, 0xcc, 0xcc)))
-            using (var p = new Pen(b, 5))
+            using (var p = new Pen(b, _borderWidth))
             {
                 if (e.ToolStrip.Dock != DockStyle.Top)
-                    e.Graphics.DrawLine(p, 0, 0, e.ToolStrip.Width - 1, 0);
+                    e.Graphics.DrawLine(p, 0, 0, e.AffectedBounds.Right, 0);
 
-                e.Graphics.DrawLine(p, e.ToolStrip.Width - 1, 0, e.ToolStrip.Width - 1, e.ToolStrip.Height - 1);
-                e.Graphics.DrawLine(p, 0 , e.ToolStrip.Height - 1, e.ToolStrip.Width - 1, e.ToolStrip.Height - 1);
+                e.Graphics.DrawLine(p, e.AffectedBounds.Right - 1, 0, e.AffectedBounds.Right - 1, e.AffectedBounds.Bottom);
+                e.Graphics.DrawLine(p, 0, e.AffectedBounds.Bottom - 1, e.AffectedBounds.Right, e.AffectedBounds.Bottom - 1);
                 //e.Graphics.DrawRectangle(p, 0, 0, e.ToolStrip.Width - 1, e.ToolStrip.Height - 1);
             }
         }
 
+        private void Initialize()
+        {
+            BorderWidth = 5;
+            RoundedEdges = false;
+        }
+
+        private float _borderWidth;
     }
 
     public class MetroToolStrip : ToolStrip
     {
         public MetroToolStrip()
         {
-            
             Renderer = new MetroToolStripRenderer();
         }
     }

@@ -24,20 +24,25 @@
 #endregion
 
 using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using Untipic.MetroUI;
-using Untipic.Util;
 
-namespace Untipic
+namespace Untipic.EventArguments
 {
-    public partial class MainGui : MetroForm
+    /// <summary>
+    /// Provides event information for events involving an selected shape.
+    /// </summary>
+    public class ShapeToolEventArgs : EventArgs
     {
-        public MainGui()
+        public ShapeToolEventArgs(int id)
         {
-            InitializeComponent();
+            _id = id;
         }
 
-        
+        private int _id;
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
     }
 }

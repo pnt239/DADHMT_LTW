@@ -23,7 +23,7 @@
  */
 #endregion
 
-namespace Untipic.Controls
+namespace Untipic.MetroUI
 {
     public enum MetroBorderStyle
     {

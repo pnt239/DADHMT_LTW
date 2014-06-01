@@ -39,6 +39,102 @@ namespace Untipic.Controls
         public MetroNameBar()
         {
             InitializeComponent();
+
+            _projectName = "Untitled";
+            _isHover = false;
+            txtName.Text = lbName.Text = _projectName;
+
+            // Set serveral option for paint
+            SetStyle(
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.ResizeRedraw |
+                ControlStyles.UserPaint, true);
         }
+
+        public string ProjectName
+        {
+            get { return _projectName; }
+            set { _projectName = value; }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            var y = (Height - txtName.Height)/2;
+            txtName.Top = y;
+
+            lbName.Left = txtName.Left - 3;
+            lbName.Top = y;
+
+            btnYes.Top = y;
+            btnYes.Left = txtName.Left + txtName.Width + 5;
+
+            base.OnLoad(e);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            e.Graphics.Clear(BackColor);
+
+            if (_isHover)
+            {
+                var rec = new Rectangle(txtName.Left - 4, txtName.Top - 1, lbName.Width + 1, txtName.Height);
+                using (var p = new Pen(Color.FromArgb(0xcc, 0xcc, 0xcc), 1F))
+                    e.Graphics.DrawRectangle(p, rec);
+            }
+        }
+
+        private void lbName_Click(object sender, EventArgs e)
+        {
+            SwitchVisiable();
+            txtName.Focus();
+        }
+
+        private void lbName_MouseEnter(object sender, EventArgs e)
+        {
+            _isHover = true;
+            Invalidate();
+        }
+
+        private void lbName_MouseLeave(object sender, EventArgs e)
+        {
+            _isHover = false;
+            Invalidate();
+        }
+
+        private void txtName_Leave(object sender, EventArgs e)
+        {
+            SwitchVisiable();
+        }
+
+        private void txtName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+                SwitchVisiable();
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            lbName.Text = _projectName = txtName.Text;
+        }
+
+        private void SwitchVisiable()
+        {
+            var curState = lbName.Visible;
+
+            txtName.Visible = curState;
+            btnYes.Visible = curState;
+            lbName.Visible = !curState;
+        }
+
+        private void btnYes_Click(object sender, EventArgs e)
+        {
+            SwitchVisiable();
+        }
+
+        private bool _isHover;
+        private string _projectName;
     }
 }

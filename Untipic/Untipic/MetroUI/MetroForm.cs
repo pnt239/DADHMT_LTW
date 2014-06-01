@@ -27,13 +27,11 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Windows.Forms;
 using Untipic.WinApi;
 
-namespace Untipic.Controls
+namespace Untipic.MetroUI
 {
     public class MetroForm : Form
     {
@@ -74,8 +72,6 @@ namespace Untipic.Controls
 
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);
-
             // Add window buttons
             if (ControlBox && _borderStyle != MetroBorderStyle.None)
             {
@@ -83,6 +79,8 @@ namespace Untipic.Controls
                 if (MaximizeBox) AddWindowButton(WindowButtons.Maximize);
                 if (MinimizeBox) AddWindowButton(WindowButtons.Minimize);
             }
+
+            base.OnLoad(e);
         }
 
         #region Properties

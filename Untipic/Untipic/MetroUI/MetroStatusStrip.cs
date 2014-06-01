@@ -29,7 +29,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Untipic.Controls
+namespace Untipic.MetroUI
 {
     public class MetroStatusStrip : StatusStrip
     {
