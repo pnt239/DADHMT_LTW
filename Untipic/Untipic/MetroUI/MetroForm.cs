@@ -218,6 +218,10 @@ namespace Untipic.MetroUI
                     WmGetMinMaxInfo(m.HWnd, m.LParam);
                 }
                 break;
+
+                case Messages.WM_SIZING:
+                    OnWmSizing(m.WParam, m.LParam);
+                    break;
             }
 
             base.WndProc(ref m);
@@ -284,7 +288,7 @@ namespace Untipic.MetroUI
         /// </summary>
         /// <param name="hwnd">>A handle to the window procedure that received the message.</param>
         /// <param name="lParam">The lparameter.</param>
-        private static void WmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam)
+        private void WmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam)
         {
             var mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
 
@@ -293,7 +297,19 @@ namespace Untipic.MetroUI
             mmi.MaxPosition.X = Math.Abs(s.WorkingArea.Left - s.Bounds.Left);
             mmi.MaxPosition.Y = Math.Abs(s.WorkingArea.Top - s.Bounds.Top);
 
+            _minTrackSize.Width = Math.Max(_minTrackSize.Width, mmi.MinTrackSize.Width);
+            _minTrackSize.Height = Math.Max(_minTrackSize.Height, mmi.MinTrackSize.Height);
+            _minTrackSize = SizeFromClientSize(_minTrackSize);
+
             Marshal.StructureToPtr(mmi, lParam, true);
+        }
+
+        private void OnWmSizing(IntPtr wParam, IntPtr lParam)
+        {
+            var rc = (RECT)Marshal.PtrToStructure(lParam, typeof(RECT));
+            rc.Width = Math.Max(rc.Width, _minTrackSize.Width);
+            rc.Height = Math.Max(rc.Height, _minTrackSize.Height);
+            Marshal.StructureToPtr(rc, lParam, true);
         }
         #endregion
 
@@ -422,6 +438,10 @@ namespace Untipic.MetroUI
         /// </summary>
         private readonly MetroButton[] _windowButtons = new MetroButton[3];
 
+        /// <summary>
+        /// The min track size
+        /// </summary>
+        private Size _minTrackSize;
         #endregion
     }
 }

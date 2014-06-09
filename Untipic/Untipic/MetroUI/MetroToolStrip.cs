@@ -24,6 +24,7 @@
 #endregion
 
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace Untipic.MetroUI
@@ -71,9 +72,38 @@ namespace Untipic.MetroUI
             }
         }
 
+        protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
+        {
+            base.OnRenderButtonBackground(e);
+
+            var g = e.Graphics;
+
+            var bounds = new Rectangle(Point.Empty, e.Item.Size);
+
+            Color backColor = Color.White;
+            
+            var button = e.Item as ToolStripButton;
+            // Check button is null value
+            if (button == null) return;
+
+            if (button.Pressed || button.Checked)
+            {
+                backColor = Color.FromArgb(0x4d, 0x4d, 0x4d);
+            }
+            else if (button.Selected)
+            {
+                backColor = Color.FromArgb(0xe6, 0xe6, 0xe6);
+            }
+
+            using (Brush b = new SolidBrush(backColor))
+            {
+                g.FillRectangle(b, bounds);
+            }
+        }
+
         private void Initialize()
         {
-            BorderWidth = 5;
+            _borderWidth = 5;
             RoundedEdges = false;
         }
 

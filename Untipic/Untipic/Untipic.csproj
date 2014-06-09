@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Application.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar2, Version=11.2.0.1, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualBasic" />
@@ -63,7 +66,31 @@
     <Compile Include="Controls\ColorWheel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\DrawPad.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DrawPad.Designer.cs">
+      <DependentUpon>DrawPad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GdiArea.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\IColorEditor.cs" />
+    <Compile Include="Controls\IPAddressTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\LayerListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\LayerListBoxItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\LayerManagerPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LayerManagerPanel.Designer.cs">
+      <DependentUpon>LayerManagerPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MultiPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -74,6 +101,10 @@
     <Compile Include="Controls\ShapeSelectorControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\SingleCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ToolStripMananer.cs" />
     <Compile Include="Controls\ToolStripOutlineButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -83,16 +114,38 @@
     <Compile Include="Controls\ToolStripShapeSelectorButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\UserControl1.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\UserControl1.Designer.cs">
-      <DependentUpon>UserControl1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Design\MultiPanelDesigner.cs" />
     <Compile Include="Design\MultiPanelPageDesigner.cs" />
+    <Compile Include="DrawPadTools\CommandObject.cs" />
+    <Compile Include="DrawPadTools\CursorTool.cs" />
+    <Compile Include="DrawPadTools\DrawPadCommand.cs" />
     <Compile Include="EventArguments\ColorToolEventArgs.cs" />
+    <Compile Include="EventArguments\CommandChangedEventArgs.cs" />
     <Compile Include="EventArguments\ShapeToolEventArgs.cs" />
+    <Compile Include="Forms\ClientsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ClientsForm.Designer.cs">
+      <DependentUpon>ClientsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewForm.Designer.cs">
+      <DependentUpon>NewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OpenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OpenForm.Designer.cs">
+      <DependentUpon>OpenForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainGui.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +154,9 @@
     </Compile>
     <Compile Include="MetroUI\MetroBorderStyle.cs" />
     <Compile Include="MetroUI\MetroButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MetroUI\MetroDropDownButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MetroUI\MetroExtensions.cs" />
@@ -116,7 +172,13 @@
     <Compile Include="MetroUI\MetroStatusStrip.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MetroUI\MetroToolStripButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MetroUI\MetroToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MetroUI\MetroToolStripDropDownButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MetroUI\MetroTrackBar.cs">
@@ -129,8 +191,26 @@
     <Compile Include="WinApi\HitTest.cs" />
     <Compile Include="WinApi\Messages.cs" />
     <Compile Include="WinApi\Structs.cs" />
-    <EmbeddedResource Include="Controls\UserControl1.resx">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\DrawPad.resx">
+      <DependentUpon>DrawPad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\IPAddressTextBox.resx">
+      <DependentUpon>IPAddressTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LayerManagerPanel.resx">
+      <DependentUpon>LayerManagerPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ClientsForm.resx">
+      <DependentUpon>ClientsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewForm.resx">
+      <DependentUpon>NewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OpenForm.resx">
+      <DependentUpon>OpenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainGui.resx">
       <DependentUpon>MainGui.cs</DependentUpon>
@@ -148,6 +228,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -210,7 +291,75 @@
   <ItemGroup>
     <None Include="Resources\Ellipse.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Layers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{6b464653-1eed-43f2-8ac7-4f861f23cfec}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine\Engine.csproj">
+      <Project>{c270a7d1-d178-4524-aeb6-725944426e77}</Project>
+      <Name>Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Visualization\Visualization.csproj">
+      <Project>{03eabb37-afa1-4dd9-8a0e-e201a1bb87ce}</Project>
+      <Name>Visualization</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Cursors\Selection.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Cursors\DirectSelection.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\New.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveAs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZoomIn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZoomOut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Application.ico" />
+    <EmbeddedResource Include="Cursors\Brush.cur" />
+    <None Include="Resources\Font.png" />
+    <None Include="Resources\Eraser.png" />
+    <None Include="Resources\Bucket.png" />
+    <None Include="Resources\Brush.png" />
+    <None Include="Resources\FitSize.png" />
+    <None Include="Resources\Accounts.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

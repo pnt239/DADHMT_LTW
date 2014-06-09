@@ -29,6 +29,20 @@ using System.Drawing.Drawing2D;
 namespace Untipic.Util
 {
     /// <summary>
+    /// 
+    /// </summary>
+    [System.Flags]
+    public enum Corners
+    {
+        None = 0,
+        TopLeft = 1,
+        TopRight = 2,
+        BottomLeft = 4,
+        BottomRight = 8,
+        All = TopLeft | TopRight | BottomLeft | BottomRight
+    }
+
+    /// <summary>
     /// Utility methods for draw or create shape.
     /// </summary>
     public class Drawer
@@ -51,6 +65,84 @@ namespace Untipic.Util
             path.CloseFigure();
 
             return path;
+        }
+
+        /// <summary>
+        /// Draw a rounds the rectangle.
+        /// </summary>
+        /// <param name="r">The bound.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="corners">The corners.</param>
+        /// <remarks>Source: http://dotnetrix.co.uk/button.htm </remarks>
+        /// <returns></returns>
+        public static GraphicsPath RoundRectangle(Rectangle r, int radius, Corners corners)
+        {
+            //Make sure the Path fits inside the rectangle
+            r.Width -= 1;
+            r.Height -= 1;
+
+            //Scale the radius if it's too large to fit.
+            if (radius > (r.Width))
+                radius = r.Width;
+            if (radius > (r.Height))
+                radius = r.Height;
+
+            var path = new GraphicsPath();
+            path.StartFigure();
+            if (radius <= 0)
+                path.AddRectangle(r);
+            else
+            {
+                if ((corners & Corners.TopLeft) == Corners.TopLeft)
+                    path.AddArc(r.Left, r.Top, radius, radius, 180F, 90F);
+                else
+                    path.AddLine(r.Left, r.Top, r.Left, r.Top);
+
+                if ((corners & Corners.TopRight) == Corners.TopRight)
+                    path.AddArc(r.Right - radius, r.Top, radius, radius, 270F, 90F);
+                else
+                    path.AddLine(r.Right, r.Top, r.Right, r.Top);
+
+                if ((corners & Corners.BottomRight) == Corners.BottomRight)
+                    path.AddArc(r.Right - radius, r.Bottom - radius, radius, radius, 0, 90F);
+                else
+                    path.AddLine(r.Right, r.Bottom, r.Right, r.Bottom);
+
+                if ((corners & Corners.BottomLeft) == Corners.BottomLeft)
+                    path.AddArc(r.Left, r.Bottom - radius, radius, radius, 90F, 90F);
+                else
+                    path.AddLine(r.Left, r.Bottom, r.Left, r.Bottom);
+            }
+            
+            path.CloseFigure();
+
+            return path;
+        }
+
+        /// <summary>
+        /// Rounds the image.
+        /// </summary>
+        /// <param name="startImage">The start image.</param>
+        /// <param name="cornerRadius">The corner radius.</param>
+        /// <param name="backgroundColor">Color of the background.</param>
+        /// <remarks>Source: http://stackoverflow.com/questions/1758762/how-to-create-image-with-rounded-corners-in-c </remarks>
+        /// <returns></returns>
+        public static Image RoundImage(Image startImage, int cornerRadius, Color backgroundColor)
+        {
+            cornerRadius *= 2;
+            var roundedImage = new Bitmap(startImage.Width, startImage.Height);
+            Graphics g = Graphics.FromImage(roundedImage);
+            g.Clear(backgroundColor);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            Brush brush = new TextureBrush(startImage);
+            var gp = new GraphicsPath();
+            gp.AddArc(0, 0, cornerRadius, cornerRadius, 180, 90);
+            gp.AddArc(0 + roundedImage.Width - cornerRadius, 0, cornerRadius, cornerRadius, 270, 90);
+            gp.AddArc(0 + roundedImage.Width - cornerRadius, 0 + roundedImage.Height - cornerRadius, cornerRadius, cornerRadius, 0, 90);
+            gp.AddArc(0, 0 + roundedImage.Height - cornerRadius, cornerRadius, cornerRadius, 90, 90);
+            g.FillPath(brush, gp);
+            g.Dispose();
+            return roundedImage;
         }
     }
 }

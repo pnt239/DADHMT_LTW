@@ -40,7 +40,6 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(260, 18);
             this.txtName.TabIndex = 0;
-            this.txtName.Text = "s";
             this.txtName.Visible = false;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             this.txtName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtName_KeyPress);

@@ -27,11 +27,12 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using Untipic.MetroUI;
 using Untipic.Util;
 
 namespace Untipic.Controls
 {
-    public class ToolStripFillButton : ToolStripDropDownButton
+    public class ToolStripFillButton : MetroToolStripDropDownButton
     {
         public ToolStripFillButton()
         {
@@ -39,7 +40,7 @@ namespace Untipic.Controls
             base.Image = GenerateThumbWidthColor(FillColor);
 
             // Create size and color picker
-            _control = new ColorToolControl(FillColor, 0, true);
+            _control = new ColorToolControl(FillColor, 0, DashStyle.Solid, true);
             _control.ColorSelected += control_ColorSelected;
 
             // Add to dropdown list
@@ -49,6 +50,8 @@ namespace Untipic.Controls
             DropDown = dropdown;
         }
 
+        public event EventHandler FillChanged = null;
+
         public Color FillColor { get; set; }
 
         protected override void OnDropDownClosed(EventArgs e)
@@ -56,11 +59,29 @@ namespace Untipic.Controls
             FillColor = _control.SelectedColor;
             Image = GenerateThumbWidthColor(FillColor);
             base.OnDropDownClosed(e);
+            OnOutlineChanged();
         }
 
-        void control_ColorSelected(object sender, EventArgs e)
+        protected override Point DropDownLocation
+        {
+            get
+            {
+                var dropdownLocation = base.DropDownLocation;
+                dropdownLocation.X += 10;
+                return dropdownLocation;
+            }
+        }
+
+        private void OnOutlineChanged()
+        {
+            if (FillChanged != null)
+                FillChanged(this, EventArgs.Empty);
+        }
+
+        private void control_ColorSelected(object sender, EventArgs e)
         {
             DropDown.Close();
+            OnOutlineChanged();
         }
 
         private Image GenerateThumbWidthColor(Color colorfill)

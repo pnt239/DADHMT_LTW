@@ -24,6 +24,7 @@
 #endregion
 
 using System;
+using Untipic.DrawPadTools;
 
 namespace Untipic.EventArguments
 {
@@ -32,17 +33,17 @@ namespace Untipic.EventArguments
     /// </summary>
     public class ShapeToolEventArgs : EventArgs
     {
-        public ShapeToolEventArgs(int id)
+        public ShapeToolEventArgs(CommandObject id)
         {
-            _id = id;
+            _command = id;
         }
 
-        private int _id;
-
-        public int Id
+        public CommandObject Command
         {
-            get { return _id; }
-            set { _id = value; }
+            get { return _command; }
+            set { _command = value; }
         }
+
+        private CommandObject _command;
     }
 }

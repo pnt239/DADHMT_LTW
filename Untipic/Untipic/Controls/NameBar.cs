@@ -60,7 +60,9 @@ namespace Untipic.Controls
 
         protected override void OnLoad(EventArgs e)
         {
-            var y = (Height - txtName.Height)/2;
+            base.OnLoad(e);
+
+            var y = (Height - txtName.Height) / 2;
             txtName.Top = y;
 
             lbName.Left = txtName.Left - 3;
@@ -68,8 +70,6 @@ namespace Untipic.Controls
 
             btnYes.Top = y;
             btnYes.Left = txtName.Left + txtName.Width + 5;
-
-            base.OnLoad(e);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -102,11 +102,6 @@ namespace Untipic.Controls
         {
             _isHover = false;
             Invalidate();
-        }
-
-        private void txtName_Leave(object sender, EventArgs e)
-        {
-            SwitchVisiable();
         }
 
         private void txtName_KeyPress(object sender, KeyPressEventArgs e)

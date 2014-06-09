@@ -72,7 +72,8 @@ namespace Untipic.MetroUI
                 TextAlign.AsTextFormatFlags() | TextFormatFlags.EndEllipsis);
 
             if (Image != null)
-                pevent.Graphics.DrawImage(Image, -2, -2, 48, 48);
+                pevent.Graphics.DrawImage(Image, (Width - Image.Width) / 2, (Height - Image.Height) / 2, 
+                    Image.Width, Image.Height);
             //using (var b = new SolidBrush(Color.FromArgb(255 - back.R, 255 - back.G, 255 - back.B)))
             //{
             //    var p = new PointF();

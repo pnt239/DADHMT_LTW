@@ -67,27 +67,40 @@ namespace Untipic.Controls
         private void Initialize()
         {
             //  Set size of control. A icon is 48x48 px
-            Size = new Size(288, 48);
+            Size = new Size(240, 48);
             var img = new Image[]
             {
                 Properties.Resources.Line,
-                Properties.Resources.Bezier,
                 Properties.Resources.Triangle,
                 Properties.Resources.Quad,
                 Properties.Resources.Polygon,
                 Properties.Resources.Ellipse
             };
 
+            var command = new[]
+            {
+                new DrawPadTools.CommandObject(DrawPadTools.DrawPadCommand.DrawShape,
+                    new Core.Line()),
+                new DrawPadTools.CommandObject(DrawPadTools.DrawPadCommand.DrawShape,
+                    new Core.IsoscelesTriangle()),
+                new DrawPadTools.CommandObject(DrawPadTools.DrawPadCommand.DrawShape,
+                    new Core.Oblong()),
+                new DrawPadTools.CommandObject(DrawPadTools.DrawPadCommand.DrawShape,
+                    new Core.Polygon {DrawMethod = Core.DrawMethod.ByClick}),
+                new DrawPadTools.CommandObject(DrawPadTools.DrawPadCommand.DrawShape,
+                    new Core.Ellipse())
+            };
+
             // Initialize control
             _lytMain = new TableLayoutPanel();
-            _btnTools = new MetroButton[6]; // have 6 tools
+            _btnTools = new MetroButton[5]; // have 6 tools
             _lytMain.SuspendLayout();
             SuspendLayout();
 
             // 
             // btnTools
             // 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 5; i++)
             {
                 _btnTools[i] = new MetroButton
                 {
@@ -100,7 +113,7 @@ namespace Untipic.Controls
                     TabIndex = i,
                     Text = String.Format("Tool{0}", i),
                     Name = String.Format("btnTool{0}", i),
-                    Tag = i,
+                    Tag = command[i],
                     UseVisualStyleBackColor = true
                 };
 
@@ -110,8 +123,8 @@ namespace Untipic.Controls
             // 
             // lytMain
             // 
-            _lytMain.ColumnCount = 6;
-            for (int i = 0; i < 6; i++)
+            _lytMain.ColumnCount = 5;
+            for (int i = 0; i < 5; i++)
             {
                 _lytMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 48F));
                 _lytMain.Controls.Add(_btnTools[i], i, 0);
@@ -121,7 +134,7 @@ namespace Untipic.Controls
             _lytMain.Dock = DockStyle.Fill;
             _lytMain.Margin = new Padding(0);
             _lytMain.Location = new Point(2, 2);
-            _lytMain.Size = new Size(288, 48);
+            _lytMain.Size = new Size(240, 48);
             _lytMain.TabIndex = 3;
             _lytMain.Name = "lytMain";
 
@@ -142,7 +155,7 @@ namespace Untipic.Controls
         private void Tools_Click(object sender, EventArgs e)
         {
             var btn = (MetroButton) sender;
-            OnShapeSelected(new ShapeToolEventArgs((int)btn.Tag));
+            OnShapeSelected(new ShapeToolEventArgs((DrawPadTools.CommandObject)btn.Tag));
         }
 
         /// <summary>

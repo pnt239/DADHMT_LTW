@@ -26,6 +26,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Untipic.MetroUI;
@@ -83,14 +84,16 @@ namespace Untipic.Controls
         {
             _selectedColor = Color.Black;
             _selectedWidth = 2F;
+            _selectedDash = DashStyle.Solid;
 
             InitializeComponent(fillMode);
         }
 
-        public ColorToolControl(Color color, float width, bool fillMode = false)
+        public ColorToolControl(Color color, float width, DashStyle dash, bool fillMode = false)
         {
             _selectedColor = color;
             _selectedWidth = width;
+            _selectedDash = dash;
 
             InitializeComponent(fillMode);
         }
@@ -117,6 +120,18 @@ namespace Untipic.Controls
         {
             get { return _selectedWidth; }
             set { _selectedWidth = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected dash.
+        /// </summary>
+        /// <value>
+        /// The selected dash.
+        /// </value>
+        public DashStyle SelectedDash
+        {
+            get { return _selectedDash; }
+            set { _selectedDash = value; }
         }
 
         public event EventHandler ColorSelected = null;
@@ -179,6 +194,7 @@ namespace Untipic.Controls
             _clrWheel = new ColorWheel();
             _colorEditor = new ColorEditor();
             _colorEditorManager = new ColorEditorManager();
+            _cbxPenStyle = new ComboBox();
             _tlpAdvanceSizeBar = new TableLayoutPanel();
             _tkbAdvanceSize = new MetroTrackBar();
             _txtSize = new TextBox();
@@ -373,7 +389,7 @@ namespace Untipic.Controls
             _pgeAdvance.Location = new Point(0, 0);
             _pgeAdvance.Margin = new Padding(3, 4, 3, 4);
             _pgeAdvance.Name = "_pgeAdvance";
-            _pgeAdvance.Size = new Size(210, 275);
+            _pgeAdvance.Size = new Size(210, 275 + 26);
             _pgeAdvance.TabIndex = 1;
             _pgeAdvance.Text = @"_pgeAdvance";
             // 
@@ -387,16 +403,22 @@ namespace Untipic.Controls
             if (fillMode)
                 _tlpAdvance.Controls.Add(_btnNoFillAdvance, 0, 2);
             else
+            {
                 _tlpAdvance.Controls.Add(_tlpAdvanceSizeBar, 0, 2);
+                _tlpAdvance.Controls.Add(_cbxPenStyle, 0, 3);
+            }
             _tlpAdvance.Dock = DockStyle.Fill;
             _tlpAdvance.Location = new Point(0, 0);
             _tlpAdvance.Margin = new Padding(3, 4, 3, 4);
             _tlpAdvance.Name = "_tlpAdvance";
-            _tlpAdvance.RowCount = 3;
+            _tlpAdvance.RowCount = 4;
             _tlpAdvance.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
             _tlpAdvance.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             _tlpAdvance.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
-            _tlpAdvance.Size = new Size(210, 275);
+            if (!fillMode)
+                _tlpAdvance.RowStyles.Add(new RowStyle(SizeType.Absolute, 28F));
+
+            _tlpAdvance.Size = new Size(210, 275 + 26);
             _tlpAdvance.TabIndex = 1;
             // 
             // _llbSwitchBasic
@@ -513,6 +535,19 @@ namespace Untipic.Controls
                 _txtSize.TabIndex = 1;
                 _txtSize.CausesValidation = true;
                 _txtSize.Validating += _txtSize_Validating;
+                //
+                // _cbxPenStyle
+                //
+                _cbxPenStyle.Dock = DockStyle.Fill;
+                _cbxPenStyle.FormattingEnabled = true;
+                _cbxPenStyle.DataSource = Enum.GetValues(typeof(DashStyle));
+                _cbxPenStyle.Location = new Point(3, 4);
+                _cbxPenStyle.Margin = new Padding(15, 0, 15, 0);
+                _cbxPenStyle.Name = "_cbxPenStyle";
+                _cbxPenStyle.Size = new Size(172, 25);
+                _cbxPenStyle.TabIndex = 2;
+                _cbxPenStyle.SelectedIndex = 0;
+                _cbxPenStyle.SelectedIndexChanged += PenStyle_SelectedIndexChanged;
             }
             // 
             // This Control
@@ -562,7 +597,7 @@ namespace Untipic.Controls
         void _llbSwitchAdvance_Click(object sender, EventArgs e)
         {
             _isBasic = !_isBasic;
-            Size = new Size(210, 275);
+            Size = new Size(210, 275+28);
             _mpnMain.SelectedPage = _pgeAdvance;
         }
 
@@ -603,6 +638,17 @@ namespace Untipic.Controls
 
             // Fire event ColorSelected
             FireEventColorSelected();
+        }
+
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the _cbxPenStyle control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        void PenStyle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _selectedDash = (DashStyle)_cbxPenStyle.SelectedItem;
         }
 
         /// <summary>
@@ -677,6 +723,7 @@ namespace Untipic.Controls
 
         private Color _selectedColor;
         private float _selectedWidth;
+        private DashStyle _selectedDash;
 
         private Color[] _colorTable;
         private bool _isBasic;
@@ -700,6 +747,7 @@ namespace Untipic.Controls
         private ColorWheel _clrWheel;
         private ColorEditor _colorEditor;
         private ColorEditorManager _colorEditorManager;
+        private ComboBox _cbxPenStyle;
         private TableLayoutPanel _tlpAdvanceSizeBar;
         private MetroTrackBar _tkbAdvanceSize;
         private TextBox _txtSize;
