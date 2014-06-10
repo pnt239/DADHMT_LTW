@@ -14,11 +14,18 @@ namespace Untipic.Visualization.FillAlgorithm
             if (shape.Vertices.Count < 3)
                 return;
 
+            if (shape.GetShapeType() == ShapeType.FreePencil)
+                return;
+
             var rec = new Rectangle(Point.Round(shape.Location), Size.Round(shape.Size));
+            if (rec.Location.Equals(Point.Empty))
+                return;
+
             rec.X -= 1;
             rec.Y -= 1;
             rec.Width += 2;
             rec.Height += 2;
+
             //var h = rec.Y + 1;
             var h = rec.Y + rec.Height;
             var et = new SortedDoublyLinkedList<CActiveEdge>[h];
