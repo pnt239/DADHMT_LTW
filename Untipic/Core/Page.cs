@@ -19,6 +19,8 @@ namespace Untipic.Core
             _drawingObjects = new List<IDrawingObject>();
         }
 
+        public event EventArguments.AddedObjectEventHandler AddedShape = null;
+
         public SizeF Size
         {
             get { return _size; }
@@ -41,6 +43,13 @@ namespace Untipic.Core
         public void AddDrawingObject(IDrawingObject obj)
         {
             DrawingObjects.Add(obj);
+            OnAddedShape(new EventArguments.AddedObjectEventArgs(obj));
+        }
+
+        private void OnAddedShape(EventArguments.AddedObjectEventArgs e)
+        {
+            if (AddedShape != null)
+                AddedShape(this, e);
         }
 
         private readonly List<IDrawingObject> _drawingObjects;

@@ -129,7 +129,10 @@ namespace Untipic.Core
         public IVertexCollection Clone()
         {
             var t = new VertexCollection();
-            t._list.AddRange(_list);
+
+            foreach (var v in _list)
+                t._list.Add(v.Clone());
+
             return t;
         }
 

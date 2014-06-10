@@ -17,6 +17,8 @@ namespace Untipic.Core
 
     public class Util
     {
+        public const float Epsilon = 1.0e-15f;
+
         public static RectangleF GetShapeBoundF(ShapeBase shape)
         {
             return new RectangleF(shape.Location, shape.Size);
@@ -176,6 +178,70 @@ namespace Untipic.Core
             }
 
             return obj;
+        }
+
+        // Kiem tra 1 diem co nam trong da giac khong
+        public static bool CheckInnerPoint(IVertexCollection points, IVertex point)
+        {
+            IVertex currentPoint = point;
+            //Ray-cast algorithm is here onward
+            int k, j = points.Count - 1;
+            var oddNodes = false; //to check whether number of intersections is odd
+
+            for (k = 0; k < points.Count; k++)
+            {
+                //fetch adjucent points of the polygon
+                IVertex polyK = points[k];
+                IVertex polyJ = points[j];
+
+                //check the intersections
+                if (((polyK.Y > currentPoint.Y) != (polyJ.Y > currentPoint.Y)) &&
+                 (currentPoint.X < (polyJ.X - polyK.X) * (currentPoint.Y - polyK.Y) / (polyJ.Y - polyK.Y) + polyK.X))
+                    oddNodes = !oddNodes; //switch between odd and even
+                j = k;
+            }
+
+            //if odd number of intersections
+            if (oddNodes)
+            {
+                //mouse point is inside the polygon
+                return true;
+            }
+
+            //if even number of intersections
+            return false;
+        }
+
+        public static float CalculateShapeArea(ShapeBase shape)
+        {
+            float s = 0;
+
+            if (shape.GetShapeType() == ShapeType.Ellipse)
+            {
+                var e = shape as Ellipse;
+                s = (float) Math.PI*e.MinorAxis*e.MajorAxis;
+            }
+            else
+            {
+                var vetices = shape.Vertices.Clone();
+                // Them p1 vao cuoi danh sach
+                vetices.Add(vetices[0]);
+                float x1 = vetices[0].X;
+                float y1 = vetices[0].Y;
+                for (int i = 1; i < vetices.Count; i++)
+                {
+                    float x2 = vetices[i].X;
+                    float y2 = vetices[i].Y;
+                    float dx = x2 - x1;
+                    float dy = y2 - y1;
+                    s += 0.5F*dx*(dy + 2*y1);
+
+                    x1 = x2;
+                    y1 = y2;
+                }
+            }
+
+            return Math.Abs(s);
         }
     }
 }

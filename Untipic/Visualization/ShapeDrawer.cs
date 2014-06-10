@@ -64,7 +64,9 @@ namespace Visualization
         private void DrawEllipse(Ellipse ellipse, Graphics graphs)
         {
             var path = new GraphicsPath();
+            path.StartFigure();
             path.AddEllipse(Util.GetShapeBound(ellipse));
+            path.CloseFigure();
 
             using (var b = new SolidBrush(ellipse.FillColor))
             using (var p = new Pen(ellipse.OutlineColor, ellipse.OutlineWidth))

@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Untipic.Core;
+using Untipic.Core.EventArguments;
 using Visualization;
 
 namespace Untipic.Engine
@@ -40,20 +41,6 @@ namespace Untipic.Engine
         CreateShape,
         None
     }
-
-    public class ShapeCreatedEventArgs : EventArgs
-    {
-        public ShapeCreatedEventArgs(ShapeBase shape)
-        {
-            _shape = shape;
-        }
-
-        public ShapeBase Shape {get { return _shape; }}
-
-        private readonly ShapeBase _shape;
-    }
-
-    public delegate void ShapeCreatedEventHandler(Object sender, ShapeCreatedEventArgs e);
 
     public abstract class RecBoxBase
     {

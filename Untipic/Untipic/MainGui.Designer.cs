@@ -435,7 +435,7 @@ namespace Untipic
             this.drawPad.GdiControlBoxUpdated += new System.EventHandler(this.drawPad_GdiControlBoxUpdated);
             this.drawPad.GdiAddedVertex += new System.Windows.Forms.MouseEventHandler(this.drawPad_GdiAddedVertex);
             this.drawPad.CommandChanged += new EventArguments.CommandChangedEventHandler(this.drawPad_CommandChanged);
-            this.drawPad.ShapeCreated += new Engine.ShapeCreatedEventHandler(this.drawPad_ShapeCreated);
+            this.drawPad.ShapeCreated += new Core.EventArguments.ShapeCreatedEventHandler(this.drawPad_ShapeCreated);
             // 
             // nameBar
             // 

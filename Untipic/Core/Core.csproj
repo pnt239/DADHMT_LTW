@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventArguments\AddedObjectEventArgs.cs" />
+    <Compile Include="EventArguments\ShapeCreatedEventArgs.cs" />
     <Compile Include="EventArguments\ClientConnectedEventArgs.cs" />
     <Compile Include="EventArguments\ClientConnectingEventArgs.cs" />
     <Compile Include="EventArguments\ClientDisconnectedEventArgs.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="Vertex.cs" />
     <Compile Include="VertexCollection.cs" />
     <Compile Include="VertexEventArgs.cs" />
+    <Compile Include="Viewport.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

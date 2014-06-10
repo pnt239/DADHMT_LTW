@@ -16,6 +16,30 @@ namespace Untipic.Core
             return ShapeType.Ellipse;
         }
 
+        public IVertex OrginalPoint
+        {
+            get
+            {
+                return new Vertex(Location.X + Size.Width/2, Location.Y + Size.Height/2);
+            }
+        }
+
+        public float MajorAxis
+        {
+            get
+            {
+                return Size.Width/2;
+            }
+        }
+
+        public float MinorAxis
+        {
+            get
+            {
+                return Size.Height / 2;
+            }
+        }
+
         /// <summary>
         /// Clones this instance.
         /// </summary>

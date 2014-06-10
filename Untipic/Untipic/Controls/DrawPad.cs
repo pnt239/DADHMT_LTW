@@ -34,6 +34,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Untipic.Core;
+using Untipic.Core.EventArguments;
 using Untipic.DrawPadTools;
 using Untipic.Engine;
 using Untipic.EventArguments;
@@ -50,6 +51,7 @@ namespace Untipic.Controls
             Zoom = 1;
 
             _shapeDrawer = new ShapeDrawer();
+            _filler = new Filler();
             _drawingControl = new DrawingControl();
             _drawingControl.SetShapDrawer(_shapeDrawer);
             _drawingControl.ShapeCreated += DrawingControl_ShapeCreated;
@@ -61,6 +63,8 @@ namespace Untipic.Controls
             _outlineColor = Color.Black;
             _outlineDash = DashStyle.Solid;
             _fillColor = Color.Transparent;
+
+            _shapeArea = 0;
         }
 
         public event MouseEventHandler GdiMouseMove = null;
@@ -88,6 +92,19 @@ namespace Untipic.Controls
             {
                 _currentCommand = value;
                 OnCommandChanged(new CommandChangedEventArgs(_currentCommand));
+            }
+        }
+
+        public Viewport Viewport
+        {
+            get
+            {
+                return _viewport;
+            }
+            set
+            {
+                _viewport = value;
+                _drawingControl.Viewport = _viewport;
             }
         }
 
@@ -127,6 +144,11 @@ namespace Untipic.Controls
 
         public Page Page { get { return _page; } }
 
+        public float ShapeArea
+        {
+            get { return _shapeArea; }
+        }
+
         public event PaintEventHandler GdiPaint = null;
 
         public void ChangeTool(CommandObject command)
@@ -136,11 +158,15 @@ namespace Untipic.Controls
             {
                 case DrawPadCommand.Selection:
                     gdiArea.Cursor = _currentCursor = CursorTool.GetSelectionCursor();
+
+                    _drawingControl.ControlMode = ControlMode.Transformation;
+                    _drawingControl.SwitchToDirectTrans();
                     break;
                 case DrawPadCommand.DirectSelection:
                     gdiArea.Cursor = _currentCursor = CursorTool.GetDirectSelectionCursor();
 
                     _drawingControl.ControlMode = ControlMode.EditPoint;
+                    _drawingControl.SwitchToDirectTrans();
                     break;
                 case DrawPadCommand.DrawText:
                     gdiArea.Cursor = _currentCursor = CursorTool.GetEditorCursor();
@@ -192,11 +218,14 @@ namespace Untipic.Controls
         {
             _page = new Page(winWidth, winHeight, unit);
             Resolution = resolution;
-            ViewportWidth = (int) WinToView(winWidth);
-            ViewportHeith = (int) WinToView(winHeight);
+
+            Viewport = new Viewport(resolution, 1F);
+
+            ViewportWidth = (int)Viewport.WinToView(winWidth);
+            ViewportHeith = (int)Viewport.WinToView(winHeight);
             SetViewSize(ViewportWidth, ViewportHeith);
 
-            _imageCache = new ImageCache(_shapeDrawer, _page, ViewportWidth, ViewportHeith);
+            _imageCache = new ImageCache(Viewport, _shapeDrawer, _filler, _page, ViewportWidth, ViewportHeith);
         }
 
         public void SavePage(Stream stream, System.Drawing.Imaging.ImageFormat format)
@@ -224,16 +253,6 @@ namespace Untipic.Controls
         public void RePaint()
         {
             gdiArea.Invalidate();
-        }
-
-        public float WinToView(float value)
-        {
-            return RoundToInt(value * Resolution * Zoom);
-        }
-
-        public float ViewToWin(float value)
-        {
-            return value/Resolution/Zoom;
         }
 
         private void gdiArea_Paint(object sender, PaintEventArgs e)
@@ -265,11 +284,25 @@ namespace Untipic.Controls
                     case DrawPadCommand.DrawShape:
                         if (_currentShape.DrawMethod == DrawMethod.ByDragDrop)
                             _drawingControl.BeginCreateShape(e.Location);
+                        else if (_currentShape.DrawMethod == DrawMethod.ByClick && !_drawingControl.IsInitializedShape)
+                            _drawingControl.BeginCreateShape(e.Location);
                         break;
+                    case DrawPadCommand.DirectSelection:
                     case DrawPadCommand.Selection:
                         if (_drawingControl.IsSelected)
+                        {
                             if (!_drawingControl.BeginTranslation(e.Location))
                                 OnCommandChanged(new CommandChangedEventArgs(DrawPadCommand.DrawShape));
+                        }
+                        else
+                        {
+                            ShapeBase shapeSel = ShapesHitTest(Viewport.ViewToWin(e.Location));
+                            _drawingControl.LoadShapeSelect(Viewport.WinToView(shapeSel));
+                            if (shapeSel != null)
+                                _shapeArea = Core.Util.CalculateShapeArea(shapeSel);
+                            else
+                                _shapeArea = 0;
+                        }
                         break;
 
                 }
@@ -293,6 +326,7 @@ namespace Untipic.Controls
                         if (GdiControlBoxUpdated != null)
                             GdiControlBoxUpdated(this, EventArgs.Empty);
                         break;
+                    case DrawPadCommand.DirectSelection:
                     case DrawPadCommand.Selection:
                         if (_drawingControl.IsSelected)
                             _drawingControl.UpdateTranslation(e.Location);
@@ -307,7 +341,8 @@ namespace Untipic.Controls
                 gdiArea.Invalidate();
             }
 
-            if (_drawingControl.IsSelected && _currentCommand == DrawPadCommand.Selection)
+            if (_drawingControl.IsSelected &&
+                (_currentCommand == DrawPadCommand.Selection || _currentCommand == DrawPadCommand.DirectSelection))
             {
                 var hit = _drawingControl.GetHit(e.Location);
                 if (hit != null)
@@ -342,7 +377,7 @@ namespace Untipic.Controls
                             // Auto update command to selection
                             OnCommandChanged(new CommandChangedEventArgs(DrawPadCommand.Selection));
                         }
-                        else if (_currentShape.DrawMethod == DrawMethod.ByClick)
+                        else if (_currentShape.DrawMethod == DrawMethod.ByClick && _drawingControl.IsInitializedShape)
                         {
                             if (!_drawingControl.CreateVertext(e.Location)) 
                             {
@@ -354,9 +389,13 @@ namespace Untipic.Controls
                                 if (GdiAddedVertex != null) GdiAddedVertex(this, e);
                         }
                         break;
+                    case DrawPadCommand.DirectSelection:
                     case DrawPadCommand.Selection:
                         if (_drawingControl.IsSelected)
                             _drawingControl.EndTranslation();
+                        break;
+                    case DrawPadCommand.Bucket:
+                        _filler.FillByFlood((Bitmap) _page.ImageBuffer, _fillColor, e.Location);
                         break;
                 }
                 gdiArea.Invalidate();
@@ -399,7 +438,7 @@ namespace Untipic.Controls
             }
 
             if (ShapeCreated != null)
-                ShapeCreated(this, new ShapeCreatedEventArgs(shape));
+                ShapeCreated(this, new ShapeCreatedEventArgs(Viewport.ViewToWin(shape)));
             //_page.AddDrawingObject(shape);
         }
 
@@ -429,34 +468,55 @@ namespace Untipic.Controls
             _currentShape.FillColor = _fillColor;
         }
 
-        private void DrawPage(Graphics g)
+        private ShapeBase ShapesHitTest(PointF p)
         {
+            ShapeBase shape = null;
+
             foreach (var obj in _page.DrawingObjects)
+            {
                 if (obj.GetObjectType() == DrawingObjectType.Shape)
                 {
-                    var shape = (ShapeBase) obj;
-                    _shapeDrawer.Draw(shape, g);
-                }
-        }
+                    shape = obj as ShapeBase;
+                    if (shape == null) continue;
 
-        private float RoundToInt(float value)
-        {
-            return (float)Math.Round(value);
+                    if (shape.GetShapeType() == ShapeType.Ellipse)
+                    {
+                        var e = shape as Ellipse;
+                        var o = e.OrginalPoint.ToPoint();
+                        var t = Math.Pow(p.X - o.X, 2)/Math.Pow(e.MajorAxis, 2) +
+                                Math.Pow(p.Y - o.Y, 2)/Math.Pow(e.MinorAxis, 2);
+                        if (t <= 1)
+                            break;
+                    }
+                    else
+                    {
+                        if (Core.Util.CheckInnerPoint(shape.Vertices, new Vertex(p)))
+                            break;
+                    }
+
+                    shape = null;
+                }
+            }
+            return shape;
         }
 
         private Page _page;
 
         private DrawingControl _drawingControl;
         private DrawPadCommand _currentCommand;
+        private Viewport _viewport;
         private ShapeBase _currentShape;
         private Cursor _currentCursor;
 
         private ShapeDrawer _shapeDrawer;
+        private Filler _filler;
         private ImageCache _imageCache;
 
         private float _outlineWidth;
         private Color _outlineColor;
         private DashStyle _outlineDash;
         private Color _fillColor;
+
+        private float _shapeArea;
     }
 }

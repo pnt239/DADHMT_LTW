@@ -254,8 +254,13 @@ namespace Untipic
         private void drawPad_GdiMouseMove(object sender, MouseEventArgs e)
         {
             _appManament.SendMouseMove(e.Location);
-            tslStatus.Text = string.Format("X = {0:F2} {1}, Y = {2:F2} {3}", drawPad.ViewToWin(e.Location.X),
-                drawPad.Unit.ToString(), drawPad.ViewToWin(e.Location.Y), drawPad.Unit.ToString());
+            var text = string.Format("X = {0:F2} {1}, Y = {2:F2} {3}", drawPad.Viewport.ViewToWin(e.Location.X),
+                drawPad.Unit.ToString(), drawPad.Viewport.ViewToWin(e.Location.Y), drawPad.Unit.ToString());
+            if (Math.Abs(drawPad.ShapeArea) > Core.Util.Epsilon)
+            {
+                text += string.Format(", Area of shape = {0:F2} cm2", drawPad.ShapeArea);
+            }
+            tslStatus.Text = text;
         }
 
         private void drawPad_GdiPaint(object sender, PaintEventArgs e)
