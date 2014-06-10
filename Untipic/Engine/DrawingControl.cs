@@ -725,6 +725,10 @@ namespace Untipic.Engine
                 return false;
             }
 
+            var bound = GetShapeBound();
+            _shape.Location = bound.Location;
+            _shape.Size = bound.Size;
+
             _lastPoint = position;
             _shape.Vertices.Add(new Vertex(position));
 

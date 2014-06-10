@@ -11,8 +11,14 @@ namespace Untipic.Visualization.FillAlgorithm
     {
         public void ScanLineFillPolygon(Graphics graph, PolygonBase shape, Color color)
         {
-            var rec = new Rectangle(Point.Round(shape.Location), Size.Round(shape.Size));
+            if (shape.Vertices.Count < 3)
+                return;
 
+            var rec = new Rectangle(Point.Round(shape.Location), Size.Round(shape.Size));
+            rec.X -= 1;
+            rec.Y -= 1;
+            rec.Width += 2;
+            rec.Height += 2;
             //var h = rec.Y + 1;
             var h = rec.Y + rec.Height;
             var et = new SortedDoublyLinkedList<CActiveEdge>[h];
