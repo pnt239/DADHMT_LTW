@@ -26,8 +26,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Untipic.Core;
 using Visualization;
@@ -133,6 +131,8 @@ namespace Untipic.Engine
         public Cursor Cursor { get; set; }
 
         public RecBoxBase Parrent { get; set; }
+
+        public object Tag { get; set; }
 
         public void SetAnchor(Point p)
         {
@@ -414,6 +414,9 @@ namespace Untipic.Engine
 
         public void Draw(Graphics g, Color color)
         {
+            if (!Visible)
+                return;
+
             using (var p = new Pen(color, 2F))
             {
                 p.DashStyle = System.Drawing.Drawing2D.DashStyle.Custom;
@@ -451,7 +454,106 @@ namespace Untipic.Engine
 
     public class DirectBox : RecBoxBase
     {
-        
+        public DirectBox()
+        {
+            _controlPoints = new List<ControlPoint>();
+            LockSize = false;
+        }
+
+        public bool LockSize { get; set; }
+
+        public bool Visible { get; set; }
+
+        public bool ShowPosition { get; set; }
+
+        public void LoadShape(ShapeBase shape, Viewport viewport)
+        {
+            _shape = shape;
+            _viewport = viewport;
+
+            foreach (var ctrl in _controlPoints)
+            {
+                ctrl.LocationChanged -= Control_LocationChanged;
+            }
+            _controlPoints.Clear();
+
+            foreach (var v in _shape.Vertices)
+            {
+                var control = new ControlPoint((int)Math.Round(v.X), (int)Math.Round(v.Y), null);
+                control.LocationChanged += Control_LocationChanged;
+                control.Tag = v;
+                control.Cursor = Cursors.SizeAll;
+                _controlPoints.Add(control);
+            }
+
+            if (_shape.GetShapeType() == ShapeType.Ellipse)
+            {
+                _controlPoints.Add(new ControlPoint((int) Math.Round(_shape.Location.X + _shape.Size.Width/2),
+                    (int) Math.Round(_shape.Location.Y), null));
+
+                _controlPoints.Add(new ControlPoint((int)Math.Round(_shape.Location.X + _shape.Size.Width),
+                    (int)Math.Round(_shape.Location.Y + _shape.Size.Height/2), null));
+
+                _controlPoints.Add(new ControlPoint((int)Math.Round(_shape.Location.X + _shape.Size.Width/2),
+                    (int)Math.Round(_shape.Location.Y + _shape.Size.Height), null));
+
+                _controlPoints.Add(new ControlPoint((int)Math.Round(_shape.Location.X),
+                    (int)Math.Round(_shape.Location.Y + _shape.Size.Height/2), null));
+
+
+            }
+        }
+
+        public void Draw(Graphics g, Color color)
+        {
+            if (!Visible)
+                return;
+
+            for (int i = 0; i < _controlPoints.Count; i++)
+            {
+                _controlPoints[i].Draw(g, color);
+
+                using (var b = new SolidBrush(Color.Red))
+                using (var f = new Font("Arial", 9))
+                {
+                // Create point for upper-left corner of drawing.
+                    PointF drawPoint = new PointF(_controlPoints[i].CenterX + 2, _controlPoints[i].Y + 1);
+
+                    g.DrawString(
+                        string.Format("({0:F2}, {1:F2})", _viewport.ViewToWin(_controlPoints[i].CenterX),
+                            _viewport.ViewToWin(_controlPoints[i].CenterY)), f, b, drawPoint);
+                }
+            }
+        }
+
+        public override RecBoxBase HitTest(Point p)
+        {
+            if (!LockSize)
+            {
+                RecBoxBase ret;
+                for (int i = 0; i < _controlPoints.Count; i++)
+                    if ((ret = _controlPoints[i].HitTest(p)) != null)
+                        return ret;
+            }
+
+            return null;
+        }
+
+        private void Control_LocationChanged(object sender, EventArgs e)
+        {
+            var control = sender as ControlPoint;
+            if (control == null) return;
+
+            var vertex = control.Tag as Vertex;
+            if (vertex == null) return;
+
+            vertex.X = control.CenterX;
+            vertex.Y = control.CenterY;
+        }
+
+        private List<ControlPoint> _controlPoints;
+        private ShapeBase _shape;
+        private Viewport _viewport;
     }
 
     public class DrawingControl
@@ -459,12 +561,13 @@ namespace Untipic.Engine
         public DrawingControl()
         {
             _shapeDrawer = new ShapeDrawer();
-            _controlBox = new ShapeBox();
-            _controlBox.LocationChanged += ControlBox_LocationChanged;
-            _controlBox.SizeChanged += ControlBox_SizeChanged;
+            _transformBox = new ShapeBox();
+            _directBox = new DirectBox();
+            _transformBox.LocationChanged += ControlBox_LocationChanged;
+            _transformBox.SizeChanged += ControlBox_SizeChanged;
             //_shapeDrawer = shapeDrawer;
             _controlMode = ControlMode.None;
-            _isEditing = false;
+            //_isEditing = false;
             _isSelected = false;
             _isShowBox = false;
             IsRegularShape = false;
@@ -523,12 +626,18 @@ namespace Untipic.Engine
 
         public RecBoxBase HitControl {get { return _hitControl; }}
 
+        public Viewport Viewport
+        {
+            get { return _viewport; }
+            set { _viewport = value; }
+        }
+
         public void Draw(Graphics grahps)
         {
             if (!Visible)
                 return;
 
-            if (_controlMode == ControlMode.CreateShape || _controlMode == ControlMode.Transformation)
+            if (_controlMode == ControlMode.CreateShape || _controlMode == ControlMode.Transformation || _controlMode == ControlMode.EditPoint)
             {
                 _shapeDrawer.Draw(_shape, grahps);
                 //using (var p = new Pen(Color.Black, 1F))
@@ -548,7 +657,9 @@ namespace Untipic.Engine
         {
             if (!_isShowBox) return;
 
-            _controlBox.Draw(g, _selectionRecColor);
+            _transformBox.Draw(g, _selectionRecColor);
+
+            _directBox.Draw(g, _selectionRecColor);
         }
 
         public void SetShapDrawer(ShapeDrawer shapDrawer)
@@ -578,9 +689,25 @@ namespace Untipic.Engine
             }
         }
 
+        public void LoadShapeSelect(ShapeBase shape)
+        {
+            if (shape == null)
+            {
+                _directBox.Visible = false;
+                _directBox.ShowPosition = false;
+                _isShowBox = false;
+                return;
+            }
+
+            _directBox.LoadShape(shape, _viewport);
+            _directBox.Visible = true;
+            _directBox.ShowPosition = true;
+            _isShowBox = true;
+        }
+
         public void LoadFont(Font font)
         {
-            _textFont = font;
+            //_textFont = font;
         }
 
         public void BeginCreateShape(Point position)
@@ -619,7 +746,11 @@ namespace Untipic.Engine
 
         public bool BeginTranslation(Point p)
         {
-            _hitControl = _controlBox.HitTest(p);
+            if (_controlMode == ControlMode.Transformation)
+                _hitControl = _transformBox.HitTest(p);
+            else if (_controlMode == ControlMode.EditPoint)
+                _hitControl = _directBox.HitTest(p);
+
             if (_hitControl == null)
                 return false;
 
@@ -703,7 +834,30 @@ namespace Untipic.Engine
 
         public RecBoxBase GetHit(Point p)
         {
-            return _controlBox.HitTest(p);
+            if (_controlMode == ControlMode.Transformation)
+                return _transformBox.HitTest(p);
+
+            if (_controlMode == ControlMode.EditPoint)
+                return _directBox.HitTest(p);
+
+            return null;
+        }
+
+        public void SwitchToDirectTrans()
+        {
+            if (_isSelected)
+            {
+                if (_controlMode == ControlMode.Transformation)
+                {
+                    _transformBox.Visible = true;
+                    _directBox.Visible = false;
+                }
+                else if (_controlMode == ControlMode.EditPoint)
+                {
+                    _transformBox.Visible = false;
+                    _directBox.Visible = true;
+                }
+            }
         }
 
         private void ControlBox_SizeChanged(object sender, EventArgs e)
@@ -714,11 +868,11 @@ namespace Untipic.Engine
 
         private void ControlBox_LocationChanged(object sender, EventArgs e)
         {
-            _startPoint.X = _controlBox.Rec.Location.X;
-            _startPoint.Y = _controlBox.Rec.Location.Y;
+            _startPoint.X = _transformBox.Rec.Location.X;
+            _startPoint.Y = _transformBox.Rec.Location.Y;
 
-            _endPoint.X = _controlBox.Rec.Location.X + _controlBox.Rec.Width;
-            _endPoint.Y = _controlBox.Rec.Location.Y + _controlBox.Rec.Height;
+            _endPoint.X = _transformBox.Rec.Location.X + _transformBox.Rec.Width;
+            _endPoint.Y = _transformBox.Rec.Location.Y + _transformBox.Rec.Height;
 
             UpdateShape(_endPoint);
         }
@@ -735,12 +889,23 @@ namespace Untipic.Engine
             _isShowBox = state;
             if (state)
             {
-                _controlBox.Rec = GetShapeBound();
-                _controlBox.LockSize = !_shape.CanResize;
+                _transformBox.Rec = GetShapeBound();
+                _transformBox.LockSize = !_shape.CanResize;
+                _transformBox.Visible = true;
+
+                if (_shape.Vertices.Count > 0)
+                {
+                    _directBox.LoadShape(_shape, _viewport);
+                    _directBox.Visible = false;
+                }
+
                 _controlMode = ControlMode.Transformation;
             }
             else
-                _controlBox.Visible = false;
+            {
+                _transformBox.Visible = false;
+                _directBox.Visible = false;
+            }
         }
 
         private Rectangle CalcRectangleSelection()
@@ -839,7 +1004,7 @@ namespace Untipic.Engine
         }
 
         private ControlMode _controlMode;
-        private bool _isEditing;
+        //private bool _isEditing;
         private bool _isSelected;
         private bool _isShowBox;
         private bool _isCreatedShape;
@@ -848,11 +1013,13 @@ namespace Untipic.Engine
         private Color _selectionRecColor;
         private float _selectionRecWidth;
 
+        private Viewport _viewport;
         private ShapeBase _shape;
-        private ShapeBox _controlBox;
+        private ShapeBox _transformBox;
+        private DirectBox _directBox;
         private RecBoxBase _hitControl;
-        private int _shapeId;
-        private Font _textFont;
+        //private int _shapeId;
+        //private Font _textFont;
         private Point _startPoint;
         private Point _endPoint;
         private Point _lastPoint;
