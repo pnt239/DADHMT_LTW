@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Untipic.Core
+﻿namespace Untipic.Core
 {
     public class SyncList<T> : System.ComponentModel.BindingList<T>
     {
 
-        private System.ComponentModel.ISynchronizeInvoke _SyncObject;
-        private System.Action<System.ComponentModel.ListChangedEventArgs> _FireEventAction;
+        private readonly System.ComponentModel.ISynchronizeInvoke _syncObject;
+        private readonly System.Action<System.ComponentModel.ListChangedEventArgs> _fireEventAction;
 
         public SyncList()
             : this(null)
@@ -19,19 +14,19 @@ namespace Untipic.Core
         public SyncList(System.ComponentModel.ISynchronizeInvoke syncObject)
         {
 
-            _SyncObject = syncObject;
-            _FireEventAction = FireEvent;
+            _syncObject = syncObject;
+            _fireEventAction = FireEvent;
         }
 
         protected override void OnListChanged(System.ComponentModel.ListChangedEventArgs args)
         {
-            if (_SyncObject == null)
+            if (_syncObject == null)
             {
                 FireEvent(args);
             }
             else
             {
-                _SyncObject.Invoke(_FireEventAction, new object[] { args });
+                _syncObject.Invoke(_fireEventAction, new object[] { args });
             }
         }
 

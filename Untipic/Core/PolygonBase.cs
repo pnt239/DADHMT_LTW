@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Untipic.Core
 {
     public abstract class PolygonBase : ShapeBase
     {
-        protected PolygonBase() : base()
+        protected PolygonBase()
         {
             IsClosedFigure = false;
         }

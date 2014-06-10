@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace Untipic.Core
 {
@@ -138,42 +135,47 @@ namespace Untipic.Core
             switch ((DrawingObjectType)type)
             {
                 case DrawingObjectType.Shape:
+                {
+                    // read shape type
+                    int shapeType = reader.ReadInt32();
+                    ShapeBase shape;
+
+                    if ((ShapeType) shapeType == ShapeType.Ellipse)
+                        shape = new Ellipse();
+                    else
+                        shape = new FreePencil();
+                    //var shape = ShapeFactory.CreateShape((ShapeType) shapeType);
+                    // write shape location
+                    shape.Location = ReadPoint(reader);
+                    // write shape size
+                    shape.Size = ReadSize(reader);
+                    // write shape outline color
+                    shape.OutlineColor = ReadColor(reader);
+                    // write shape outline width
+                    shape.OutlineWidth = reader.ReadSingle();
+                    // write shape outline dash
+                    shape.OutlineDash = (DashStyle) reader.ReadInt32();
+                    // write shape fill color
+                    shape.FillColor = ReadColor(reader);
+
+                    if (shape.GetShapeType() != ShapeType.Ellipse)
                     {
-                        // read shape type
-                        int shapeType = reader.ReadInt32();
-                        ShapeBase shape;
-
-                        if ((ShapeType) shapeType == ShapeType.Ellipse)
-                            shape = new Ellipse();
-                        else
-                            shape = new FreePencil();
-                        //var shape = ShapeFactory.CreateShape((ShapeType) shapeType);
-                        // write shape location
-                        shape.Location = ReadPoint(reader);
-                        // write shape size
-                        shape.Size = ReadSize(reader);
-                        // write shape outline color
-                        shape.OutlineColor = ReadColor(reader);
-                        // write shape outline width
-                        shape.OutlineWidth = reader.ReadSingle();
-                        // write shape outline dash
-                        shape.OutlineDash = (DashStyle)reader.ReadInt32();
-                        // write shape fill color
-                        shape.FillColor = ReadColor(reader);
-
-                        if (shape.GetShapeType() != ShapeType.Ellipse)
+                        // write count vertex
+                        var vcount = reader.ReadInt32();
+                        for (int i = 0; i < vcount; i++)
                         {
-                            // write count vertex
-                            var vcount = reader.ReadInt32();
-                            for (int i = 0; i < vcount; i++)
-                            {
-                                Vertex v = ReadVertex(reader);
-                                shape.Vertices.Add(v);
-                            }
+                            Vertex v = ReadVertex(reader);
+                            shape.Vertices.Add(v);
                         }
-
-                        obj = shape;
                     }
+
+                    if (shape.GetShapeType() == ShapeType.Polygon || shape.GetShapeType() == ShapeType.Oblong ||
+                        shape.GetShapeType() == ShapeType.IsoscelesTriangle)
+                    {
+                        var s = shape as PolygonBase;
+                        s.IsClosedFigure = true;
+                    }
+                }
                     break;
             }
 

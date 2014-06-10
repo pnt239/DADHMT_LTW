@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System.Drawing;
 
 namespace Untipic.Core
 {
@@ -14,5 +10,7 @@ namespace Untipic.Core
         {
             return DrawingObjectType.Image;
         }
+
+        public int UserId { get; set; }
     }
 }

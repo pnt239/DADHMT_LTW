@@ -36,8 +36,36 @@ namespace Untipic.Visualization
             }
         }
 
+        public void Paint(TextObject text)
+        {
+            using (var graph = Graphics.FromImage(_page.ImageBuffer))
+            using (var b = new SolidBrush(text.Color))
+            {
+                graph.DrawString(text.Text, text.Font, b, text.Location);
+            }
+        }
+
+        public void RePaint()
+        {
+            foreach (var obj in _page.DrawingObjects)
+            {
+                if (obj == null)
+                    continue;
+
+                if (obj.GetObjectType() == DrawingObjectType.Shape)
+                    Paint((ShapeBase) obj);
+                if (obj.GetObjectType() == DrawingObjectType.Text)
+                    Paint((TextObject) obj);
+            }
+        }
+
         public void Render(Graphics g)
         {
+            if (isFirst)
+            {
+                RePaint();
+                isFirst = false;
+            }
             g.DrawImageUnscaled(_page.ImageBuffer, 0, 0);
         }
 
@@ -50,7 +78,11 @@ namespace Untipic.Visualization
         {
             if (e.Object.GetObjectType() == DrawingObjectType.Shape)
                 Paint((ShapeBase) e.Object);
+            if (e.Object.GetObjectType() == DrawingObjectType.Text)
+                Paint((TextObject) e.Object);
         }
+
+        public bool isFirst = true; 
 
         private ShapeDrawer _shapeDrawer;
         private Filler _filler;

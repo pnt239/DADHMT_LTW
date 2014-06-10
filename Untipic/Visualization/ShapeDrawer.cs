@@ -61,8 +61,8 @@ namespace Untipic.Visualization
             using (var p = new Pen(polygon.OutlineColor, polygon.OutlineWidth))
             {
                 p.DashStyle = polygon.OutlineDash;
-                //graphs.FillPath(b, path);
-                _filler.FillByScanline(graphs, polygon, polygon.FillColor);
+                if (polygon.GetShapeType() != ShapeType.FreePencil) graphs.FillPath(b, path);
+                //_filler.FillByScanline(graphs, polygon, polygon.FillColor);
                 graphs.DrawPath(p, path);
             }
         }
@@ -78,8 +78,8 @@ namespace Untipic.Visualization
             using (var p = new Pen(ellipse.OutlineColor, ellipse.OutlineWidth))
             {
                 p.DashStyle = ellipse.OutlineDash;
-                //graphs.FillPath(b, path);
-                _filler.FillByScanline(graphs, ellipse, ellipse.FillColor);
+                graphs.FillPath(b, path);
+                //_filler.FillByScanline(graphs, ellipse, ellipse.FillColor);
                 graphs.DrawPath(p, path);
             }
         }

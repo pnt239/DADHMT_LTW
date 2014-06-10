@@ -39,6 +39,7 @@ namespace Untipic.Engine
         Transformation = 0,
         EditPoint,
         CreateShape,
+        ShowText,
         None
     }
 
@@ -560,6 +561,8 @@ namespace Untipic.Engine
             IsRegularShape = false;
             Visible = true;
 
+            _text = "";
+
             _selectionRecColor = Color.Blue;
             _selectionRecWidth = 1F;
         }
@@ -638,6 +641,12 @@ namespace Untipic.Engine
 
                 DrawBox(grahps);
             }
+            else if (_controlMode == ControlMode.ShowText)
+            {
+                using (var b = new SolidBrush(_selectionRecColor))
+                    grahps.DrawString(_text, _textFont, b, _textLocation);
+            }
+            
         }
 
         public void DrawBox(Graphics g)
@@ -763,7 +772,24 @@ namespace Untipic.Engine
             if (_shape != null && _shape.Vertices.Count > 0 && _shape.GetShapeType() != ShapeType.Polygon)
                 _shape.Vertices[0] = new Vertex(start);
             _startPoint = start;
+
+            ControlMode = ControlMode.CreateShape;
+
             UpdateShape(end);
+        }
+
+        public void UpdateText(string text, Font font, PointF location)
+        {
+            _text = text;
+            _textFont = font;
+            _textLocation = location;
+
+            if (_text == "")
+                Visible = false;
+            else
+                Visible = true;
+
+            ControlMode = ControlMode.ShowText;
         }
 
         public void UpdateShape(Point position)
@@ -1005,16 +1031,18 @@ namespace Untipic.Engine
         private bool _isCreatedShape;
         private bool _isInitShape;
         private bool _isDirectlyUsing;
-        private Color _selectionRecColor;
-        private float _selectionRecWidth;
+        private readonly Color _selectionRecColor;
+        private readonly float _selectionRecWidth;
 
         private Viewport _viewport;
         private ShapeBase _shape;
-        private ShapeBox _transformBox;
-        private DirectBox _directBox;
+        private readonly ShapeBox _transformBox;
+        private readonly DirectBox _directBox;
         private RecBoxBase _hitControl;
         //private int _shapeId;
-        //private Font _textFont;
+        private string _text;
+        private Font _textFont;
+        private PointF _textLocation;
         private Point _startPoint;
         private Point _endPoint;
         private Point _lastPoint;

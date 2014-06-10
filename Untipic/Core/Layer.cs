@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Untipic.Core
 {
@@ -17,6 +14,6 @@ namespace Untipic.Core
             _drawingObjects.Add(item);
         }
 
-        private List<IDrawingObject> _drawingObjects;
+        private readonly List<IDrawingObject> _drawingObjects;
     }
 }

@@ -49,6 +49,7 @@
     <Compile Include="EventArguments\DataSentEventArgs.cs" />
     <Compile Include="EventArguments\NetworkErrorEventArgs.cs" />
     <Compile Include="EventArguments\ServerDisconnectedEventArgs.cs" />
+    <Compile Include="EventArguments\TextEventArgs.cs" />
     <Compile Include="FreePencil.cs" />
     <Compile Include="IDrawingObject.cs" />
     <Compile Include="Ellipse.cs" />

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 
 namespace Untipic.Core
 {
@@ -128,9 +125,10 @@ namespace Untipic.Core
 
         public Point[] ToPoints()
         {
-            var points = new Point[Count];
+            int count = Count;
+            var points = new Point[count];
 
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < count; i++)
                 points[i] = _list[i].ToPoint();
 
             return points;

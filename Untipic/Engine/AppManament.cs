@@ -73,6 +73,8 @@ namespace Untipic.Engine
         public event UserInfoEventHandler UserAdded = null;
         public event UserInfoEventHandler UserRemoved = null;
 
+        public event EventHandler Disconnected = null;
+
         public event EventHandler RePaint = null;
 
         public Dictionary<int, UserInfo> ClientList
@@ -89,6 +91,12 @@ namespace Untipic.Engine
         }
 
         internal Client Client {get { return _client; }}
+
+        public Page Page
+        {
+            get { return _page; }
+            set { _page = value; }
+        }
 
         public void SetPage(Page page)
         {
@@ -125,6 +133,7 @@ namespace Untipic.Engine
             _client = new Client();
             _client.DataReceived += ClientServer_DataReceived;
             _client.DataSent += ClientServer_DataSent;
+            _client.DisconnectedFromServer += Client_DisconnectedFromServer;
             _client.Connect(ipServer, Port);
 
             _isWorking = true;
@@ -161,7 +170,7 @@ namespace Untipic.Engine
 
         public void LoadControlBox(DrawingControl control)
         {
-            var action = new LoadControlBoxAction(control);
+            var action = new LoadControlBoxAction();
             action.ShapeType = control.ReviewShape.GetShapeType();
             action.StartPoint = control.StartPoint;
             action.EndPoint = control.EndPoint;
@@ -180,6 +189,16 @@ namespace Untipic.Engine
             SendAction(action);
         }
 
+        public void SendTextBox(TextObject textObject)
+        {
+            var action = new UpdateTextControlAction();
+            action.Text = textObject.Text;
+            action.Font = textObject.Font;
+            action.Location = textObject.Location;
+
+            SendAction(action);
+        }
+
         public void AddVertexControlBox(DrawingControl control, Point point)
         {
             var action = new AddVertexAction(control);
@@ -188,8 +207,37 @@ namespace Untipic.Engine
             SendAction(action);
         }
 
-        public void CreateShape(IDrawingObject obj)
+        /// <summary>
+        /// Process when draw is finish
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        public void CreateObject(IDrawingObject obj)
         {
+            IAction action = null;
+            if (obj.GetObjectType() == DrawingObjectType.Shape)
+            {
+                action = new CreateShapeAction((ShapeBase)obj);
+            }
+            else if (obj.GetObjectType() == DrawingObjectType.Text)
+            {
+                var text = obj as TextObject;
+                if (text != null)
+                    action = new UpdateTextControlAction()
+                    {
+                        Text = "",
+                        Font = text.Font,
+                        Location = text.Location
+                    };
+            }
+
+            SendAction(action);
+
+            if (obj.GetObjectType() == DrawingObjectType.Text)
+            {
+                action = new CreateTextAction((TextObject)obj);
+                SendAction(action);
+            }
+
             _page.AddDrawingObject(obj);
         }
 
@@ -198,6 +246,10 @@ namespace Untipic.Engine
             using (var bin = new BinaryWriter(stream))
             {
                 // write info of page
+                bin.Write(_page.Size.Width);
+                bin.Write(_page.Size.Height);
+                bin.Write((int)_page.Unit);
+                bin.Write(_page.Resolution);
 
                 // Write number of shape
                 bin.Write(_page.DrawingObjects.Count);
@@ -213,7 +265,16 @@ namespace Untipic.Engine
             Stream stream = File.Open(filename, FileMode.Open);
             using (var bin = new BinaryReader(stream))
             {
-                _page.DrawingObjects.Clear();
+                //
+                var w = bin.ReadSingle();
+                var h = bin.ReadSingle();
+                var u = (MessureUnit)bin.ReadInt32();
+                var r = bin.ReadSingle();
+
+                _page.Size = new SizeF(w, h);
+                _page.Unit = u;
+                _page.Resolution = r;
+
                 // Write number of shape
                 int count = bin.ReadInt32();
                 for (int i = 0; i < count; i++)
@@ -355,6 +416,14 @@ namespace Untipic.Engine
             {}
         }
 
+        void Client_DisconnectedFromServer(object sender, ClientDisconnectedEventArgs eventArgs)
+        {
+            _clientList.Clear();
+            _sendList.Clear();
+
+            OnDisconnected(EventArgs.Empty);
+        }
+
         private void OnUserAdded(UserInfoEventArgs e)
         {
             if (UserAdded != null)
@@ -377,6 +446,18 @@ namespace Untipic.Engine
                 else
                     UserRemoved(this, e);
             } 
+        }
+
+        private void OnDisconnected(EventArgs e)
+        {
+            if (Disconnected != null)
+            {
+                var target = Disconnected.Target as Control;
+                if (target != null && target.InvokeRequired)
+                    target.Invoke(Disconnected, new object[] { this, e });
+                else
+                    Disconnected(this, e);
+            }
         }
 
         private void OnRePaint(EventArgs e)
@@ -491,7 +572,7 @@ namespace Untipic.Engine
         private int _id;
         private bool _isWorking;
         private bool _isServer;
-        System.Threading.Semaphore _semaphoreRecv = new System.Threading.Semaphore(1, 1);
+        private readonly System.Threading.Semaphore _semaphoreRecv = new System.Threading.Semaphore(1, 1);
 
         private ActionFactory _actionFactory;
         private Visualization.ShapeDrawer _shapeDrawer;

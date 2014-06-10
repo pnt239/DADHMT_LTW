@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
 
 namespace Untipic.Core
 {
@@ -68,10 +65,8 @@ namespace Untipic.Core
         /// </value>
         public SizeF Size { get; set; }
 
-        public DrawingObjectType GetObjectType()
-        {
-            return DrawingObjectType.Shape;
-        }
+
+        public int UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the color of the outline.
@@ -128,6 +123,11 @@ namespace Untipic.Core
         ///   <c>true</c> if this instance can move; otherwise, <c>false</c>.
         /// </value>
         public Boolean CanMove { get; set; }
+
+        public DrawingObjectType GetObjectType()
+        {
+            return DrawingObjectType.Shape;
+        }
 
         /// <summary>
         /// Gets the type of the shape.

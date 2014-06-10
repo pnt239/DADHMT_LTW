@@ -13,7 +13,10 @@ namespace Untipic.Engine.Action
         UpdateControlBox,
         AddVertex,
         RemoveUser,
-        LoadControlBox
+        LoadControlBox,
+        CreateShape,
+        UpdateTextControl,
+        CreateText
     }
 
     public interface IAction

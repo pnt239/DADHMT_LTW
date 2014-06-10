@@ -56,6 +56,10 @@ namespace Untipic.Controls
             _drawingControl.SetShapDrawer(_shapeDrawer);
             _drawingControl.ShapeCreated += DrawingControl_ShapeCreated;
 
+            _textControl = new TextControl(gdiArea);
+            _textControl.TextCreated += TextControl_TextCreated;
+            _textControl.TextChanged += TextControl_TextChanged;
+
             _currentCommand = DrawPadCommand.None;
             _currentShape = null;
 
@@ -63,6 +67,7 @@ namespace Untipic.Controls
             _outlineColor = Color.Black;
             _outlineDash = DashStyle.Solid;
             _fillColor = Color.Transparent;
+            _textFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
 
             _shapeArea = 0;
         }
@@ -73,6 +78,8 @@ namespace Untipic.Controls
         public event EventHandler GdiControlBoxUpdated = null;
         public event CommandChangedEventHandler CommandChanged = null;
         public event ShapeCreatedEventHandler ShapeCreated = null;
+        public event TextEventHandler TextCreated = null;
+        public event TextEventHandler TextChanged = null;
         
 
         public ShapeDrawer ShapeDrawer
@@ -84,6 +91,8 @@ namespace Untipic.Controls
         {
             get { return _drawingControl; }
         }
+
+        public TextControl TextControl {get { return _textControl; }}
 
         public DrawPadCommand CurrentCommand
         {
@@ -142,6 +151,12 @@ namespace Untipic.Controls
             set { _fillColor = value; }
         }
 
+        public Font TextFont
+        {
+            get { return _textFont; }
+            set { _textFont = value; }
+        }
+
         public Page Page { get { return _page; } }
 
         public float ShapeArea
@@ -194,6 +209,10 @@ namespace Untipic.Controls
                     shape.OutlineDash = _outlineDash;
                     _drawingControl.ControlMode = ControlMode.CreateShape;
                     _drawingControl.LoadShape(_currentShape, true);
+
+                    // fire event for app manament
+                    if (GdiControlBoxLoad != null)
+                        GdiControlBoxLoad(this, EventArgs.Empty);
                     break;
                 case DrawPadCommand.Eraser:
                     shape = command.Reserve as ShapeBase;
@@ -216,7 +235,7 @@ namespace Untipic.Controls
 
         public void CreateNewPage(float winWidth, float winHeight, MessureUnit unit, float resolution)
         {
-            _page = new Page(winWidth, winHeight, unit);
+            _page = new Page(winWidth, winHeight, unit, resolution);
             Resolution = resolution;
 
             Viewport = new Viewport(resolution, 1F);
@@ -225,7 +244,32 @@ namespace Untipic.Controls
             ViewportHeith = (int)Viewport.WinToView(winHeight);
             SetViewSize(ViewportWidth, ViewportHeith);
 
+            if (winWidth > 0 && winHeight > 0)
+                _imageCache = new ImageCache(Viewport, _shapeDrawer, _filler, _page, ViewportWidth, ViewportHeith);
+            else
+                _imageCache = new ImageCache(Viewport, _shapeDrawer, _filler, _page, 1, 1);
+
+            gdiArea.Visible = true;
+            gdiArea.Invalidate();
+        }
+
+        public void AdjustPage()
+        {
+            Viewport = new Viewport(_page.Resolution, 1F);
+
+            ViewportWidth = (int)Viewport.WinToView(_page.Size.Width);
+            ViewportHeith = (int)Viewport.WinToView(_page.Size.Height);
+            SetViewSize(ViewportWidth, ViewportHeith);
+
             _imageCache = new ImageCache(Viewport, _shapeDrawer, _filler, _page, ViewportWidth, ViewportHeith);
+
+            gdiArea.Visible = true;
+            gdiArea.Invalidate();
+        }
+
+        public void CloseForce()
+        {
+            gdiArea.Visible = false;
         }
 
         public void SavePage(Stream stream, System.Drawing.Imaging.ImageFormat format)
@@ -303,8 +347,17 @@ namespace Untipic.Controls
                             else
                                 _shapeArea = 0;
                         }
-                        break;
 
+                        if (_textControl.IsTyping && _textControl.CheckOutSide(e.Location))
+                            _textControl.EndTypeText();
+
+                        break;
+                    case DrawPadCommand.DrawText:
+                        if (!_textControl.IsTyping)
+                            _textControl.BeginTypeText(e.Location, _textFont, _outlineColor);
+                        else if (_textControl.CheckOutSide(e.Location))
+                            _textControl.EndTypeText();
+                        break;
                 }
             }
             gdiArea.Invalidate();
@@ -442,6 +495,18 @@ namespace Untipic.Controls
             //_page.AddDrawingObject(shape);
         }
 
+        private void TextControl_TextCreated(object sender, TextEventArgs e)
+        {
+            if (TextCreated != null)
+                TextCreated(this, e);
+        }
+
+        private void TextControl_TextChanged(object sender, TextEventArgs e)
+        {
+            if (TextChanged != null)
+                TextChanged(this, e);
+        }
+
         protected virtual void OnGdiPaint(object sender, PaintEventArgs e)
         {
             if (GdiPaint != null)
@@ -503,6 +568,8 @@ namespace Untipic.Controls
         private Page _page;
 
         private DrawingControl _drawingControl;
+        private TextControl _textControl;
+
         private DrawPadCommand _currentCommand;
         private Viewport _viewport;
         private ShapeBase _currentShape;
@@ -516,6 +583,7 @@ namespace Untipic.Controls
         private Color _outlineColor;
         private DashStyle _outlineDash;
         private Color _fillColor;
+        private Font _textFont;
 
         private float _shapeArea;
     }

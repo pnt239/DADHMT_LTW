@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 
 namespace Untipic.Core
 {
@@ -10,10 +7,12 @@ namespace Untipic.Core
     {
         public MessureUnit Unit { get; set; }
 
-        public Page(float width, float height, MessureUnit unit)
+        public Page(float width, float height, MessureUnit unit, float resolution)
         {
             _size = new SizeF(width, height);
             Unit = unit;
+            Resolution = resolution;
+
             IsRender = false;
 
             _drawingObjects = new List<IDrawingObject>();
@@ -26,6 +25,8 @@ namespace Untipic.Core
             get { return _size; }
             set { _size = value; }
         }
+
+        public float Resolution { get; set; }
 
         public bool IsRender { get; set; }
 

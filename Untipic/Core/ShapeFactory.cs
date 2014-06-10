@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Untipic.Core
+﻿namespace Untipic.Core
 {
     public class ShapeFactory
     {
@@ -21,6 +16,8 @@ namespace Untipic.Core
                     return new Polygon();
                 case ShapeType.Ellipse:
                     return new Ellipse();
+                case ShapeType.FreePencil:
+                    return new FreePencil();
             }
             return null;
         }

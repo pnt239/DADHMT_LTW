@@ -67,11 +67,11 @@ namespace Untipic
                 if (frmNew.ShowDialog() == DialogResult.OK)
                 {
                     drawPad.CreateNewPage(frmNew.WinWidth, frmNew.WinHeight, frmNew.Unit, frmNew.Resolution);
+                    _appManament.SetPage(drawPad.Page);
+
                     if (frmNew.Ip != null)
                     {
                         _appManament.CreateServer(frmNew.Ip);
-                        _appManament.SetPage(drawPad.Page);
-
                         ShowListAccount();
                     }
                 }
@@ -82,7 +82,6 @@ namespace Untipic
             using (var frmOpen = new Forms.OpenForm())
             if (frmOpen.ShowDialog() == DialogResult.OK)
             {
-                //drawPad.CreateNewPage(frmNew.WinWidth, frmNew.WinHeight, frmNew.Unit, frmNew.Resolution);
                 if (!frmOpen.IsLocal)
                 {
                     _appManament.CreateClient(frmOpen.IpAddress);
@@ -91,7 +90,11 @@ namespace Untipic
                 }
                 else
                 {
+                    drawPad.CreateNewPage(0, 0, Core.MessureUnit.Cm, 1F);
+                    _appManament.SetPage(drawPad.Page);
                     _appManament.OpenPage(frmOpen.FilePath);
+                    drawPad.AdjustPage();
+                    drawPad.RePaint();
                 }
             }
         }
@@ -248,6 +251,7 @@ namespace Untipic
             _appManament.UserDisconnected += AppManament_UserDisconnected;
             _appManament.UserAdded += AppManament_UserAdded;
             _appManament.UserRemoved += AppManament_UserRemoved;
+            _appManament.Disconnected += AppManament_Disconnected;
             _appManament.RePaint += AppManament_RePaint;
         }
 
@@ -299,7 +303,17 @@ namespace Untipic
 
         private void drawPad_ShapeCreated(object sender, ShapeCreatedEventArgs e)
         {
-            _appManament.CreateShape(e.Shape);
+            _appManament.CreateObject(e.Shape);
+        }
+
+        private void drawPad_TextCreated(object sender, TextEventArgs e)
+        {
+            _appManament.CreateObject(e.TextObject);
+        }
+
+        private void drawPad_TextChanged(object sender, TextEventArgs e)
+        {
+            _appManament.SendTextBox(e.TextObject);
         }
 
         private void AppManament_UserAdmiting(object sender, ClientConnectingEventArgs e)
@@ -329,10 +343,15 @@ namespace Untipic
                 _listClients.AddUser(e.User);
         }
 
-        void AppManament_UserRemoved(object sender, Engine.UserInfoEventArgs e)
+        private void AppManament_UserRemoved(object sender, Engine.UserInfoEventArgs e)
         {
             if (_listClients != null)
                 _listClients.RemoveUser(e.User);
+        }
+
+        private void AppManament_Disconnected(object sender, EventArgs e)
+        {
+            drawPad.CloseForce();
         }
 
         private void AppManament_RePaint(object sender, EventArgs e)

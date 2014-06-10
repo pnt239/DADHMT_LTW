@@ -12,7 +12,7 @@ namespace Untipic.Visualization
     {
         public Filler()
         {
-            _scanline = new FillAlgorithm.ScanLine();
+            //_scanline = new FillAlgorithm.ScanLine();
         }
 
         public void FillByFlood(Bitmap image, Color color, Point pstart)
@@ -48,17 +48,17 @@ namespace Untipic.Visualization
             image.UnlockBits(pixelData);
         }
 
-        public void FillByScanline(Graphics g, ShapeBase shape, Color color)
-        {
-            if (shape.GetShapeType() == ShapeType.Ellipse)
-            {
-                _scanline.ScanLineFillEllipse(g, (Ellipse) shape, color);
-            }
-            else
-            {
-                _scanline.ScanLineFillPolygon(g, (PolygonBase) shape, color);
-            }
-        }
+        //public void FillByScanline(Graphics g, ShapeBase shape, Color color)
+        //{
+        //    if (shape.GetShapeType() == ShapeType.Ellipse)
+        //    {
+        //        _scanline.ScanLineFillEllipse(g, (Ellipse) shape, color);
+        //    }
+        //    else
+        //    {
+        //        _scanline.ScanLineFillPolygon(g, (PolygonBase) shape, color);
+        //    }
+        //}
     
 
         private void QueueFloodFill4(ref byte[] arr, ref Queue<Point> queue, int x, int y, int w, int h, int stride, Color cfill, Color replace)
@@ -95,6 +95,6 @@ namespace Untipic.Visualization
             return Color.FromArgb(arr[y * linesize + x * 4 + 3], arr[y * linesize + x * 4 + 2], arr[y * linesize + x * 4 + 1], arr[y * linesize + x * 4]);
         }
 
-        private FillAlgorithm.ScanLine _scanline;
+        //private FillAlgorithm.ScanLine _scanline;
     }
 }

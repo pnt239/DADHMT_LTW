@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
+﻿using System.Drawing;
 
 namespace Untipic.Core
 {
@@ -21,5 +16,7 @@ namespace Untipic.Core
         SizeF Size { get; set; }
 
         DrawingObjectType GetObjectType();
+
+        int UserId { get; set; }
     }
 }
