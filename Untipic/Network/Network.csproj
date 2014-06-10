@@ -7,8 +7,8 @@
     <ProjectGuid>{80455642-AD53-4E2F-8759-EBE95CC96ED9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Network</RootNamespace>
-    <AssemblyName>Network</AssemblyName>
+    <RootNamespace>Untipic.Network</RootNamespace>
+    <AssemblyName>Untipic.Network</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Threading;
 using Untipic.Core.EventArguments;
 
-namespace Network
+namespace Untipic.Network
 {
     public class Client
     {

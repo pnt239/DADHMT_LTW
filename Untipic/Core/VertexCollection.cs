@@ -116,6 +116,16 @@ namespace Untipic.Core
             return (vertex);
         }
 
+        public IList<Point> ToList()
+        {
+            var points = new List<Point>();
+
+            for (int i = 0; i < Count; i++)
+                points.Add(_list[i].ToPoint());
+
+            return points;
+        }
+
         public Point[] ToPoints()
         {
             var points = new Point[Count];

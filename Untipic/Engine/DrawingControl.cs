@@ -29,7 +29,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Untipic.Core;
 using Untipic.Core.EventArguments;
-using Visualization;
+using Untipic.Visualization;
 
 namespace Untipic.Engine
 {
@@ -808,6 +808,10 @@ namespace Untipic.Engine
         {
             if (_shape.GetShapeType() == ShapeType.Polygon)
                 ((PolygonBase) _shape).IsClosedFigure = true;
+
+            var bound = GetShapeBound();
+            _shape.Location = bound.Location;
+            _shape.Size = bound.Size;
 
             SelectShape();
 

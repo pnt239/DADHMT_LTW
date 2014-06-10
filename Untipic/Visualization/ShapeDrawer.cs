@@ -6,10 +6,15 @@ using System.Linq;
 using System.Text;
 using Untipic.Core;
 
-namespace Visualization
+namespace Untipic.Visualization
 {
     public class ShapeDrawer
     {
+        public ShapeDrawer()
+        {
+            _filler = new Filler();
+        }
+
         public void Draw(ShapeBase shape, Graphics graphic)
         {
             if (shape == null)
@@ -56,7 +61,8 @@ namespace Visualization
             using (var p = new Pen(polygon.OutlineColor, polygon.OutlineWidth))
             {
                 p.DashStyle = polygon.OutlineDash;
-                graphs.FillPath(b, path);
+                //graphs.FillPath(b, path);
+                _filler.FillByScanline(graphs, polygon, polygon.FillColor);
                 graphs.DrawPath(p, path);
             }
         }
@@ -72,9 +78,12 @@ namespace Visualization
             using (var p = new Pen(ellipse.OutlineColor, ellipse.OutlineWidth))
             {
                 p.DashStyle = ellipse.OutlineDash;
-                graphs.FillPath(b, path);
+                //graphs.FillPath(b, path);
+                _filler.FillByScanline(graphs, ellipse, ellipse.FillColor);
                 graphs.DrawPath(p, path);
             }
         }
+
+        private Filler _filler;
     }
 }

@@ -7,8 +7,8 @@
     <ProjectGuid>{03EABB37-AFA1-4DD9-8A0E-E201A1BB87CE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Visualization</RootNamespace>
-    <AssemblyName>Visualization</AssemblyName>
+    <RootNamespace>Untipic.Visualization</RootNamespace>
+    <AssemblyName>Untipic.Visualization</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,10 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FillAlgorithm\CActiveEdge.cs" />
+    <Compile Include="FillAlgorithm\ScanLine.cs" />
     <Compile Include="Filler.cs" />
     <Compile Include="ImageCache.cs" />
     <Compile Include="ShapeDrawer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SortedLinkedList.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

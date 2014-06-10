@@ -7,7 +7,7 @@ using System.Text;
 using Untipic.Core;
 using Untipic.Core.EventArguments;
 
-namespace Visualization
+namespace Untipic.Visualization
 {
     public class ImageCache
     {

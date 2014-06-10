@@ -38,7 +38,7 @@ using Untipic.Core.EventArguments;
 using Untipic.DrawPadTools;
 using Untipic.Engine;
 using Untipic.EventArguments;
-using Visualization;
+using Untipic.Visualization;
 
 namespace Untipic.Controls
 {

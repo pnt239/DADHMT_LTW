@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using Untipic.Core.EventArguments;
 
-namespace Network
+namespace Untipic.Network
 {
     public class Server
     {

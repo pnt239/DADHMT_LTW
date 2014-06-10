@@ -31,7 +31,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
-using Network;
+using Untipic.Network;
 using Untipic.Core;
 using Untipic.Core.EventArguments;
 using Untipic.Engine.Action;
